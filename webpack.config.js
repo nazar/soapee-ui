@@ -21,6 +21,7 @@ module.exports = function ( options ) {
                 'jquery',
                 'load-script',
                 'lodash',
+                'griddle-react',
                 'moment',
                 'react',
                 'react/addons',
