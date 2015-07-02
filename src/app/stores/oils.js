@@ -15,6 +15,16 @@ export default Reflux.createStore( {
         return this.store;
     },
 
+    getAllFats() {
+        return [
+            'capric', 'caprylic', 'docosadienoic', 'docosenoid', 'eicosenoic', 'erucic', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic'
+        ];
+    },
+
+    sapForNaOh( oil ) {
+        return (oil.sap / 1.403).toFixed(3);
+    },
+
     loadOils() {
         function assignToStore( data ) {
             this.store = data;
