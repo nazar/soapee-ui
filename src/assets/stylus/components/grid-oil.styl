@@ -1,10 +1,21 @@
 .grid-oil {
 
     .griddle {
+        th {
+            cursor: pointer;
+        }
+
         .top-section {
             clear: both;
             display: table;
             width: 100%;
+            padding-bottom: 3px;
+
+            .filter-container {
+                input {
+                    height: 30px;
+                }
+            }
         }
 
         .griddle-filter {
@@ -43,9 +54,9 @@
         }
 
         .footer-container {
-            padding: 0px;
+            padding: 0;
+            border: 0;
             background-color: #EDEDED;
-            border: 0px;
             color: #222;
         }
 
@@ -64,10 +75,20 @@
             text-align: right;
         }
 
-        th {
-            cursor: pointer;
+        .pagination {
+            margin: 15px 0 15px 0;
         }
+    }
 
+    .toolbar {
+        margin-bottom: 10px;
+
+        button {
+            margin-left: 5px;
+            .fa {
+                padding-right: 4px;
+            }
+        }
     }
 
 }

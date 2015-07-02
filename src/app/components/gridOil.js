@@ -2,8 +2,11 @@ import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
 import Griddle from 'griddle-react';
+import cx from 'classnames';
 
 import oilsStore from 'stores/oils';
+
+import GriddlePager from 'components/griddlePager';
 
 
 export default React.createClass( {
@@ -12,27 +15,75 @@ export default React.createClass( {
         Reflux.connect( oilsStore, 'oils' )
     ],
 
+    getInitialState() {
+        return {
+            gridColumns: 'fats'
+        };
+    },
+
     render() {
         let data = this.oilsForGrid();
 
         if ( data.length ) {
             return (
                 <div className="grid-oil">
-                    <Griddle
-                        results={data}
-                        tableClassName="table table-striped table-hover"
-                        useGriddleStyles={false}
-                        showFilter={true}
-                        showSettings={true}
-                        initialSort="name"
-                        resultsPerPage="50"
-                        columns={ [ 'name', 'sap', 'lauric', 'myristic', 'palmitic', 'stearic', 'ricinoleic',  'oleic', 'linoleic', 'linolenic' ] }
-                        />
+                    {this.renderColumnButtons()}
+                    <div className="table-responsive">
+                        <Griddle
+                            results={data}
+                            tableClassName="table table-striped table-hover table-bordered table-condensed"
+                            columns={ this.getViewColumns() }
+                            useGriddleStyles={false}
+                            showFilter={true}
+                            showSettings={true}
+                            initialSort="name"
+                            resultsPerPage="150"
+                            settingsText="Select Columns"
+                            settingsToggleClassName="btn btn-default btn-sm"
+                            useCustomPagerComponent="true"
+                            customPagerComponent={GriddlePager}
+                            />
+                    </div>
                 </div>
             );
         } else {
             return <div></div>;
         }
+    },
+
+    renderColumnButtons() {
+        let fattyClass    = cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'fats' } );
+        let fattyAllClass = cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'fats-all' } );
+        let propClass     =  cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'properties' } );
+
+        return (
+            <div className="toolbar">
+                <div className="text-right">
+                    <button className={propClass} onClick={this.switchViewTo('properties')} ><i className="fa fa-bullseye"></i>Properties</button>
+                    <button className={fattyClass} onClick={this.switchViewTo('fats')}><i className="fa fa-bars"></i>Fatty Acids - Common</button>
+                    <button className={fattyAllClass} onClick={this.switchViewTo('fats-all')}><i className="fa fa-bars"></i>Fatty Acids - All</button>
+                </div>
+            </div>
+        );
+    },
+
+    switchViewTo( view ) {
+        return () => {
+            this.setState( {
+                gridColumns: view
+            } );
+        };
+    },
+
+    getViewColumns() {
+        let columns = {
+            simply: [ 'name', 'sap' ],
+            fats: [ 'name', 'sap', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic'  ],
+            'fats-all': [ 'name', 'sap', 'capric', 'caprylic', 'docosadienoic', 'docosenoid', 'eicosenoic', 'erucic', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic' ],
+            properties: [ 'name', 'sap', 'bubbly', 'cleansing', 'condition', 'hardness', 'stability' ]
+        };
+
+        return columns[ this.state.gridColumns ];
     },
 
     oilsForGrid() {
@@ -42,24 +93,27 @@ export default React.createClass( {
                 sap: oil.sap,
                 iodine: oil.iodione,
                 ins: oil.ins,
+
                 bubbly: oil.properties.bubbly,
                 cleansing: oil.properties.cleansing,
+                condition: oil.properties.condition,
                 hardness: oil.properties.hardness,
                 stability: oil.properties.stable,
-                caprylic: oil.breakdown.caprylic,
-                capric: oil.breakdown.capric,
-                docosadienoic: oil.breakdown.docosadienoic,
-                docosenoid: oil.breakdown.docosenoid,
-                eicosenoic: oil.breakdown.eicosenoic,
-                erucic: oil.breakdown.erucic,
-                lauric: oil.breakdown.lauric,
-                linoleic: oil.breakdown.linoleic,
-                linolenic: oil.breakdown.linolenic,
-                oleic: oil.breakdown.oleic,
-                myristic: oil.breakdown.myristic,
-                palmitic: oil.breakdown.palmitic,
-                ricinoleic: oil.breakdown.ricinoleic,
-                stearic: oil.breakdown.stearic
+
+                capric: oil.breakdown.capric || 0,
+                caprylic: oil.breakdown.caprylic || 0,
+                docosadienoic: oil.breakdown.docosadienoic || 0,
+                docosenoid: oil.breakdown.docosenoid || 0,
+                eicosenoic: oil.breakdown.eicosenoic || 0,
+                erucic: oil.breakdown.erucic || 0,
+                lauric: oil.breakdown.lauric || 0,
+                linoleic: oil.breakdown.linoleic || 0,
+                linolenic: oil.breakdown.linolenic || 0,
+                myristic: oil.breakdown.myristic || 0,
+                oleic: oil.breakdown.oleic || 0,
+                palmitic: oil.breakdown.palmitic || 0,
+                ricinoleic: oil.breakdown.ricinoleic || 0,
+                stearic: oil.breakdown.stearic || 0
             };
         } );
     }
