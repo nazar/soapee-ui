@@ -38,10 +38,16 @@ export default React.createClass( {
         }
 
         function renderOil( oil ) {
-            let klass = cx( {selected: oil.name === this.state.selectedOil} );
+            let klass = cx( 'no-select', {selected: oil.name === this.state.selectedOil} );
 
             return (
-                <li className={klass} onClick={this.selectOil(oil)}>{oil.name}</li>
+                <li className={klass}
+                    onClick={this.selectOil(oil)}
+                    onDoubleClick={this.addOil(oil)}
+                    key={ `list-oil-${oil.id}` }
+                    >
+                    {oil.name}
+                </li>
             );
         }
 
@@ -67,6 +73,18 @@ export default React.createClass( {
 
             if ( this.props.onSelectedOil ) {
                 this.props.onSelectedOil( oil );
+            }
+        };
+    },
+
+    addOil( oil ) {
+        return e => {
+            this.setState( {
+                selectedOil: oil.name
+            } );
+
+            if ( this.props.onAddedOil ) {
+                this.props.onAddedOil( e, oil );
             }
         };
     },

@@ -16,8 +16,7 @@ export default React.createClass( {
                         <div className="name"><strong>{oil.name}</strong></div>
                         <div className="basic">
                             <ul className="list-unstyled">
-                                <li><span className="title">SAP KOH:</span> <span className="value">{oil.sap}</span> </li>
-                                <li><span className="title">SAP NaOH:</span> <span className="value">{oilsStore.sapForNaOh(oil)}</span> </li>
+                                <li><span className="title">SAP KOH / NaOH:</span> <span className="value">{oil.sap} / {oilsStore.sapForNaOh(oil)}</span> </li>
                                 <li><span className="title">Iodine:</span> <span className="value">{oil.iodine}</span> </li>
                                 <li><span className="title">INS:</span> <span className="value">{oil.ins}</span> </li>
                             </ul>
@@ -59,11 +58,17 @@ export default React.createClass( {
     renderProperties() {
         let oil = this.props.oil;
 
-        return _.map( oil.properties, (propertyValue, property) => {
+        function render( property ) {
             return (
-                <li> <span className="title">{_.capitalize(property)}:</span> <span className="value"> {propertyValue} </span> </li>
+                <li><span className="title">{_.capitalize( property )}:</span> <span className="value"> {oil.properties[ property ]} </span></li>
             );
-        } );
+        }
+
+        return _( oil.properties )
+            .keys()
+            .sort()
+            .map( render, this )
+            .value();
     },
 
     renderSaturation() {
