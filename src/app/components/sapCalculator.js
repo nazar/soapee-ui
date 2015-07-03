@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react/addons';
 import Reflux from 'reflux';
 
-import formRadioHandlers from 'mixins/formRadioHandlers';
+import formRadioHandlers from 'mixins/formLinkHandlers';
 
 import recipeStore from 'stores/recipe';
 
@@ -21,13 +21,7 @@ export default React.createClass( {
 
     getInitialState() {
         return {
-            soapType: 'noah',
-            kohPurity: 90,
-            uom: 'gram',
-            totalWeight: null,
-            totalUom: 'gram',
-            superFat: 5,
-            waterRatio: 38
+            selectedOil: null
         };
     },
 
@@ -51,13 +45,13 @@ export default React.createClass( {
                                 <div className="form-group">
                                     <div className="radio">
                                         <label>
-                                            <input type="radio" name="soap-type" value="noah" checkedLink={this.radioState( 'soapType', 'noah' ) } />
+                                            <input type="radio" name="soap-type" value="noah" checkedLink={this.radioStore( recipeStore, 'soapType', 'noah' ) } />
                                             <strong>Solid</strong> Soap - using <strong>NaOH</strong> (Sodium Hydroxide)
                                         </label>
                                     </div>
                                     <div className="radio">
                                         <label>
-                                            <input type="radio" name="soap-type" value="koh" checkedLink={ this.radioState( 'soapType', 'koh' ) }/>
+                                            <input type="radio" name="soap-type" value="koh" checkedLink={ this.radioStore( recipeStore, 'soapType', 'koh' ) }/>
                                             <strong>Liquid</strong> Soap - using <strong>KOH</strong> (Potassium Hydroxide)
                                         </label>
                                     </div>
@@ -77,19 +71,19 @@ export default React.createClass( {
                             <div className="panel-body">
                                 <div className="form-group">
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom" value="percent" checkedLink={this.radioState( 'uom', 'percent' )} /> Percentages
+                                        <input type="radio" name="uom" value="percent" checkedLink={this.radioStore( recipeStore, 'uom', 'percent' )} /> Percentages
                                     </label>
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom"  value="gram" checkedLink={this.radioState( 'uom', 'gram' )} /> Grams
+                                        <input type="radio" name="uom"  value="gram" checkedLink={this.radioStore( recipeStore, 'uom', 'gram' )} /> Grams
                                     </label>
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom"  value="kilo" checkedLink={this.radioState( 'uom', 'kilo' )} /> Kilograms
+                                        <input type="radio" name="uom"  value="kilo" checkedLink={this.radioStore( recipeStore, 'uom', 'kilo' )} /> Kilograms
                                     </label>
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom"  value="pound" checkedLink={this.radioState( 'uom', 'pound' )} /> Pounds
+                                        <input type="radio" name="uom"  value="pound" checkedLink={this.radioStore( recipeStore, 'uom', 'pound' )} /> Pounds
                                     </label>
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom"  value="ounce" checkedLink={this.radioState( 'uom', 'ounce' )} /> Ounces
+                                        <input type="radio" name="uom"  value="ounce" checkedLink={this.radioStore( recipeStore, 'uom', 'ounce' )} /> Ounces
                                     </label>
                                 </div>
                             </div>
@@ -114,7 +108,7 @@ export default React.createClass( {
                                         <input type="text"
                                                className="form-control short-numeric"
                                                placeholder="%"
-                                               valueLink={ this.linkState( 'waterRatio' ) }
+                                               valueLink={ this.linkStore( recipeStore, 'waterRatio' ) }
                                             />
                                         <span> water as a percent of oils - recommended values 33% - 38% .</span>
                                     </div>
@@ -134,7 +128,7 @@ export default React.createClass( {
                                         <input type="text"
                                                className="form-control short-numeric"
                                                placeholder="%"
-                                               valueLink={ this.linkState( 'superFat' ) }
+                                               valueLink={ this.linkStore( recipeStore, 'superFat' ) }
                                             />
                                         <span> percentage of super fat oils - recommended 5%</span>
                                     </div>
@@ -182,7 +176,7 @@ export default React.createClass( {
                             <div className="panel-body">
                                 <div className="recipe-oils-container">
                                     <ListOilsRecipe
-                                        uom={this.state.uom}
+                                        uom={this.state.recipe.uom}
                                         />
                                 </div>
                             </div>
@@ -221,7 +215,7 @@ export default React.createClass( {
             return (
                 <div key="kohPurity" className="form-inline">
                     <div className="form-group">
-                        <input type="text" id="inputHelpBlock" className="form-control short-numeric" valueLink={this.linkState('kohPurity')}  /> %
+                        <input type="text" id="inputHelpBlock" className="form-control short-numeric" valueLink={this.linkStore(recipeStore, 'kohPurity')}  /> %
                         <span id="helpBlock">KOH Purity - recommended 90%</span>
                     </div>
                 </div>
@@ -239,18 +233,18 @@ export default React.createClass( {
                     <div className="panel-body">
                         <div className="form-inline">
                             <div className="form-group">
-                                <input type="text" className="form-control short-numeric" valueLink={ this.linkState( 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
+                                <input type="text" className="form-control short-numeric" valueLink={ this.linkStore( recipeStore, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
                                 <label className="radio-inline">
-                                    <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioState( 'totalUom', 'gram' )} /> Grams
+                                    <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioStore( recipeStore, 'totalUom', 'gram' )} /> Grams
                                 </label>
                                 <label className="radio-inline">
-                                    <input type="radio" name="total-uom"  value="kilo" checkedLink={this.radioState( 'totalUom', 'kilo' )} /> Kilograms
+                                    <input type="radio" name="total-uom"  value="kilo" checkedLink={this.radioStore( recipeStore, 'totalUom', 'kilo' )} /> Kilograms
                                 </label>
                                 <label className="radio-inline">
-                                    <input type="radio" name="total-uom"  value="pound" checkedLink={this.radioState( 'totalUom', 'pound' )} /> Pounds
+                                    <input type="radio" name="total-uom"  value="pound" checkedLink={this.radioStore( recipeStore, 'totalUom', 'pound' )} /> Pounds
                                 </label>
                                 <label className="radio-inline">
-                                    <input type="radio" name="total-uom"  value="ounce" checkedLink={this.radioState( 'totalUom', 'ounce' )} /> Ounces
+                                    <input type="radio" name="total-uom"  value="ounce" checkedLink={this.radioStore( recipeStore, 'totalUom', 'ounce' )} /> Ounces
                                 </label>
                             </div>
                         </div>
@@ -281,11 +275,11 @@ export default React.createClass( {
     },
 
     percentMode() {
-        return this.state.uom === 'percent';
+        return this.state.recipe.uom === 'percent';
     },
 
     isKoh() {
-        return this.state.soapType === 'koh';
+        return this.state.recipe.soapType === 'koh';
     },
 
     disable(e) {

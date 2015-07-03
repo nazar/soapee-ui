@@ -9,8 +9,7 @@ let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 export default React.createClass( {
 
     mixins: [
-        Reflux.connect( recipeStore, 'recipe' ),
-        React.PureRenderMixin
+        Reflux.connect( recipeStore, 'recipe' )
     ],
 
     render() {

@@ -43,6 +43,10 @@ export default React.createClass( {
         );
     },
 
+    shouldComponentUpdate( nextProps ) {
+        return !( _.isEqual( this.props, nextProps ) );
+    },
+
     renderFats() {
         let oil = this.props.oil;
 

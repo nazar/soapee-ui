@@ -12,6 +12,10 @@ export default React.createClass( {
         React.addons.LinkedStateMixin
     ],
 
+    shouldComponentUpdate( nextProps, nextState ) {
+        return !( _.isEqual( this.state, nextState ) );
+    },
+
     render() {
         return (
             <div className="list-oils-selector">

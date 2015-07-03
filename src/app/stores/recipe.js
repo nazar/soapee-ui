@@ -5,11 +5,29 @@ export default Reflux.createStore( {
 
     store: {
         oils: [],
-        weights: {}
+        weights: {},
+
+        soapType: 'noah',
+        kohPurity: 90,
+        uom: 'gram',
+        totalWeight: null,
+        totalUom: 'gram',
+        superFat: 5,
+        waterRatio: 38
     },
 
     getInitialState() {
         return this.store;
+    },
+
+    setStoreValue( key, value ) {
+        _.set( this.store, key, value );
+
+        doTrigger.call( this );
+    },
+
+    getStoreValue( key ) {
+        return _.get( this.store, key );
     },
 
     addOil( oil ) {
@@ -30,7 +48,7 @@ export default Reflux.createStore( {
     },
 
     setOilWeight( oil, weight ) {
-        //accepts numerics only
+        //accepts numeric only
         if ( _.isFinite( Number(weight) ) || weight === '.' ) {
             this.store.weights[ oil.id ] = weight;
             doTrigger.call( this );
