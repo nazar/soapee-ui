@@ -9,6 +9,7 @@ import recipeStore from 'stores/recipe';
 import ListOilsSelected from 'components/listOilsSelector';
 import ListOilsRecipe from 'components/listOilsRecipe';
 import PropertiesOil from 'components/propertiesOil';
+import RecipeBreakdown from 'components/recipeBreakdown';
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -185,17 +186,17 @@ export default React.createClass( {
                 </div>
 
                 <div className="row">
-                    <div className="col-xs-6">
+                    <div className="col-xs-9">
                         <div className="panel panel-default">
                             <div className="panel-heading">
                                 <h3 className="panel-title">Recipe</h3>
                             </div>
                             <div className="panel-body">
-
+                                <RecipeBreakdown />
                             </div>
                         </div>
                     </div>
-                    <div className="col-xs-6">
+                    <div className="col-xs-3">
                         <div className="panel panel-default">
                             <div className="panel-heading">
                                 <h3 className="panel-title">Recipe Properties</h3>

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 
 import oilsStore from 'stores/oils';
+import recipeStore from 'stores/recipe';
 
 export default React.createClass( {
 
@@ -16,7 +17,7 @@ export default React.createClass( {
                         <div className="name"><strong>{oil.name}</strong></div>
                         <div className="basic">
                             <ul className="list-unstyled">
-                                <li><span className="title">SAP KOH / NaOH:</span> <span className="value">{oil.sap} / {oilsStore.sapForNaOh(oil)}</span> </li>
+                                <li><span className="title">SAP KOH / NaOH:</span> <span className="value">{oil.sap} / {recipeStore.sapForNaOh(oil)}</span> </li>
                                 <li><span className="title">Iodine:</span> <span className="value">{oil.iodine}</span> </li>
                                 <li><span className="title">INS:</span> <span className="value">{oil.ins}</span> </li>
                             </ul>

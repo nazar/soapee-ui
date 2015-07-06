@@ -59,7 +59,7 @@ export default React.createClass( {
 
     changed( oil ) {
         return e => {
-            recipeStore.setOilWeight( oil, e.target.value );
+            recipeStore.setOilWeight( oil, e.target.value );  //TODO should be an action?
         };
     },
 
@@ -75,8 +75,7 @@ export default React.createClass( {
 
     removeOilFromRecipe( oil ) {
         return () => {
-            recipeStore.removeOil( oil );
-            //this.props.onRemoveOilFromReciple( oil );
+            recipeStore.removeOil( oil ); //TODO should be an action?
         };
     }
 
