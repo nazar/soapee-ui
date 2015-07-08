@@ -15,8 +15,7 @@ module.exports = function ( options ) {
         entry: {
             vendor: [
                 'bootstrap/dist/js/bootstrap.min.js',
-                'bootstrap/dist/css/bootstrap.min.css',
-                'bootstrap/dist/css/bootstrap-theme.min.css',
+                'assets/css/theme.css',
                 'classnames',
                 'jquery',
                 'load-script',
@@ -30,6 +29,7 @@ module.exports = function ( options ) {
                 'react-portal',
                 'react-router',
                 'reflux',
+                'url',
                 'when'
             ]
         },
@@ -69,6 +69,7 @@ module.exports = function ( options ) {
                 utils: pathAppTo( 'utils' ),
 
                 assets: pathTo( 'assets' ),
+                config: pathAppTo( 'config.js' ),
 
                 //vendor aliases
                 jquery: 'jquery/dist/jquery.min.js'

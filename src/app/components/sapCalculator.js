@@ -5,6 +5,7 @@ import Reflux from 'reflux';
 import formRadioHandlers from 'mixins/formLinkHandlers';
 
 import recipeStore from 'stores/recipe';
+import recipeActions from 'actions/recipe';
 
 import ListOilsSelected from 'components/listOilsSelector';
 import ListOilsRecipe from 'components/listOilsRecipe';

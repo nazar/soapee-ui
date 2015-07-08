@@ -80,14 +80,14 @@ export default React.createClass( {
         if ( recipeStore.isPercentRecipe() ) {
             if ( recipeStore.sumWeights() !== 100 ) {
                 return (
-                    <div className="alert alert-danger" role="alert">
+                    <div className="alert alert-warning" role="alert">
                         Total oils % should be 100%.
                     </div>
                 );
             }
         } else if (  !( recipeStore.sumWeights() > 0 )  ) {
             return (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-warning" role="alert">
                     Total oil weights should be greater than 0.
                 </div>
             );

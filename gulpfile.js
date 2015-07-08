@@ -33,7 +33,7 @@ gulp.task( 'webpack-dev-server', function ( callback ) {
             if ( err ) {
                 throw new gutil.PluginError( 'webpack-dev-server', err );
             }
-            gutil.log( '[webpack-dev-server]', 'http://192.168.30.11:8080' );
+            gutil.log( '[webpack-dev-server]', 'http://192.168.30.20:8080' );
             callback();
         } );
 

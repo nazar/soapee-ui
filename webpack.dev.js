@@ -1,4 +1,5 @@
 var path = require( 'path' );
+var webpack = require( 'webpack' );
 
 var webpackDevConfig = {
     overrides: {
@@ -12,6 +13,14 @@ var webpackDevConfig = {
             ]
         }
     },
+
+    plugins: [
+        new webpack.DefinePlugin( {
+            'process.env': {
+                NODE_ENV: JSON.stringify( 'development' )
+            }
+        } )
+    ],
 
     loaders: [
         {

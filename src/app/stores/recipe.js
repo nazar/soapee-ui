@@ -137,7 +137,9 @@ export default Reflux.createStore( {
     },
 
     countWeights() {
-        return _.keys( this.store.weights ).length;
+        return _.filter( this.store.weights, ( weight ) => {
+            return Number( weight ) > 0;
+        } ).length;
     },
 
     countOils() {
