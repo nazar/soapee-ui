@@ -11,7 +11,7 @@ export default Reflux.createStore( {
         soapType: 'noah',
         kohPurity: 90,
         uom: 'gram',
-        totalWeight: null,
+        totalWeight: 500,
         totalUom: 'gram',
         superFat: 5,
         waterRatio: 38
@@ -78,6 +78,68 @@ export default Reflux.createStore( {
         }
     },
 
+    recipeOilsUom() {
+        if ( this.isPercentRecipe() ) {
+            return this.store.totalUom;
+        } else {
+            return this.store.uom;
+        }
+    },
+
+    recipeIsValid() {
+        if ( this.isPercentRecipe() ) {
+            return !( this.sumWeights() < 100 );
+        } else {
+            return this.sumWeights() > 0;
+        }
+    },
+
+    recipeOilsWeightsRatios() {
+        let totalOilWeight;
+
+        if ( this.isPercentRecipe() ) {
+            totalOilWeight = this.store.totalWeight;
+        } else {
+            totalOilWeight = _.get( this.store, 'recipe.totals.totalOilWeight' );
+        }
+
+        if ( totalOilWeight ) {
+            return _.map( this.store.weights, ( weightOrRation, oilId ) => {
+                let oil;
+                let ratio;
+                let weight;
+
+                oil = _.find( this.store.oils, { id: Number( oilId ) } );
+
+                if ( this.isPercentRecipe() ) {
+                    ratio  =  weightOrRation / 100;
+                    weight = totalOilWeight * ratio;
+                } else {
+                    ratio = weightOrRation / totalOilWeight;
+                    weight = weightOrRation;
+                }
+
+                return {
+                    oil,
+                    ratio,
+                    weight
+                };
+            } );
+        }
+    },
+
+    isPercentRecipe() {
+        return this.store.uom === 'percent';
+    },
+
+    sumWeights() {
+        return _.sum( this.store.weights );
+    },
+
+    countOils() {
+        return this.store.oils.length;
+    },
+
     calculateRecipe() {
         let totalOilWeight;
         let totalWaterWeight;
@@ -90,16 +152,22 @@ export default Reflux.createStore( {
         let properties;
         let saturations;
 
-        totalOilWeight = _.sum( this.store.weights );
-        totalWaterWeight = _.round( totalOilWeight * ( this.store.waterRatio / 100 ), 3 );
-        totalLye = _.round( _.sum( this.store.weights, ( weightOrRatio, oilId ) => {
+        //total weights either % ratios or uoms
+        if ( this.isPercentRecipe() ) {
+            totalOilWeight = this.store.totalWeight;
+        } else {
+            totalOilWeight = this.sumWeights();
+        }
+
+        totalWaterWeight = totalOilWeight * ( this.store.waterRatio / 100 );
+        totalLye = _.sum( this.store.weights, ( weightOrRatio, oilId ) => {
             return lyeWeightForOilId.call( this, weightOrRatio, oilId );
-        } ), 3 );
-        totalBatchWeight = _.round( totalOilWeight + totalWaterWeight + totalLye, 3 );
+        } );
+        totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye );
 
         if ( totalWaterWeight + totalLye ) {
-            lyeConcentration = _.round( 100 * (totalLye / ( totalWaterWeight + totalLye )), 3 );
-            waterLyeRatio = _.round( totalWaterWeight / totalLye, 3 );
+            lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ));
+            waterLyeRatio = totalWaterWeight / totalLye;
 
             breakdowns = recipeOilFatBreakdowns.call( this );
             properties = recipeOilProperties.call( this );
@@ -119,8 +187,6 @@ export default Reflux.createStore( {
             properties,
             saturations
         };
-
-        console.log( 'recipe', this.store.recipe );
     }
 } );
 
@@ -133,11 +199,18 @@ function doTrigger() {
 
 function lyeWeightForOilId( weightRatio, oilId ) {
     if ( weightRatio ) {
+        let oilWeight;
         let oil;
         let grams;
         let lyeGrams;
 
-        grams = convertToGrams.call( this, weightRatio );
+        if ( this.isPercentRecipe() ) {
+            oilWeight = this.store.totalWeight * ( weightRatio / 100 );
+        } else {
+            oilWeight = weightRatio;
+        }
+
+        grams = convertToGrams.call( this, oilWeight );
         oil = _.find( this.store.oils, { id: Number( oilId ) } );
         lyeGrams = this.sapForSoapType( oil ) * grams;
 
@@ -154,16 +227,16 @@ function lyeWeightForOilId( weightRatio, oilId ) {
 function oilsToRatioIterator( block ) {
     let total;
 
-    total = _.sum( this.store.weights );
+    total = this.sumWeights();
 
     _.each( this.store.weights, ( weightOrRation, oilId ) => {
         let oil;
         let ratio;
 
-        if ( this.store.uom === 'percent' ) {
-            ratio = weightOrRation;
+        if ( this.isPercentRecipe() ) {
+            ratio = weightOrRation / 100;
         } else {
-            ratio = _.round( weightOrRation / total, 3 );
+            ratio = weightOrRation / total;
         }
 
         oil = _.find( this.store.oils, { id: Number( oilId ) } );
@@ -228,22 +301,20 @@ function classifyFattyType( fattyAcid ) {
     return types[ fattyAcid ];
 }
 
-function namedOilPropertyRatioSummation( property ) {
-    return _.tap( {}, result => {
-        oilsToRatioIterator.call( this, ( oil, ratio ) => {
-            _.each( oil[ property ], ( value, key ) => {
-                result[ key ] = ( result[ key ] || 0 ) + oil[property][ key ] * ratio;
-            } );
-        } );
-    } );
-}
-
 function convertToGrams( weightOrRatio ) {
-    return weightOrRatio * conversions()[ this.store.uom ];
+    return weightOrRatio * conversions()[ uomToUse.call( this ) ];
 }
 
 function convertToUom( grams ) {
-    return _.round( grams / conversions()[ this.store.uom ], 2 );
+    return grams / conversions()[ uomToUse.call( this ) ];
+}
+
+function uomToUse() {
+    if ( this.isPercentRecipe() ) {
+        return this.store.totalUom;
+    } else {
+        return this.store.uom;
+    }
 }
 
 function conversions() {

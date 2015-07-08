@@ -7,40 +7,99 @@ import recipeStore from 'stores/recipe';
 export default React.createClass( {
 
     mixins: [
-        Reflux.connectFilter( recipeStore, 'recipe', extractRecipeFromStore.bind( this ) )
+        Reflux.connect( recipeStore, 'recipe' )
     ],
 
     render() {
+        let uom = _.capitalize( recipeStore.recipeOilsUom() ) + 's';
+
         return (
             <div className="recipe-breakdown">
-                <ul className="list-unstyled">
-                    <li>
-                        <span className="title">Total Oil Weight:</span>
-                        <span className="value">{ _.get( this.state.recipe, 'recipe.totals.totalOilWeight' ) }</span>
-                    </li>
-                    <li>
-                        <span className="title">Total Water Weight:</span>
-                        <span className="value">{ _.get( this.state.recipe, 'recipe.totals.totalWaterWeight' ) }</span>
-                    </li>
-                    <li>
-                        <span className="title">Total {this.soapTypeTpLye()} Weight:</span>
-                        <span className="value">{ _.get( this.state.recipe, 'recipe.totals.totalLye' ) } {this.purityInfo()}</span>
-                    </li>
-                    <li>
-                        <span className="title">Total Batch Weight:</span>
-                        <span className="value">{ _.get( this.state.recipe, 'recipe.totals.totalBatchWeight' ) }</span>
-                    </li>
-                    <li>
-                        <span className="title">Lye Concentration:</span>
-                        <span className="value">{ _.get( this.state.recipe, 'recipe.totals.lyeConcentration' ) }</span>
-                    </li>
-                    <li>
-                        <span className="title">Water : Lye Ratio:</span>
-                        <span className="value">{ _.get( this.state.recipe, 'recipe.totals.waterLyeRatio' ) } : 1</span>
-                    </li>
-                </ul>
+                { recipeStore.recipeIsValid() &&
+                    <table className="table table-striped table-hover table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            <th>Oil</th>
+                            <th>%</th>
+                            <th>{uom}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        { this.recipeOilRows() }
+                        <tr>
+                            <td colSpan="2">
+                                Total Water Weight
+                            </td>
+                            <td>
+                                { this.roundedValue( 'recipe.totals.totalWaterWeight' ) }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                Total {this.soapTypeTpLye()} Weight
+                            </td>
+                            <td>
+                                { this.roundedValue( 'recipe.totals.totalLye' ) } {uom} {this.purityInfo()}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                Total Oil Weight
+                            </td>
+                            <td>
+                                { this.roundedValue( 'recipe.totals.totalOilWeight' ) }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                Total Batch Weight
+                            </td>
+                            <td>
+                                { this.roundedValue( 'recipe.totals.totalBatchWeight' ) }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                Lye Concentration
+                            </td>
+                            <td>
+                                { this.roundedValue( 'recipe.totals.lyeConcentration' ) }%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                Water <strong>:</strong> Lye Ratio
+                            </td>
+                            <td>
+                                { this.roundedValue( 'recipe.totals.waterLyeRatio', 3 ) } <strong>:</strong> 1
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                }
             </div>
         );
+    },
+
+    recipeOilRows() {
+        let oilRows = recipeStore.recipeOilsWeightsRatios();
+
+        return _.map( oilRows,  row => {
+            return (
+                <tr>
+                    <td>
+                        { row.oil.name }
+                    </td>
+                    <td>
+                        { _.round( row.ratio * 100 ) }
+                    </td>
+                    <td>
+                        { _.round( row.weight ) }
+                    </td>
+                </tr>
+            );
+        } );
     },
 
     soapTypeTpLye() {
@@ -54,6 +113,10 @@ export default React.createClass( {
         if ( this.state.recipe.soapType === 'koh' ) {
             return `at ${this.state.recipe.kohPurity}% purity`;
         }
+    },
+
+    roundedValue( key, precision ) {
+        return _.round( _.get( this.state.recipe, key ), precision );
     }
 
 } );
@@ -64,7 +127,7 @@ export default React.createClass( {
 function extractRecipeFromStore( store ) {
     return {
         recipe: store.recipe,
-        oum: store.uom,
+        uom: store.uom,
         soapType: store.soapType,
         kohPurity: store.kohPurity
     };

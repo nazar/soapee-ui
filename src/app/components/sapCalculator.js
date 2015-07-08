@@ -10,6 +10,8 @@ import ListOilsSelected from 'components/listOilsSelector';
 import ListOilsRecipe from 'components/listOilsRecipe';
 import PropertiesOil from 'components/propertiesOil';
 import RecipeBreakdown from 'components/recipeBreakdown';
+import RecipeFattyAcids from 'components/recipeFattyAcids';
+import RecipeProperties from 'components/recipeProperties';
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -111,7 +113,7 @@ export default React.createClass( {
                                                placeholder="%"
                                                valueLink={ this.linkStore( recipeStore, 'waterRatio' ) }
                                             />
-                                        <span> water as a percent of oils - recommended values 33% - 38% .</span>
+                                        <span> % water as a percent of oils - recommended values 33% - 38% .</span>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +133,7 @@ export default React.createClass( {
                                                placeholder="%"
                                                valueLink={ this.linkStore( recipeStore, 'superFat' ) }
                                             />
-                                        <span> percentage of super fat oils - recommended 5%</span>
+                                        <span> % of super fat oils - recommended 5%</span>
                                     </div>
                                 </div>
                             </div>
@@ -156,56 +158,76 @@ export default React.createClass( {
                             </div>
                         </div>
                     </div>
-                    <div className="col-xs-3">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">
-                                <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
-                                <h3 className="panel-title">Oil Properties</h3>
-                            </div>
-                            <div className="panel-body">
-                                <PropertiesOil
-                                    oil={ this.state.selectedOil }
-                                    />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xs-5">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">Recipe Oils</h3>
-                            </div>
-                            <div className="panel-body">
-                                <div className="recipe-oils-container">
-                                    <ListOilsRecipe
-                                        uom={this.state.recipe.uom}
+
+                    { this.state.selectedOil &&
+                        <div className="col-xs-3">
+                            <div className="panel panel-default">
+                                <div className="panel-heading">
+                                    <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
+                                    <h3 className="panel-title">Oil Properties</h3>
+                                </div>
+                                <div className="panel-body">
+                                    <PropertiesOil
+                                        oil={ this.state.selectedOil }
                                         />
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
+
+                    { recipeStore.countOils() > 0 &&
+                        <div className="col-xs-5">
+                            <div className="panel panel-default">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">Recipe Oils</h3>
+                                </div>
+                                <div className="panel-body">
+                                    <div className="recipe-oils-container">
+                                        <ListOilsRecipe
+                                            uom={this.state.recipe.uom}
+                                            />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                 </div>
 
-                <div className="row">
-                    <div className="col-xs-9">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">Recipe</h3>
+                { recipeStore.recipeIsValid() &&
+                    <div className="row">
+                        <div className="col-xs-6">
+                            <div className="panel panel-default">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">Recipe</h3>
+                                </div>
+                                <div className="panel-body">
+                                    <RecipeBreakdown />
+                                </div>
                             </div>
-                            <div className="panel-body">
-                                <RecipeBreakdown />
+                        </div>
+                        <div className="col-xs-3">
+                            <div className="panel panel-default">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">Fatty Acids</h3>
+                                </div>
+                                <div className="panel-body">
+                                    <RecipeFattyAcids/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-xs-3">
+                            <div className="panel panel-default">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">Recipe Properties</h3>
+                                </div>
+                                <div className="panel-body">
+                                    <RecipeProperties/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-xs-3">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">Recipe Properties</h3>
-                            </div>
-                            <div className="panel-body">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
 
             </div>
         );

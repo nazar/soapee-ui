@@ -17,9 +17,13 @@ export default React.createClass( {
             <div className="list-oils-recipe">
                 <table className="recipe-oils form-inline table table-striped table-condensed">
                     <ReactCSSTransitionGroup  transitionName="fade" component="tbody" >
-                        {_.map( this.state.recipe.oils, this.renderOil )}
+                        { _.map( this.state.recipe.oils, this.renderOil )}
+                        { this.renderTotalsRow() }
                     </ReactCSSTransitionGroup>
                 </table>
+                <div className="messages">
+                    { this.renderCompletionMessages() }
+                </div>
             </div>
         );
     },
@@ -55,6 +59,34 @@ export default React.createClass( {
                 </td>
             </tr>
         );
+    },
+
+    renderTotalsRow() {
+        return (
+            <tr key={`recipe-oil-totals`}>
+                <td>Total: </td>
+                <td>{ recipeStore.sumWeights() } { this.getPlaceholder() }</td>
+                <td></td>
+            </tr>
+        );
+    },
+
+    renderCompletionMessages() {
+        if ( recipeStore.isPercentRecipe() ) {
+            if ( recipeStore.sumWeights() < 100 ) {
+                return (
+                    <div className="alert alert-info" role="alert">
+                        Total oil ratios should be 100%.
+                    </div>
+                );
+            }
+        } else if (  !( recipeStore.sumWeights() > 0 )  ) {
+            return (
+                <div className="alert alert-info" role="alert">
+                    Total oil weights should be greater than 0.
+                </div>
+            );
+        }
     },
 
     changed( oil ) {
