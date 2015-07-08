@@ -13,12 +13,16 @@ export default React.createClass( {
     render() {
         return (
             <div className="recipe-fatty-acids">
-                <ul className="list-unstyled">
-                    { this.renderOrderedBreakdowns() }
-                </ul>
-                <ul className="list-unstyled">
-                    { this.renderNonProperties() }
-                </ul>
+                <table className="table table-striped table-condensed table-super-condensed">
+                    <tbody>
+                        { this.renderOrderedBreakdowns() }
+                        <tr>
+                            <td colSpan="2"></td>
+                        </tr>
+                        { this.renderNonProperties() }
+                    </tbody>
+                </table>
+
             </div>
         );
     },
@@ -33,9 +37,10 @@ export default React.createClass( {
             .map( property => {
                 let value = _.round( properties[ property ] );
                 return (
-                    <li>
-                        <span className="title">{_.capitalize( property )}: </span> <span className="value">{value}</span>
-                    </li>
+                    <tr>
+                        <td>{_.capitalize( property )}</td>
+                        <td>{value}</td>
+                    </tr>
                 );
             } )
             .value();
@@ -48,9 +53,10 @@ export default React.createClass( {
             return _.map( [ 'iodine', 'ins' ], property => {
                 let value = _.round( properties[ property ] );
                 return (
-                    <li>
-                        <span className="title">{_.capitalize( property )}: </span> <span className="value">{value}</span>
-                    </li>
+                    <tr>
+                        <td>{_.capitalize( property )}: </td>
+                        <td>{value}</td>
+                    </tr>
                 );
             } );
         }

@@ -26,10 +26,13 @@ export default React.createClass( {
                         <button className="btn btn-default" onClick={this.clearSearch}><i className="fa fa-times-circle"></i></button>
                     </span>
                 </div>
-                <ul className="list-unstyled">
-                    { this.renderOils() }
-                </ul>
-
+                <div className="oils-container">
+                    <table className="table table-striped table-condensed table-super-condensed">
+                        <tbody>
+                        { this.renderOils() }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     },
@@ -45,13 +48,15 @@ export default React.createClass( {
             let klass = cx( 'no-select', {selected: oil.name === this.state.selectedOil} );
 
             return (
-                <li className={klass}
-                    onClick={this.selectOil(oil)}
-                    onDoubleClick={this.addOil(oil)}
-                    key={ `list-oil-${oil.id}` }
-                    >
-                    {oil.name}
-                </li>
+                <tr>
+                    <td className={klass}
+                        onClick={this.selectOil(oil)}
+                        onDoubleClick={this.addOil(oil)}
+                        key={ `list-oil-${oil.id}` }
+                        >
+                        {oil.name}
+                    </td>
+                </tr>
             );
         }
 

@@ -4,7 +4,7 @@ very-fast-transition-speed=0.1s;
 .fade {
 
     &-enter {
-        opacity: 0;
+        opacity: 0.01;
         transition: opacity fast-transition-speed ease-in;
 
         &-active {
@@ -15,10 +15,10 @@ very-fast-transition-speed=0.1s;
 
     &-leave {
         opacity: 1;
-        transition: opacity very-fast-transition-speed ease-in;
+        transition: opacity very-fast-transition-speed ease-out;
 
         &-active {
-            opacity: 0;
+            opacity: 0.01;
         }
     }
 

@@ -6,6 +6,10 @@ import recipeStore from 'stores/recipe';
 
 export default React.createClass( {
 
+    shouldComponentUpdate( nextProps ) {
+        return !( _.isEqual( this.props, nextProps ) );
+    },
+
     render() {
         let oil = this.props.oil;
 
@@ -15,37 +19,40 @@ export default React.createClass( {
                 { oil &&
                     <div className="properties-container">
                         <div className="name"><strong>{oil.name}</strong></div>
-                        <div className="basic">
-                            <ul className="list-unstyled">
-                                <li><span className="title">SAP KOH / NaOH:</span> <span className="value">{oil.sap} / {recipeStore.sapForNaOh(oil)}</span> </li>
-                                <li><span className="title">Iodine:</span> <span className="value">{oil.iodine}</span> </li>
-                                <li><span className="title">INS:</span> <span className="value">{oil.ins}</span> </li>
-                            </ul>
-                        </div>
-                        <div className="fats">
-                            <ul className="list-unstyled">
-                                {this.renderFats()}
-                            </ul>
-                        </div>
-                        <div className="properties">
-                            <ul className="list-unstyled">
-                                {this.renderProperties()}
-                            </ul>
-                        </div>
-                        <div className="saturation">
-                            <ul className="list-unstyled">
-                                {this.renderSaturation()}
-                            </ul>
-                        </div>
-
+                        <table className="table table-striped table-condensed table-super-condensed">
+                            <tbody>
+                            <tr>
+                                <td>Sap KOH<br />NaOH</td>
+                                <td>{oil.sap}<br />{recipeStore.sapForNaOh(oil)}</td>
+                            </tr>
+                            <tr>
+                                <td>Iodine</td>
+                                <td>{oil.iodine}</td>
+                            </tr>
+                            <tr>
+                                <td>INS</td>
+                                <td>{oil.ins}</td>
+                            </tr>
+                            {this.gap()}
+                            {this.renderFats()}
+                            {this.gap()}
+                            {this.renderProperties()}
+                            {this.gap()}
+                            {this.renderSaturation()}
+                            </tbody>
+                        </table>
                     </div>
                 }
             </div>
         );
     },
 
-    shouldComponentUpdate( nextProps ) {
-        return !( _.isEqual( this.props, nextProps ) );
+    gap() {
+        return (
+            <tr>
+                <td colSpan="2"></td>
+            </tr>
+        );
     },
 
     renderFats() {
@@ -55,7 +62,12 @@ export default React.createClass( {
             let breakdown = oil.breakdown[ fat ];
 
             if ( breakdown ) {
-                output.push( <li> <span className="title">{_.capitalize(fat)}:</span> <span className="value">{breakdown}</span> </li> );
+                output.push(
+                    <tr>
+                        <td>{_.capitalize(fat)}</td>
+                        <td>{breakdown}</td>
+                    </tr>
+                );
             }
         }, [] );
     },
@@ -65,7 +77,10 @@ export default React.createClass( {
 
         function render( property ) {
             return (
-                <li><span className="title">{_.capitalize( property )}:</span> <span className="value"> {oil.properties[ property ]} </span></li>
+                <tr>
+                    <td>{_.capitalize( property )}</td>
+                    <td>{oil.properties[ property ]}</td>
+                </tr>
             );
         }
 
@@ -81,7 +96,10 @@ export default React.createClass( {
 
         return _.map( oil.saturation, ( satType, saturation ) => {
             return (
-                <li> <span className="title">{_.capitalize(saturation)}:</span> <span className="value">{satType}</span> </li>
+                <tr>
+                    <td>{_.capitalize(saturation)}:</td>
+                    <td>{satType}</td>
+                </tr>
             );
         } );
     }

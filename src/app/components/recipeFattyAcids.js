@@ -13,12 +13,11 @@ export default React.createClass( {
     render() {
         return (
             <div className="recipe-fatty-acids">
-                <ul className="list-unstyled">
+                <table className="table table-striped table-condensed table-super-condensed">
+                    <tbody>
                     { this.renderOrderedBreakdowns() }
-                </ul>
-                <div className="summary">
-                    Sat : Unsat Ratio { this.roundedSaturation( 'saturated' ) } <strong>:</strong> { this.roundedSaturation( 'unsaturated' ) }
-                </div>
+                    </tbody>
+                </table>
             </div>
         );
     },
@@ -34,19 +33,17 @@ export default React.createClass( {
 
                 if (  value ) {
                     return (
-                        <li>
-                            <span className="title">{_.capitalize( fattyAcid )}: </span> <span className="value">{value}</span>
-                        </li>
+                        <tr>
+                            <td>{_.capitalize( fattyAcid )}</td>
+                            <td>{value}</td>
+                        </tr>
                     );
                 }
             } )
             .compact()
             .value();
-    },
-
-    roundedSaturation( fatType ) {
-        return _.round( _.get( this.state, `recipe.saturations.${fatType}` ) );
     }
+
 } );
 
 

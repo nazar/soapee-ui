@@ -15,7 +15,7 @@ export default React.createClass( {
     render() {
         return (
             <div className="list-oils-recipe">
-                <table className="recipe-oils form-inline table table-striped table-condensed">
+                <table className="recipe-oils form-inline table table-striped table-condensed table-super-condensed">
                     <ReactCSSTransitionGroup  transitionName="fade" component="tbody" >
                         { _.map( this.state.recipe.oils, this.renderOil )}
                         { this.renderTotalsRow() }
@@ -39,10 +39,10 @@ export default React.createClass( {
 
         return (
             <tr key={`recipe-oil-${oil.id}`}>
-                <td>
-                    <span className="oil-name">{oil.name}</span>
+                <td className="oil-name">
+                    {oil.name}
                 </td>
-                <td>
+                <td className="value">
                     <input type="text"
                            className="form-control short-numeric"
                            placeholder={ placeholder }
@@ -64,8 +64,13 @@ export default React.createClass( {
     renderTotalsRow() {
         return (
             <tr key={`recipe-oil-totals`}>
-                <td>Total: </td>
-                <td>{ recipeStore.sumWeights() } { this.getPlaceholder() }</td>
+                <td></td>
+                <td>
+                    <strong>
+                        { recipeStore.sumWeights() }
+                        { this.getPlaceholder() }
+                    </strong>
+                </td>
                 <td></td>
             </tr>
         );
@@ -73,16 +78,16 @@ export default React.createClass( {
 
     renderCompletionMessages() {
         if ( recipeStore.isPercentRecipe() ) {
-            if ( recipeStore.sumWeights() < 100 ) {
+            if ( recipeStore.sumWeights() !== 100 ) {
                 return (
-                    <div className="alert alert-info" role="alert">
-                        Total oil ratios should be 100%.
+                    <div className="alert alert-danger" role="alert">
+                        Total oils % should be 100%.
                     </div>
                 );
             }
         } else if (  !( recipeStore.sumWeights() > 0 )  ) {
             return (
-                <div className="alert alert-info" role="alert">
+                <div className="alert alert-danger" role="alert">
                     Total oil weights should be greater than 0.
                 </div>
             );

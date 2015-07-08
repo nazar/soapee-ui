@@ -15,8 +15,8 @@ export default React.createClass( {
 
         return (
             <div className="recipe-breakdown">
-                { recipeStore.recipeIsValid() &&
-                    <table className="table table-striped table-hover table-bordered table-condensed">
+                { recipeStore.countWeights() > 0 &&
+                    <table className="table table-striped table-hover table-condensed">
                         <thead>
                         <tr>
                             <th>Oil</th>
@@ -26,54 +26,7 @@ export default React.createClass( {
                         </thead>
                         <tbody>
                         { this.recipeOilRows() }
-                        <tr>
-                            <td colSpan="2">
-                                Total Water Weight
-                            </td>
-                            <td>
-                                { this.roundedValue( 'recipe.totals.totalWaterWeight' ) }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2">
-                                Total {this.soapTypeTpLye()} Weight
-                            </td>
-                            <td>
-                                { this.roundedValue( 'recipe.totals.totalLye' ) } {uom} {this.purityInfo()}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2">
-                                Total Oil Weight
-                            </td>
-                            <td>
-                                { this.roundedValue( 'recipe.totals.totalOilWeight' ) }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2">
-                                Total Batch Weight
-                            </td>
-                            <td>
-                                { this.roundedValue( 'recipe.totals.totalBatchWeight' ) }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2">
-                                Lye Concentration
-                            </td>
-                            <td>
-                                { this.roundedValue( 'recipe.totals.lyeConcentration' ) }%
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2">
-                                Water <strong>:</strong> Lye Ratio
-                            </td>
-                            <td>
-                                { this.roundedValue( 'recipe.totals.waterLyeRatio', 3 ) } <strong>:</strong> 1
-                            </td>
-                        </tr>
+                        { this.totalsRow() }
                         </tbody>
                     </table>
 
@@ -102,33 +55,26 @@ export default React.createClass( {
         } );
     },
 
-    soapTypeTpLye() {
-        return {
-            noah: 'NaOH',
-            koh: 'KOH'
-        }[ this.state.recipe.soapType ];
-    },
+    totalsRow() {
+        let totals = _.reduce( recipeStore.recipeOilsWeightsRatios(), ( result, oilRow ) => {
+            return _.tap( result, r => {
+                r.ratio = result.ratio + oilRow.ratio * 100;
+                r.weight = result.weight + Number( oilRow.weight );
+            } );
+        }, { ratio: 0, weight: 0 } );
 
-    purityInfo() {
-        if ( this.state.recipe.soapType === 'koh' ) {
-            return `at ${this.state.recipe.kohPurity}% purity`;
-        }
-    },
-
-    roundedValue( key, precision ) {
-        return _.round( _.get( this.state.recipe, key ), precision );
+        return (
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <strong>{ _.round( totals.ratio ) }</strong>
+                </td>
+                <td>
+                    <strong>{ _.round( totals.weight ) }</strong>
+                </td>
+            </tr>
+        );
     }
 
 } );
-
-////////////////////
-//// Private
-
-function extractRecipeFromStore( store ) {
-    return {
-        recipe: store.recipe,
-        uom: store.uom,
-        soapType: store.soapType,
-        kohPurity: store.kohPurity
-    };
-}

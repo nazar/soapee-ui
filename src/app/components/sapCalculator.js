@@ -12,6 +12,7 @@ import PropertiesOil from 'components/propertiesOil';
 import RecipeBreakdown from 'components/recipeBreakdown';
 import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
+import RecipeTotals from 'components/recipeTotals';
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -31,16 +32,10 @@ export default React.createClass( {
     render() {
         return (
             <div className="sap-calculator">
-                <div className="page-header">
-                    <h1>Soap Lye Calculator
-                        <small>Design your own soap</small>
-                    </h1>
-                </div>
-
                 <div className="row">
 
-                    <div className="col-xs-6">
-                        <div className="panel panel-default">
+                    <div className="col-md-6 col-sm-12">
+                        <div className="panel panel-primary">
                             <div className="panel-heading">
                                 <h3 className="panel-title">1 - Making <strong>liquid</strong> or <strong>solid</strong> soap?</h3>
                             </div>
@@ -66,10 +61,10 @@ export default React.createClass( {
                         </div>
                     </div>
 
-                    <div className="col-xs-6">
-                        <div className="panel panel-default">
+                    <div className="col-md-6 col-sm-12">
+                        <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title">2 - Select Units of Measure</h3>
+                                <h3 className="panel-title">2 - Select recipe units of measure</h3>
                             </div>
                             <div className="panel-body">
                                 <div className="form-group">
@@ -89,21 +84,21 @@ export default React.createClass( {
                                         <input type="radio" name="uom"  value="ounce" checkedLink={this.radioStore( recipeStore, 'uom', 'ounce' )} /> Ounces
                                     </label>
                                 </div>
+
+                                <ReactCSSTransitionGroup  transitionName="fade" >
+                                    {this.renderTotalSoapWeight()}
+                                </ReactCSSTransitionGroup>
                             </div>
                         </div>
-
-                        <ReactCSSTransitionGroup  transitionName="fade" >
-                            {this.renderTotalSoapWeight()}
-                        </ReactCSSTransitionGroup>
                     </div>
                 </div>
 
                 <div className="row">
 
-                    <div className="col-xs-6">
-                        <div className="panel panel-default">
+                    <div className="col-md-6 col-sm-12">
+                        <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title">3 - Water Content</h3>
+                                <h3 className="panel-title">3 - Amount of water in recipe</h3>
                             </div>
                             <div className="panel-body">
                                 <div className="form-inline">
@@ -113,17 +108,17 @@ export default React.createClass( {
                                                placeholder="%"
                                                valueLink={ this.linkStore( recipeStore, 'waterRatio' ) }
                                             />
-                                        <span> % water as a percent of oils - recommended values 33% - 38% .</span>
+                                        <span> % water as a percent of oils - recommended 33%-38% .</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-xs-6">
-                        <div className="panel panel-default">
+                    <div className="col-md-6 col-sm-12">
+                        <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title">4 - Oil super fat</h3>
+                                <h3 className="panel-title">4 - Oil superfat</h3>
                             </div>
                             <div className="panel-body">
                                 <div className="form-inline">
@@ -133,7 +128,7 @@ export default React.createClass( {
                                                placeholder="%"
                                                valueLink={ this.linkStore( recipeStore, 'superFat' ) }
                                             />
-                                        <span> % of super fat oils - recommended 5%</span>
+                                        <span> % of superfat of oils - recommended 5%</span>
                                     </div>
                                 </div>
                             </div>
@@ -143,50 +138,44 @@ export default React.createClass( {
                 </div>
 
                 <div className="row">
-                    <div className="col-xs-4">
-                        <div className="panel panel-default">
+                    <div className="col-md-4 col-sm-6">
+                        <div className="panel panel-primary">
                             <div className="panel-heading">
                                 <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
                                 <button onClick={this.lookupOils} className="pull-right btn btn-xs btn-default"><i className="fa fa-search-plus"></i></button>
                                 <h3 className="panel-title">5 - Select Oils</h3>
                             </div>
-                            <div className="panel-body">
-                                <ListOilsSelected
-                                    onSelectedOil={this.selectedOil}
-                                    onAddedOil={this.addOil}
-                                    />
-                            </div>
+                            <ListOilsSelected
+                                onSelectedOil={this.selectedOil}
+                                onAddedOil={this.addOil}
+                                />
                         </div>
                     </div>
 
                     { this.state.selectedOil &&
-                        <div className="col-xs-3">
-                            <div className="panel panel-default">
+                        <div className="col-md-3 col-sm-6">
+                            <div className="panel panel-info">
                                 <div className="panel-heading">
                                     <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
                                     <h3 className="panel-title">Oil Properties</h3>
                                 </div>
-                                <div className="panel-body">
-                                    <PropertiesOil
-                                        oil={ this.state.selectedOil }
-                                        />
-                                </div>
+                                <PropertiesOil
+                                    oil={ this.state.selectedOil }
+                                    />
                             </div>
                         </div>
                     }
 
                     { recipeStore.countOils() > 0 &&
-                        <div className="col-xs-5">
-                            <div className="panel panel-default">
+                        <div className="col-md-5 col-sm-12">
+                            <div className="panel panel-info">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Recipe Oils</h3>
                                 </div>
-                                <div className="panel-body">
-                                    <div className="recipe-oils-container">
-                                        <ListOilsRecipe
-                                            uom={this.state.recipe.uom}
-                                            />
-                                    </div>
+                                <div className="recipe-oils-container">
+                                    <ListOilsRecipe
+                                        uom={this.state.recipe.uom}
+                                        />
                                 </div>
                             </div>
                         </div>
@@ -194,36 +183,38 @@ export default React.createClass( {
 
                 </div>
 
-                { recipeStore.recipeIsValid() &&
+                { recipeStore.countWeights() > 0 &&
                     <div className="row">
-                        <div className="col-xs-6">
-                            <div className="panel panel-default">
+                        <div className="col-md-4 col-sm-6">
+                            <div className="panel panel-success">
                                 <div className="panel-heading">
-                                    <h3 className="panel-title">Recipe</h3>
+                                    <h3 className="panel-title">Recipe Oils</h3>
                                 </div>
-                                <div className="panel-body">
-                                    <RecipeBreakdown />
-                                </div>
+                                <RecipeBreakdown />
                             </div>
                         </div>
-                        <div className="col-xs-3">
-                            <div className="panel panel-default">
+                        <div className="col-md-4 col-sm-6">
+                            <div className="panel panel-success">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">Recipe Totals</h3>
+                                </div>
+                                <RecipeTotals />
+                            </div>
+                        </div>
+                        <div className="col-md-2 col-sm-6">
+                            <div className="panel panel-success">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Fatty Acids</h3>
                                 </div>
-                                <div className="panel-body">
-                                    <RecipeFattyAcids/>
-                                </div>
+                                <RecipeFattyAcids/>
                             </div>
                         </div>
-                        <div className="col-xs-3">
-                            <div className="panel panel-default">
+                        <div className="col-md-2 col-sm-6">
+                            <div className="panel panel-success">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Recipe Properties</h3>
                                 </div>
-                                <div className="panel-body">
-                                    <RecipeProperties/>
-                                </div>
+                                <RecipeProperties/>
                             </div>
                         </div>
                     </div>
@@ -249,28 +240,21 @@ export default React.createClass( {
     renderTotalSoapWeight() {
         if ( this.percentMode() ) {
             return (
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">2.1 - Total Soap Weight</h3>
-                    </div>
-                    <div className="panel-body">
-                        <div className="form-inline">
-                            <div className="form-group">
-                                <input type="text" className="form-control short-numeric" valueLink={ this.linkStore( recipeStore, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
-                                <label className="radio-inline">
-                                    <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioStore( recipeStore, 'totalUom', 'gram' )} /> Grams
-                                </label>
-                                <label className="radio-inline">
-                                    <input type="radio" name="total-uom"  value="kilo" checkedLink={this.radioStore( recipeStore, 'totalUom', 'kilo' )} /> Kilograms
-                                </label>
-                                <label className="radio-inline">
-                                    <input type="radio" name="total-uom"  value="pound" checkedLink={this.radioStore( recipeStore, 'totalUom', 'pound' )} /> Pounds
-                                </label>
-                                <label className="radio-inline">
-                                    <input type="radio" name="total-uom"  value="ounce" checkedLink={this.radioStore( recipeStore, 'totalUom', 'ounce' )} /> Ounces
-                                </label>
-                            </div>
-                        </div>
+                <div className="form-inline">
+                    <div className="form-group">
+                        <input type="text" className="form-control short-numeric" valueLink={ this.linkStore( recipeStore, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
+                        <label className="radio-inline">
+                            <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioStore( recipeStore, 'totalUom', 'gram' )} /> Grams
+                        </label>
+                        <label className="radio-inline">
+                            <input type="radio" name="total-uom"  value="kilo" checkedLink={this.radioStore( recipeStore, 'totalUom', 'kilo' )} /> Kilograms
+                        </label>
+                        <label className="radio-inline">
+                            <input type="radio" name="total-uom"  value="pound" checkedLink={this.radioStore( recipeStore, 'totalUom', 'pound' )} /> Pounds
+                        </label>
+                        <label className="radio-inline">
+                            <input type="radio" name="total-uom"  value="ounce" checkedLink={this.radioStore( recipeStore, 'totalUom', 'ounce' )} /> Ounces
+                        </label>
                     </div>
                 </div>
             );
