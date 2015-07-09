@@ -142,8 +142,10 @@ export default React.createClass( {
                     <div className="col-md-4 col-sm-6">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
-                                <button onClick={this.lookupOils} className="pull-right btn btn-xs btn-default"><i className="fa fa-search-plus"></i></button>
+                                <div className="btn-toolbar pull-right">
+                                    <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
+                                    <button onClick={this.lookupOils} className="pull-right btn btn-xs btn-default"><i className="fa fa-search-plus"></i></button>
+                                </div>
                                 <h3 className="panel-title">5 - Select Oils</h3>
                             </div>
                             <ListOilsSelected
@@ -157,7 +159,9 @@ export default React.createClass( {
                         <div className="col-md-3 col-sm-6">
                             <div className="panel panel-info">
                                 <div className="panel-heading">
-                                    <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
+                                    <div className="btn-toolbar pull-right">
+                                        <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
+                                    </div>
                                     <h3 className="panel-title">Oil Properties</h3>
                                 </div>
                                 <PropertiesOil
@@ -217,6 +221,10 @@ export default React.createClass( {
                                 </div>
                                 <RecipeProperties/>
                             </div>
+                        </div>
+
+                        <div className="col-sm-12">
+                            <button className="btn btn-primary">Save Recipe</button>
                         </div>
                     </div>
                 }

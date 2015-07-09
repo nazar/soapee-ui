@@ -12,7 +12,6 @@ export default React.createClass( {
 
     render() {
         let uom = recipeStore.recipeOilsUom() + 's';
-        console.log('state', this.state );
 
         return (
             <div className="recipe-totals">

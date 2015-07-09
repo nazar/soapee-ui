@@ -9,9 +9,11 @@ var clean = require( 'gulp-clean' );
 var rsync = require( 'gulp-rsync' );
 var runSequence = require( 'run-sequence' );
 
-function handleError( err ) {
-    console.log( err.toString() );
-    this.emit( 'end' );
+function handleError( task ) {
+    return function( err ) {
+        this.emit( 'end' );
+        gutil.log( 'Error handler for', task, err.toString() );
+    };
 }
 
 // The development server (the recommended option for development)
@@ -43,7 +45,7 @@ gulp.task( 'webpack-dev-server', function ( callback ) {
 
 gulp.task( 'stylus:compile', function () {
     return gulp.src( './src/assets/stylus/main.styl' )
-        .pipe( stylus( { linenos: true } ).on( 'error', handleError ) )
+        .pipe( stylus( { linenos: true } ).on( 'error', handleError( 'stylus:compile' ) ) )
         .pipe( gulp.dest( './src/assets' ) );
 } );
 

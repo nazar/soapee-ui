@@ -24,7 +24,7 @@ export default React.createClass( {
 
     render() {
         return (
-            <div className="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
+            <nav className="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
                 <div className="container">
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle" data-toggle="collapse"
@@ -48,7 +48,7 @@ export default React.createClass( {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </nav>
         );
     }
 
