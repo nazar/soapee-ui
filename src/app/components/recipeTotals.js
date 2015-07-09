@@ -104,8 +104,8 @@ export default React.createClass( {
 
 function extractTotals( store ) {
     return {
-        totals: _.get( store.recipe, 'totals' ),
-        saturations: _.get( store.recipe, 'saturations' ),
+        totals: _.get( store.summary, 'totals' ),
+        saturations: _.get( store.summary, 'saturations' ),
         soapType: store.soapType,
         kohPurity: store.kohPurity
     };

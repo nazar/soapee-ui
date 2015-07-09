@@ -52,7 +52,7 @@ export default React.createClass( {
 
 function extractBreakdowns( store ) {
     return {
-        breakdowns: _.get( store.recipe, 'breakdowns' ),
-        saturations: _.get( store.recipe, 'saturations' )
+        breakdowns: _.get( store.summary, 'breakdowns' ),
+        saturations: _.get( store.summary, 'saturations' )
     };
 }

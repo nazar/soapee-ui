@@ -22,6 +22,9 @@
         "react-portal": "0.6.0",
         "react-router": "0.13.3",
         "reflux": "0.2.8",
+        "scribe-editor" :"1.4.13",
+        "scribe-plugin-sanitizer": "0.1.9",
+        "scribe-plugin-toolbar": "0.2.0",
         "when": "3.7.3"
     },
     "devDependencies": {

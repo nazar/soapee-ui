@@ -180,7 +180,7 @@ export default Reflux.createStore( {
             saturations = recipeOilSaturations.call( this );
         }
 
-        this.store.recipe = {
+        this.store.summary = {
             totals: {
                 totalOilWeight,
                 totalWaterWeight,

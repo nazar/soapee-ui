@@ -17,12 +17,20 @@ export function put( url, options = {} ) {
 //// PRIVATE
 
 function ajax( url, verb, data ) {
+    let ajaxData;
+
+    ajaxData = verb === 'GET' ? data : JSON.stringify( data );
+
     return when(
         $.ajax( {
             url,
-            data: JSON.stringify( data ),
+            data: ajaxData,
             type: verb,
-            dataType: 'json'
+            dataType: 'json',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
         } )
     );
 }

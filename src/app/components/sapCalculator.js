@@ -7,6 +7,7 @@ import formRadioHandlers from 'mixins/formLinkHandlers';
 import recipeStore from 'stores/recipe';
 import recipeActions from 'actions/recipe';
 
+import FormSaveRecipe from 'components/formSaveRecipe';
 import ListOilsSelected from 'components/listOilsSelector';
 import ListOilsRecipe from 'components/listOilsRecipe';
 import PropertiesOil from 'components/propertiesOil';
@@ -189,42 +190,43 @@ export default React.createClass( {
                 </div>
 
                 { recipeStore.countWeights() > 0 &&
-                    <div className="row">
-                        <div className="col-md-4 col-sm-6">
-                            <div className="panel panel-success">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Recipe Oils</h3>
+                    <div>
+                        <div className="row">
+                            <div className="col-md-4 col-sm-6">
+                                <div className="panel panel-success">
+                                    <div className="panel-heading">
+                                        <h3 className="panel-title">Recipe Oils</h3>
+                                    </div>
+                                    <RecipeBreakdown />
                                 </div>
-                                <RecipeBreakdown />
+                            </div>
+                            <div className="col-md-4 col-sm-6">
+                                <div className="panel panel-success">
+                                    <div className="panel-heading">
+                                        <h3 className="panel-title">Recipe Totals</h3>
+                                    </div>
+                                    <RecipeTotals />
+                                </div>
+                            </div>
+                            <div className="col-md-2 col-sm-6">
+                                <div className="panel panel-success">
+                                    <div className="panel-heading">
+                                        <h3 className="panel-title">Fatty Acids</h3>
+                                    </div>
+                                    <RecipeFattyAcids/>
+                                </div>
+                            </div>
+                            <div className="col-md-2 col-sm-6">
+                                <div className="panel panel-success">
+                                    <div className="panel-heading">
+                                        <h3 className="panel-title">Recipe Properties</h3>
+                                    </div>
+                                    <RecipeProperties/>
+                                </div>
                             </div>
                         </div>
-                        <div className="col-md-4 col-sm-6">
-                            <div className="panel panel-success">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Recipe Totals</h3>
-                                </div>
-                                <RecipeTotals />
-                            </div>
-                        </div>
-                        <div className="col-md-2 col-sm-6">
-                            <div className="panel panel-success">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Fatty Acids</h3>
-                                </div>
-                                <RecipeFattyAcids/>
-                            </div>
-                        </div>
-                        <div className="col-md-2 col-sm-6">
-                            <div className="panel panel-success">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Recipe Properties</h3>
-                                </div>
-                                <RecipeProperties/>
-                            </div>
-                        </div>
-
-                        <div className="col-sm-12">
-                            <button className="btn btn-primary">Save Recipe</button>
+                        <div className="row">
+                            <FormSaveRecipe />
                         </div>
                     </div>
                 }
@@ -298,8 +300,8 @@ export default React.createClass( {
         return this.state.recipe.soapType === 'koh';
     },
 
-    disable(e) {
-        e.preventDefault();
+    saveRecipe() {
+        recipeActions.createRecipe( this.state.recipe );
     }
 
 } );

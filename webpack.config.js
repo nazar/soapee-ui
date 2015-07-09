@@ -29,6 +29,9 @@ module.exports = function ( options ) {
                 'react-portal',
                 'react-router',
                 'reflux',
+                'scribe-editor',
+                'scribe-plugin-sanitizer',
+                'scribe-plugin-toolbar',
                 'url',
                 'when'
             ]

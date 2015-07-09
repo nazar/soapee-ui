@@ -68,5 +68,5 @@ export default React.createClass( {
 //// Private
 
 function extractBreakdowns( store ) {
-    return _.get( store.recipe, 'properties' );
+    return _.get( store.summary, 'properties' );
 }
