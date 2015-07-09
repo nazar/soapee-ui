@@ -21,6 +21,8 @@ export default React.createClass( {
                 br: {}
             } } ) );
 
+        scribe.setContent( this.props.content );
+
         scribe.on( 'content-changed', updateData.bind( this ) );
 
         function updateData() {

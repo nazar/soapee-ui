@@ -1,9 +1,14 @@
 import _ from 'lodash';
 import Reflux from 'reflux';
 
+import recipeActions from 'actions/recipe';
+
 export default Reflux.createStore( {
 
     store: {
+        name: '',
+        notes: '',
+
         oils: [],
         weights: {},
         recipe: {},
@@ -15,6 +20,10 @@ export default Reflux.createStore( {
         totalUom: 'gram',
         superFat: 5,
         waterRatio: 38
+    },
+
+    init() {
+        this.listenTo( recipeActions.setNotes, setNotes.bind( this ) );
     },
 
     getInitialState() {
@@ -330,4 +339,9 @@ function conversions() {
         pound: 0.00220462,
         ounce: 0.035274
     };
+}
+
+function setNotes( notes ) {
+    this.store.notes = notes;
+    doTrigger.call( this );
 }

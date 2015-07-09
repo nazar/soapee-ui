@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react/addons';
 import Reflux from 'reflux';
 
-import formRadioHandlers from 'mixins/formLinkHandlers';
+import formLinkHandlers from 'mixins/formLinkHandlers';
 
 import recipeStore from 'stores/recipe';
 import recipeActions from 'actions/recipe';
@@ -22,7 +22,7 @@ export default React.createClass( {
     mixins: [
         Reflux.connect( recipeStore, 'recipe' ),
         React.addons.LinkedStateMixin,
-        formRadioHandlers
+        formLinkHandlers
     ],
 
     getInitialState() {
@@ -303,20 +303,11 @@ export default React.createClass( {
         return this.state.recipe.soapType === 'koh';
     },
 
-    saveRecipe( data ) {
-        this.setNameNotes( data );
+    saveRecipe() {
         recipeActions.createRecipe( this.state.recipe );
     },
 
-    printRecipe( data ) {
-        this.setNameNotes( data );
-    },
-
-    setNameNotes( data ) {
-        this.setState( _.extend( this.state.recipe, {
-            name: data.name,
-            notes: data.notes
-        } ) );
+    printRecipe() {
     }
 
 } );
