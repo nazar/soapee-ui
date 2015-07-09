@@ -226,7 +226,10 @@ export default React.createClass( {
                             </div>
                         </div>
                         <div className="row">
-                            <FormSaveRecipe />
+                            <FormSaveRecipe
+                                onSave={this.saveRecipe}
+                                onPrint={this.printRecipe}
+                                />
                         </div>
                     </div>
                 }
@@ -300,8 +303,20 @@ export default React.createClass( {
         return this.state.recipe.soapType === 'koh';
     },
 
-    saveRecipe() {
+    saveRecipe( data ) {
+        this.setNameNotes( data );
         recipeActions.createRecipe( this.state.recipe );
+    },
+
+    printRecipe( data ) {
+        this.setNameNotes( data );
+    },
+
+    setNameNotes( data ) {
+        this.setState( _.extend( this.state.recipe, {
+            name: data.name,
+            notes: data.notes
+        } ) );
     }
 
 } );

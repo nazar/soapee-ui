@@ -8,6 +8,9 @@ export function createRecipe( recipe ) {
     let packet;
 
     packet = {
+        name: recipe.name,
+        notes: recipe.notes,
+
         kohPurity: recipe.kohPurity,
         soapType: recipe.soapType,
         superFat: recipe.superFat,
