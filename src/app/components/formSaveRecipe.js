@@ -37,7 +37,7 @@ export default React.createClass( {
             <div className="form-save-recipe">
                 <form className="form-horizontal" onSubmit={ (e) => e.preventDefault() }>
                     <fieldset>
-                        <h4>Save recipe?</h4>
+                        <legend>Save recipe?</legend>
 
                         <div className="col-md-6">
                             <div className={nameClasses}  >

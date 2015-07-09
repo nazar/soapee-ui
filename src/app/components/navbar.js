@@ -3,6 +3,7 @@ import cx from 'classnames';
 import {Link, State} from 'react-router';
 
 import NavLink from 'components/navLink';
+import PortalSignup from 'components/portalSignup';
 
 //import authStore from 'stores/authStore';
 
@@ -11,16 +12,6 @@ export default React.createClass( {
     mixins: [
         State
     ],
-
-    getInitialState() {
-        return {
-            loggedIn: false
-        };
-    },
-
-    activeClassForTo( to ) {
-        return cx( { active: this.isActive( to ) } );
-    },
 
     render() {
         return (
@@ -43,13 +34,17 @@ export default React.createClass( {
                         </ul>
 
                         <ul className="nav navbar-nav navbar-right">
-                            <li><a href="#/login">Login</a></li>
-                            <li><a href="#/login">Signup</a></li>
+                            <NavLink to="login">Login</NavLink>
+                            <NavLink to="signup">Signup</NavLink>
                         </ul>
                     </div>
                 </div>
             </nav>
         );
+    },
+
+    activeClassForTo( to ) {
+        return cx( { active: this.isActive( to ) } );
     }
 
 } );

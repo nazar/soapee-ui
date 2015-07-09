@@ -8,7 +8,7 @@ import recipeStore from 'stores/recipe';
 import recipeActions from 'actions/recipe';
 
 import FormSaveRecipe from 'components/formSaveRecipe';
-import ListOilsSelected from 'components/listOilsSelector';
+import ListOilsSelector from 'components/listOilsSelector';
 import ListOilsRecipe from 'components/listOilsRecipe';
 import PropertiesOil from 'components/propertiesOil';
 import RecipeBreakdown from 'components/recipeBreakdown';
@@ -149,7 +149,7 @@ export default React.createClass( {
                                 </div>
                                 <h3 className="panel-title">5 - Select Oils</h3>
                             </div>
-                            <ListOilsSelected
+                            <ListOilsSelector
                                 onSelectedOil={this.selectedOil}
                                 onAddedOil={this.addOil}
                                 />
@@ -191,6 +191,7 @@ export default React.createClass( {
 
                 { recipeStore.countWeights() > 0 &&
                     <div>
+                        <legend>Recipe</legend>
                         <div className="row">
                             <div className="col-md-4 col-sm-6">
                                 <div className="panel panel-success">

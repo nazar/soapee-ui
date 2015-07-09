@@ -16,8 +16,10 @@ module.exports = function ( options ) {
             vendor: [
                 'bootstrap/dist/js/bootstrap.min.js',
                 'assets/css/theme.css',
+                'assets/css/animate.css',
                 'classnames',
                 'jquery',
+                'lib/animatedModal.js',
                 'load-script',
                 'lodash',
                 'griddle-react',
