@@ -1,0 +1,89 @@
+/*global gapi*/
+
+import when from 'when';
+import load from 'load-script';
+import config from 'config';
+
+// define googleAuth as a module var as Chrome seems to hang if it is
+// returned in initialiseSdk after the gapi initi call
+//  return gapi.auth2.init( {
+//      client_id: config.auth.googleClientId,
+//      scope: 'profile'
+//  } );
+// might be a when issue....
+
+let googleAuth;
+
+export default function authenticate( doLogin ) {
+
+    return loadGooglePlatformSdk()
+        .then( loadAuth2Sdk )
+        .then( initialiseSdk )
+        .then( authoriseUser )
+        .then( extractUserInfo );
+
+
+    function loadGooglePlatformSdk() {
+        return when.promise( ( resolve, reject ) => {
+            if ( typeof gapi === 'undefined' ) {
+                load( 'https://apis.google.com/js/platform.js', { attrs: { defer: 'defer' } }, () => {
+                    resolve();
+                } );
+            } else {
+                resolve();
+            }
+        } );
+    }
+
+    function loadAuth2Sdk() {
+        return when.promise( resolve => {
+            gapi.load( 'auth2', resolve );
+        } );
+
+    }
+
+    function initialiseSdk() {
+        if ( !googleAuth ) {
+            googleAuth = gapi.auth2.init( {
+                client_id: config.auth.googleClientId,
+                scope: 'profile'
+            } );
+        }
+    }
+
+    function authoriseUser() {
+        return when.promise( ( resolve, reject ) => {
+            googleAuth.then( () => {
+                if ( googleAuth.isSignedIn.get() ) {
+                    resolve( googleAuth.currentUser.get() );
+                } else {
+                    if ( doLogin ) {
+                        when( googleAuth.signIn() )
+                            .then( getCurrentUser )
+                            .then( resolve )
+                            .catch( reject );
+                    } else {
+                        reject();
+                    }
+
+                }
+            } );
+        } );
+
+
+        function getCurrentUser(  ) {
+            return googleAuth.currentUser.get();
+        }
+    }
+
+    function extractUserInfo( googleUser ) {
+        let basicProfile = googleUser.getBasicProfile();
+
+        return {
+            id: basicProfile.getId(),
+            name: basicProfile.getName(),
+            imageUrl: basicProfile.getImageUrl()
+        };
+    }
+
+}

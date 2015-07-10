@@ -1,7 +1,7 @@
 /*=========================================
  * animatedModal.js: Version 1.0
  * author: João Pereira
- * website: http://www.joaopereira.pt
+ * website: http://www.joaopereira.pt  - http://joaopereirawd.github.io/animatedModal.js
  * email: joaopereirawd@gmail.com
  * Licensed MIT
  =========================================*/

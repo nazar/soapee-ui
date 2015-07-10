@@ -2,7 +2,6 @@
 require( '../assets/main.css' );
 
 import React from 'react';
-import Reflux from 'reflux';
 import Router from 'react-router';
 
 import routes from './routes';

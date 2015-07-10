@@ -24,8 +24,6 @@ export function createRecipe( recipe ) {
         summary: recipe.summary
     };
 
-    console.log( 'packet', packet );
-
     return when(
         post( baseUrl( 'recipes' ), {
             params: packet

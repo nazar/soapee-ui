@@ -3,7 +3,6 @@ import cx from 'classnames';
 import {Link, State} from 'react-router';
 
 import NavLink from 'components/navLink';
-import PortalSignup from 'components/portalSignup';
 
 //import authStore from 'stores/authStore';
 
