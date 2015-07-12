@@ -39,7 +39,7 @@ export default React.createClass( {
 
     googleSignin() {
         authGoogle( true )
-            .then( thirdPartySignup( 'facebook' ) ).bind( this );
+            .then( thirdPartySignup( 'google' ).bind( this ) );
     }
 
 } );

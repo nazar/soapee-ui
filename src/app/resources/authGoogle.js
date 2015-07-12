@@ -20,7 +20,7 @@ export default function authenticate( doLogin ) {
         .then( loadAuth2Sdk )
         .then( initialiseSdk )
         .then( authoriseUser )
-        .then( extractUserInfo );
+        .then( extractAccessToken );
 
 
     function loadGooglePlatformSdk() {
@@ -55,11 +55,11 @@ export default function authenticate( doLogin ) {
         return when.promise( ( resolve, reject ) => {
             googleAuth.then( () => {
                 if ( googleAuth.isSignedIn.get() ) {
-                    resolve( googleAuth.currentUser.get() );
+                    resolve( getGoogleUserAuthResponse() );
                 } else {
                     if ( doLogin ) {
                         when( googleAuth.signIn() )
-                            .then( getCurrentUser )
+                            .then( getGoogleUserAuthResponse )
                             .then( resolve )
                             .catch( reject );
                     } else {
@@ -71,19 +71,13 @@ export default function authenticate( doLogin ) {
         } );
 
 
-        function getCurrentUser(  ) {
-            return googleAuth.currentUser.get();
+        function getGoogleUserAuthResponse() {
+            return googleAuth.currentUser.get().getAuthResponse();
         }
     }
 
-    function extractUserInfo( googleUser ) {
-        let basicProfile = googleUser.getBasicProfile();
-
-        return {
-            id: basicProfile.getId(),
-            name: basicProfile.getName(),
-            imageUrl: basicProfile.getImageUrl()
-        };
+    function extractAccessToken( response ) {
+        return response.access_token;
     }
 
 }

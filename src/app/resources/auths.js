@@ -3,12 +3,12 @@ import when from 'when';
 import {post} from 'utils/http';
 import baseUrl from 'utils/baseUrl';
 
-export function signupOrLoginThirdParty( provider, userDetails ) {
+export function signupOrLoginThirdParty( provider, accessToken ) {
     return when(
         post( baseUrl( 'auths' ), {
             params: {
                 provider,
-                userDetails
+                accessToken
             }
         } )
     );

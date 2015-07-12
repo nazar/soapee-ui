@@ -9,7 +9,7 @@ export default function authenticate( doLogin ) {
     return loadFacebookSdk()
         .then( initialiseSdk )
         .then( authoriseUser )
-        .then( extractUserInfo );
+        .then( extractAccessToken );
 
 
     function loadFacebookSdk() {
@@ -37,11 +37,11 @@ export default function authenticate( doLogin ) {
 
             FB.getLoginStatus( response => {
                 if ( response.status === 'connected' ) {
-                    FB.api( 'me', resolve );
+                    resolve( response );
                 } else if ( doLogin ) {
                     FB.login( response => {
                         if ( response.authResponse ) {
-                            FB.api( 'me', resolve );
+                            resolve( response);
                         } else {
                             reject();
                         }
@@ -54,12 +54,8 @@ export default function authenticate( doLogin ) {
         } );
     }
 
-    function extractUserInfo( response ) {
-        return {
-            id: response.id,
-            name: response.name,
-            imageUrl: 'https://graph.facebook.com/' + response.id + '/picture'
-        };
+    function extractAccessToken( response ) {
+        return response.authResponse.accessToken;
     }
 
 }
