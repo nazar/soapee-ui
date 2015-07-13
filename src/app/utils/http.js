@@ -1,25 +1,25 @@
 import when from 'when';
 
 export function get( url, options = {} ) {
-    return ajax( url, 'GET', options.params );
+    return ajax( url, 'GET', options );
 }
 
 export function post( url, options = {} ) {
-    return ajax( url, 'POST', options.params );
+    return ajax( url, 'POST', options );
 }
 
 export function put( url, options = {} ) {
-    return ajax( url, 'PUT', options.params );
+    return ajax( url, 'PUT', options );
 }
 
 
 ///////////
 //// PRIVATE
 
-function ajax( url, verb, data ) {
+function ajax( url, verb, options ) {
     let ajaxData;
 
-    ajaxData = verb === 'GET' ? data : JSON.stringify( data );
+    ajaxData = verb === 'GET' ? options.params : JSON.stringify( options.params );
 
     return when(
         $.ajax( {
@@ -30,6 +30,9 @@ function ajax( url, verb, data ) {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
+            },
+            xhrFields: {
+                withCredentials: true
             }
         } )
     );

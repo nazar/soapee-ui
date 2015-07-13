@@ -109,7 +109,7 @@ export default Reflux.createStore( {
         if ( this.isPercentRecipe() ) {
             totalOilWeight = this.store.totalWeight;
         } else {
-            totalOilWeight = _.get( this.store, 'recipe.totals.totalOilWeight' );
+            totalOilWeight = _.get( this.store, 'summary.totals.totalOilWeight' );
         }
 
         if ( totalOilWeight ) {

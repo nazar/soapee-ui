@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 
 import authFacebook from 'resources/authFacebook';
@@ -7,11 +8,20 @@ import authActions from 'actions/auth';
 
 export default React.createClass( {
 
+    getInitialState() {
+        return {
+            disabledButtons: {
+                facebook: false,
+                google: false
+            }
+        };
+    },
+
     render() {
         return (
             <div className="media-signin-buttons">
                 <div className="action-button">
-                    <button className="btn btn-primary link-signup" onClick={this.googleSignin}>
+                    <button className="btn btn-primary link-signup" onClick={this.googleSignin} {...this.isButtonDisabled('google')}>
                         <span className="logo">
                             <i className="fa fa-google-plus"></i>
                         </span>
@@ -20,7 +30,7 @@ export default React.createClass( {
                 </div>
 
                 <div className="action-button">
-                    <button className="btn btn-primary link-signup" onClick={this.facebookSignin}>
+                    <button className="btn btn-primary link-signup" onClick={this.facebookSignin} {...this.isButtonDisabled('facebook')}>
                         <span className="logo">
                             <i className="fa fa-facebook"></i>
                         </span>
@@ -33,23 +43,57 @@ export default React.createClass( {
     },
 
     facebookSignin() {
+        this.disableButton( 'facebook' );
+
         authFacebook( true )
-            .then( thirdPartySignup( 'facebook' ).bind( this ) );
+            .then( this.thirdPartySignup( 'facebook' ) )
+            .finally( this.enableButton( 'facebook' ) );
     },
 
     googleSignin() {
+        this.disableButton( 'google' );
+
         authGoogle( true )
-            .then( thirdPartySignup( 'google' ).bind( this ) );
+            .then( this.thirdPartySignup( 'google' ) )
+            .finally( this.enableButton( 'google' ) );
+
+    },
+
+    isButtonDisabled( button ) {
+        if ( this.state.disabledButtons[ button ]) {
+            return {
+                disabled: 'disabled'
+            };
+        }
+    },
+
+
+    disableButton( button ) {
+        this.setButtonStateFor( button, true );
+    },
+
+    enableButton( button ) {
+        return () => {
+            this.setButtonStateFor( button, false );
+        };
+    },
+
+    setButtonStateFor( provider, disabled ) {
+        let newState;
+
+        newState = _.merge( this.state,  {
+            disabledButtons: {
+                [ provider ]: disabled
+            }
+        } );
+
+        this.setState( newState );
+    },
+
+    thirdPartySignup( provider ) {
+        return userDetails => {
+            return authActions.signupOrLoginThirdParty( provider, userDetails );
+        };
     }
 
 } );
-
-
-/////////////////////////
-//// private
-
-function thirdPartySignup( provider ) {
-    return userDetails => {
-        return authActions.signupOrLoginThirdParty( provider, userDetails );
-    };
-}

@@ -5,10 +5,13 @@ import Login from 'views/login';
 import Signup from 'views/signup';
 
 import Application from 'views/application';
-import MainLanding from 'views/mainLanding';
+import Account from 'views/account';
 import Calculator from 'views/calculator';
-import Recipes from 'views/recipes';
+import Logout from 'views/logout';
+import MainLanding from 'views/mainLanding';
 import Oils from 'views/oils';
+import Profile from 'views/profile';
+import Recipes from 'views/recipes';
 
 
 let routes = (
@@ -18,10 +21,16 @@ let routes = (
 
         <Route name="login" handler={Login} />
         <Route name="signup" handler={Signup} />
+        <Route name="logout" handler={Logout} />
 
         <Route name="calculator" handler={Calculator} />
         <Route name="recipes" handler={Recipes} />
         <Route name="oils" handler={Oils} />
+
+        <Route name="account" path="/my" handler={Account}>
+            <Route name="profile" handler={Profile} />
+        </Route>
+
 
     </Route>
 );

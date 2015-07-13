@@ -1,10 +1,22 @@
 import React from 'react';
+import Reflux from 'reflux';
+import { Navigation } from 'react-router';
 
 import MediaSigninButtons from 'components/mediaSigninButtons';
+import authStore from 'stores/auth';
 
 export default React.createClass( {
 
+    mixins: [
+        Navigation,
+        Reflux.connect( authStore, 'auth' )
+    ],
+
     render() {
+        if ( authStore.isAuthenticated() ) {
+            this.replaceWith( 'profile' );
+        }
+
         return (
             <div id="signup">
 

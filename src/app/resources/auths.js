@@ -1,7 +1,13 @@
 import when from 'when';
 
-import {post} from 'utils/http';
+import { post, get } from 'utils/http';
 import baseUrl from 'utils/baseUrl';
+
+export function getCurrentUser() {
+    return when(
+        get( baseUrl( 'auths/current-user' ) )
+    );
+}
 
 export function signupOrLoginThirdParty( provider, accessToken ) {
     return when(
@@ -36,5 +42,11 @@ export function loginLocal( username, password ) {
                 password
             }
         } )
+    );
+}
+
+export function logout() {
+    return when(
+        post( baseUrl( 'auths/logout' ) )
     );
 }

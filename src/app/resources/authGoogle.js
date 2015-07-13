@@ -5,7 +5,7 @@ import load from 'load-script';
 import config from 'config';
 
 // define googleAuth as a module var as Chrome seems to hang if it is
-// returned in initialiseSdk after the gapi initi call
+// returned in initialiseSdk after the gapi initi call... i.e.
 //  return gapi.auth2.init( {
 //      client_id: config.auth.googleClientId,
 //      scope: 'profile'
@@ -24,7 +24,7 @@ export default function authenticate( doLogin ) {
 
 
     function loadGooglePlatformSdk() {
-        return when.promise( ( resolve, reject ) => {
+        return when.promise( ( resolve ) => {
             if ( typeof gapi === 'undefined' ) {
                 load( 'https://apis.google.com/js/platform.js', { attrs: { defer: 'defer' } }, () => {
                     resolve();
