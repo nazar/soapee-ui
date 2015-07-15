@@ -56,6 +56,10 @@ export default React.createClass( {
     },
 
     signup( payload ) {
+        this.setState( {
+            errors: {}
+        } );
+
         validateSignup.call( this, payload )
             .then( signupLocal.bind( this ) )
             .catch( setErrors.bind( this ) );

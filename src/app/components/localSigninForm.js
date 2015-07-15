@@ -20,11 +20,11 @@ export default React.createClass( {
 
         usernameCx = cx( 'form-group', {
             'has-error': this.props.errors.username,
-            'has-success': !(this.props.errors.username)
+            'has-success': this.state.username && !(this.props.errors.username)
         } );
         passwordCx = cx( 'form-group', {
             'has-error': this.props.errors.password,
-            'has-success': !(this.props.errors.password)
+            'has-success': this.state.password && !(this.props.errors.password)
         } );
 
         return (
@@ -38,7 +38,7 @@ export default React.createClass( {
                                valueLink={this.linkState( 'username' )}
                             />
                         { this.props.errors.username &&
-                        <span className="label label-danger">{ this.props.errors.username[ 0 ]}</span>
+                            <span className="label label-danger animate bounceIn">{ this.props.errors.username[ 0 ]}</span>
                         }
                     </div>
                     <div className={passwordCx}>
@@ -48,7 +48,7 @@ export default React.createClass( {
                                valueLink={this.linkState( 'password' )}
                             />
                         { this.props.errors.password &&
-                        <span className="label label-danger">{ this.props.errors.password[ 0 ]}</span>
+                            <span className="label label-danger animate bounceIn">{ this.props.errors.password[ 0 ]}</span>
                         }
                     </div>
 

@@ -15,7 +15,8 @@ export default Reflux.createStore( {
         this.listenTo( authActions.logout.completed, loggedOut.bind( this ) );
 
         getCurrentUser()
-            .then( authenticated.bind( this ) );
+            .then( authenticated.bind( this ) )
+            .catch( swallowIfNotAuthorised );
     },
 
     getInitialState() {
@@ -57,4 +58,10 @@ function loggedOut() {
 
 function doTrigger() {
     this.trigger( this.store );
+}
+
+function swallowIfNotAuthorised( e ) {
+    if ( e.status !== 401 ) {
+        throw e;
+    }
 }
