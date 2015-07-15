@@ -16,6 +16,8 @@ import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
 import RecipeTotals from 'components/recipeTotals';
 
+import SelectOils from 'modals/selectOils';
+
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default React.createClass( {
@@ -110,7 +112,7 @@ export default React.createClass( {
                                                placeholder="%"
                                                valueLink={ this.linkStore( recipeStore, 'waterRatio' ) }
                                             />
-                                        <span> % water as a percent of oils - recommended 33%-38% .</span>
+                                        <span> % water as a percent of oils - recommended 33%-38% for solid soaps</span>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +147,9 @@ export default React.createClass( {
                             <div className="panel-heading">
                                 <div className="btn-toolbar pull-right">
                                     <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
-                                    <button onClick={this.lookupOils} className="pull-right btn btn-xs btn-default"><i className="fa fa-search-plus"></i></button>
+                                    <SelectOils
+                                        elementToClick={<button className="btn btn-xs btn-default"><i className="fa fa-search-plus"></i></button>}
+                                        />
                                 </div>
                                 <h3 className="panel-title">5 - Select Oils</h3>
                             </div>

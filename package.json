@@ -7,7 +7,6 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "mcnazar@gmail.com",
-    "license": "Pubic Domain",
     "dependencies": {
         "bootstrap": "3.3.5",
         "checkit": "0.5.1",
@@ -22,16 +21,16 @@
         "react-ga": "1.0.12",
         "react-portal": "0.6.0",
         "react-router": "0.13.3",
-        "reflux": "0.2.8",
-        "scribe-editor" :"1.4.13",
+        "reflux": "0.2.9",
+        "scribe-editor" :"1.4.14",
         "scribe-plugin-sanitizer": "0.1.9",
         "scribe-plugin-toolbar": "0.2.0",
         "when": "3.7.3"
     },
     "devDependencies": {
-        "babel-loader": "5.3.1",
+        "babel-loader": "5.3.2",
         "compression-webpack-plugin": "0.2.0",
-        "css-loader": "0.15.2",
+        "css-loader": "0.15.4",
         "file-loader": "0.8.4",
         "gulp": "3.9.0",
         "gulp-clean": "0.3.1",
