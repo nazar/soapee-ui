@@ -69,6 +69,7 @@ module.exports = function ( options ) {
                 mocks: pathAppTo( 'mocks' ),
                 modals: pathAppTo( 'modals' ),
                 resources: pathAppTo( 'resources' ),
+                services: pathAppTo( 'services' ),
                 stores: pathAppTo( 'stores' ),
                 views: pathAppTo( 'views' ),
                 utils: pathAppTo( 'utils' ),

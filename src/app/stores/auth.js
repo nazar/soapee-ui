@@ -10,6 +10,8 @@ export default Reflux.createStore( {
 
     init() {
         this.listenTo( authActions.signupOrLoginThirdParty.completed, authenticated.bind( this ) );
+        this.listenTo( authActions.signupLocal.completed, authenticated.bind( this ) );
+        this.listenTo( authActions.loginLocal.completed, authenticated.bind( this ) );
         this.listenTo( authActions.logout.completed, loggedOut.bind( this ) );
 
         getCurrentUser()

@@ -3,7 +3,12 @@ import { Navigation } from 'react-router';
 import Reflux from 'reflux';
 
 import MediaSigninButtons from 'components/mediaSigninButtons';
+import LocalSigninForm from 'components/localSigninForm';
+
+import ValidateLoginFields from 'services/validateLoginFields';
+
 import authStore from 'stores/auth';
+import authActions from 'actions/auth';
 
 export default React.createClass( {
 
@@ -12,6 +17,11 @@ export default React.createClass( {
         Reflux.connect( authStore, 'auth' )
     ],
 
+    getInitialState() {
+        return {
+            errors: {}
+        };
+    },
 
     render() {
         if ( authStore.isAuthenticated() ) {
@@ -26,22 +36,11 @@ export default React.createClass( {
 
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
-                            <div className="signup-options text-center form">
-                                <div className="form-group">
-                                    <input type="text"
-                                           className="form-control"
-                                           placeholder="Your Username"
-                                        />
-                                </div>
-                                <div className="form-group">
-                                    <input type="text"
-                                           className="form-control"
-                                           placeholder="Your Password"
-                                        />
-                                </div>
-
-                                <button className="btn btn-lg btn-primary btn-signup">Sign in</button>
-                            </div>
+                            <LocalSigninForm
+                                buttonCaption="Sign In"
+                                errors={ this.state.errors }
+                                onButtonClick={this.login}
+                                />
 
                             <div className="strike"><span className="or">OR</span></div>
 
@@ -53,6 +52,39 @@ export default React.createClass( {
 
             </div>
         );
+    },
+
+    login( payload ) {
+        validateLogin.call( this, payload )
+            .then( loginLocal.bind( this ) )
+            .catch( setErrors.bind( this ) );
     }
 
 } );
+
+
+//////////////////////
+
+function validateLogin( payload ) {
+    return new ValidateLoginFields( {
+        username: payload.username,
+        password: payload.password
+    } )
+        .execute();
+}
+
+function loginLocal( payload ) {
+    return authActions.loginLocal( payload.username, payload.password );
+}
+
+function setErrors( e ) {
+    if ( e.name === 'CheckitError' ) {
+        this.setState( {
+            errors: e.toJSON()
+        } );
+    } else if ( e.status === 422 ) {
+        this.setState( {
+            errors: e.responseJSON.fields
+        } );
+    }
+}

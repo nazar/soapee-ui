@@ -50,3 +50,9 @@ export function logout() {
         post( baseUrl( 'auths/logout' ) )
     );
 }
+
+export function usernameExists( username ) {
+    return when(
+        get( baseUrl( `auths/users/${username}/exists` ) )
+    );
+}

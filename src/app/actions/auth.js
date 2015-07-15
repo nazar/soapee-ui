@@ -12,7 +12,7 @@ let actions = Reflux.createActions( {
     signupOrLoginThirdParty: { asyncResult: true },
     signupLocal: { asyncResult: true },
     loginLocal: { asyncResult: true },
-    logout: { asyncResult: true },
+    logout: { asyncResult: true }
 } );
 
 export default actions;
