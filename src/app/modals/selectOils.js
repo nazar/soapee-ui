@@ -1,14 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
-import Portal from 'react-portal';
 import Griddle from 'griddle-react';
 import cx from 'classnames';
 
-import BootstrapModal from 'components/bootstrapModal';
-
 import oilsStore from 'stores/oils';
-import recipeStore from 'stores/recipe';
 
 export default React.createClass({
 
@@ -24,50 +20,32 @@ export default React.createClass({
 
     render() {
         return (
-            <Portal
-                openByClickOn={this.props.elementToClick}
-                closeOnEsc={false}
-                closeOnOutsideClick={false}
-                >
-                <BootstrapModal
-                    largeModal={true}
-                    title="Select Oils to add to your recipe"
-                    registerCloseFunction={this.registerCloseFunction}
-                    >
-                    <div className="modal-body">
-                        <div className="grid-oil">
-                            {this.renderColumnButtons()}
-                            <div className="table-responsive">
-                                <Griddle
-                                    results={this.oilsForGrid()}
-                                    tableClassName="table table-striped table-hover table-bordered table-condensed"
-                                    columns={ this.getViewColumns() }
-                                    useGriddleStyles={false}
-                                    showFilter={true}
-                                    showSettings={true}
-                                    initialSort="name"
-                                    resultsPerPage="150"
-                                    settingsText="Select Columns"
-                                    settingsToggleClassName="btn btn-default btn-sm"
-                                    />
-                            </div>
+            <div className="select-oils">
+                <div className="modal-body">
+                    <div className="grid-oil">
+                        {this.renderColumnButtons()}
+                        <div className="table-responsive">
+                            <Griddle
+                                results={this.oilsForGrid()}
+                                tableClassName="table table-striped table-hover table-bordered table-condensed"
+                                columns={ this.getViewColumns() }
+                                useGriddleStyles={false}
+                                showFilter={true}
+                                showSettings={true}
+                                initialSort="name"
+                                resultsPerPage="150"
+                                settingsText="Select Columns"
+                                settingsToggleClassName="btn btn-default btn-sm"
+                                />
                         </div>
                     </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-default" onClick={this.close}>Cancel</button>
-                        <button type="button" className="btn btn-primary">Add Oils</button>
-                    </div>
-                </BootstrapModal>
-            </Portal>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-default" onClick={this.props.closeModal}>Cancel</button>
+                    <button type="button" className="btn btn-primary">Add Oils</button>
+                </div>
+            </div>
         );
-    },
-
-    registerCloseFunction( closeFunc ) {
-        this.closeFunc = closeFunc;
-    },
-
-    close() {
-        this.closeFunc();
     },
 
     renderColumnButtons() {

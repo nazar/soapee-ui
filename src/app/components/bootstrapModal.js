@@ -1,15 +1,6 @@
 import React, {findDOMNode} from 'react';
 import cx from 'classnames';
 
-/**
- * WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
- *
- * Bootstrap modal must be supplied a registerCloseFunction prop, which registers the close action for the modal child
- * This cannot be reliably passed down as an indeterminate number of children could be defined under this component
- *
- * WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
- */
-
 export default React.createClass( {
 
     getInitialState() {
@@ -30,7 +21,7 @@ export default React.createClass( {
             .bind( 'mousedown', this.handleMouseClickOutside )
             .bind( 'keyup', this.handleEscapeKey );
 
-        this.props.registerCloseFunction && this.props.registerCloseFunction( this.animatedClose );
+        this.props.registerCloseFunction( this.animatedClose );
     },
 
     componentWillUnmount() {
@@ -49,7 +40,6 @@ export default React.createClass( {
             'modal-lg': this.props.largeModal,
             'modal-sm': this.props.smallModal
         } );
-        console.log('bootstrapModal props', this.props );
 
         return (
             <div className="bootstrap-modal">
@@ -87,7 +77,8 @@ export default React.createClass( {
         if ( isNodeInRoot( e.target, findDOMNode( this.refs.content ) ) ) {
             return;
         }
-        //account for clicking on scrollbar if modal exceeds window height
+
+        //account for clicking on scroll bar if modal exceeds window height
         if ( ($( 'body' ).width() - e.pageX) <= getScrollBarWidth() ) {
             return;
         }

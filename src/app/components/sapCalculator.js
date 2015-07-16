@@ -17,6 +17,7 @@ import RecipeProperties from 'components/recipeProperties';
 import RecipeTotals from 'components/recipeTotals';
 
 import SelectOils from 'modals/selectOils';
+import BootstrapModalLink from 'components/bootstrapModalLink';
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -147,8 +148,9 @@ export default React.createClass( {
                             <div className="panel-heading">
                                 <div className="btn-toolbar pull-right">
                                     <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
-                                    <SelectOils
+                                    <BootstrapModalLink
                                         elementToClick={<button className="btn btn-xs btn-default"><i className="fa fa-search-plus"></i></button>}
+                                        modal={SelectOils}
                                         />
                                 </div>
                                 <h3 className="panel-title">5 - Select Oils</h3>
