@@ -16,7 +16,7 @@ export default React.createClass({
                 >
                 <BootstrapModal
                     largeModal={true}
-                    title="Select Oils to add to your recipe"
+                    title={this.props.title}
                     registerCloseFunction={this.registerCloseFunction}
                     >
                     <Modal

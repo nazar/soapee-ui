@@ -7,6 +7,7 @@ import cx from 'classnames';
 import oilsStore from 'stores/oils';
 
 import GriddlePager from 'components/griddlePager';
+import Spinner from 'components/spinner';
 
 
 export default React.createClass( {
@@ -17,12 +18,12 @@ export default React.createClass( {
 
     getInitialState() {
         return {
-            gridColumns: 'fats'
+            gridColumns: 'fats-common'
         };
     },
 
     render() {
-        let data = this.oilsForGrid();
+        let data = oilsStore.getFlatOilProperties();
 
         if ( data.length ) {
             return (
@@ -47,12 +48,12 @@ export default React.createClass( {
                 </div>
             );
         } else {
-            return <div></div>;
+            return <Spinner />;
         }
     },
 
     renderColumnButtons() {
-        let fattyClass    = cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'fats' } );
+        let fattyClass    = cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'fats-common' } );
         let fattyAllClass = cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'fats-all' } );
         let propClass     =  cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'properties' } );
 
@@ -60,7 +61,7 @@ export default React.createClass( {
             <div className="toolbar">
                 <div className="text-right">
                     <button className={propClass} onClick={this.switchViewTo('properties')} ><i className="fa fa-bullseye"></i>Properties</button>
-                    <button className={fattyClass} onClick={this.switchViewTo('fats')}><i className="fa fa-bars"></i>Fatty Acids - Common</button>
+                    <button className={fattyClass} onClick={this.switchViewTo('fats-common')}><i className="fa fa-bars"></i>Fatty Acids - Common</button>
                     <button className={fattyAllClass} onClick={this.switchViewTo('fats-all')}><i className="fa fa-bars"></i>Fatty Acids - All</button>
                 </div>
             </div>
@@ -76,46 +77,9 @@ export default React.createClass( {
     },
 
     getViewColumns() {
-        let columns = {
-            simply: [ 'name', 'sap' ],
-            fats: [ 'name', 'sap', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic'  ],
-            'fats-all': [ 'name', 'sap', 'capric', 'caprylic', 'docosadienoic', 'docosenoid', 'eicosenoic', 'erucic', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic' ],
-            properties: [ 'name', 'sap', 'bubbly', 'cleansing', 'condition', 'hardness', 'stability' ]
-        };
+        let columns = oilsStore.oilPropertyGroupings();
 
         return columns[ this.state.gridColumns ];
-    },
-
-    oilsForGrid() {
-        return _.map( this.state.oils, oil => {
-            return {
-                name: oil.name,
-                sap: oil.sap,
-                iodine: oil.iodione,
-                ins: oil.ins,
-
-                bubbly: oil.properties.bubbly,
-                cleansing: oil.properties.cleansing,
-                condition: oil.properties.condition,
-                hardness: oil.properties.hardness,
-                stability: oil.properties.stable,
-
-                capric: oil.breakdown.capric || 0,
-                caprylic: oil.breakdown.caprylic || 0,
-                docosadienoic: oil.breakdown.docosadienoic || 0,
-                docosenoid: oil.breakdown.docosenoid || 0,
-                eicosenoic: oil.breakdown.eicosenoic || 0,
-                erucic: oil.breakdown.erucic || 0,
-                lauric: oil.breakdown.lauric || 0,
-                linoleic: oil.breakdown.linoleic || 0,
-                linolenic: oil.breakdown.linolenic || 0,
-                myristic: oil.breakdown.myristic || 0,
-                oleic: oil.breakdown.oleic || 0,
-                palmitic: oil.breakdown.palmitic || 0,
-                ricinoleic: oil.breakdown.ricinoleic || 0,
-                stearic: oil.breakdown.stearic || 0
-            };
-        } );
     }
 
 } );

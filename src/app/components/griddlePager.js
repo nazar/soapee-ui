@@ -15,9 +15,10 @@ export default React.createClass( {
         var previous = '';
         var next = '';
         var pages = [];
+        var window = 11;
 
         var startIndex = Math.max( this.props.currentPage - 5, 0 );
-        var endIndex = Math.min( startIndex + 11, this.props.maxPage );
+        var endIndex = Math.min( startIndex + window, this.props.maxPage );
 
         if ( this.props.currentPage === 0 ) {
             previous = 'disabled';
@@ -27,8 +28,8 @@ export default React.createClass( {
             next = 'disabled';
         }
 
-        if ( this.props.maxPage >= 11 && (endIndex - startIndex) <= 10 ) {
-            startIndex = endIndex - 11;
+        if ( this.props.maxPage >= window && (endIndex - startIndex) <= 10 ) {
+            startIndex = endIndex - window;
         }
 
         for ( let i = startIndex; i < endIndex; i++ ) {
@@ -37,7 +38,7 @@ export default React.createClass( {
         }
 
         return (
-            <div className="row custom-pager">
+            <div className="custom-pager">
                 { pages.length > 1 &&
                     <div className="col-xs-12 text-center">
                         <ul className="pagination pagination-sm">

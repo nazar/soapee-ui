@@ -3,6 +3,8 @@ import Reflux from 'reflux';
 
 import recipeActions from 'actions/recipe';
 
+import oilsStore from 'stores/oils';
+
 export default Reflux.createStore( {
 
     store: {
@@ -55,21 +57,44 @@ export default Reflux.createStore( {
         return _.round( oil.sap / factors[ this.store.soapType ], 3 );
     },
 
-    addOil( oil ) {
-        this.store.oils = _.union( this.store.oils, [ oil ] );
+    setRecipeOilsByIds( oilIds ) {
+        let existingOilsIds = _.pluck( this.store.oils, 'id' );
+        let toRemoveOilsIds = _.difference( existingOilsIds, oilIds );
+        let toKeepIds = _.intersection( existingOilsIds, oilIds );
+        let toAdd = _.difference( oilIds, toKeepIds );
+
+        _.each( toRemoveOilsIds, oilId => {
+            let oil = _.find( this.store.oils, { id: Number( oilId ) } );
+            this.removeOil( oil, true );
+        } );
+
+        _.each( toAdd, oilId => {
+            let oil = oilsStore.getOilById( oilId );
+            this.addOil( oil, true );
+        } );
 
         this.calculateRecipe();
 
         doTrigger.call( this );
     },
 
-    removeOil( oil ) {
+    addOil( oil, skipUpdate = false ) {
+        this.store.oils = _.union( this.store.oils, [ oil ] );
+
+        if ( skipUpdate === false ) {
+            this.calculateRecipe();
+            doTrigger.call( this );
+        }
+    },
+
+    removeOil( oil, skipUpdate = false ) {
         this.store.oils = _.without( this.store.oils, oil );
         delete this.store.weights[ oil.id ];
 
-        this.calculateRecipe();
-
-        doTrigger.call( this );
+        if ( skipUpdate === false ) {
+            this.calculateRecipe();
+            doTrigger.call( this );
+        }
     },
 
     getOilWeight( oil ) {
@@ -121,7 +146,7 @@ export default Reflux.createStore( {
                 oil = _.find( this.store.oils, { id: Number( oilId ) } );
 
                 if ( this.isPercentRecipe() ) {
-                    ratio  =  weightOrRation / 100;
+                    ratio = weightOrRation / 100;
                     weight = totalOilWeight * ratio;
                 } else {
                     ratio = weightOrRation / totalOilWeight;
@@ -153,6 +178,10 @@ export default Reflux.createStore( {
 
     countOils() {
         return this.store.oils.length;
+    },
+
+    recipeOils() {
+        return this.store.oils;
     },
 
     calculateRecipe() {
@@ -266,7 +295,7 @@ function recipeOilProperties() {
             _.each( oil.properties, ( value, key ) => {
                 result[ key ] = ( result[ key ] || 0 ) + oil.properties[ key ] * ratio;
             } );
-            _.each( ['iodine', 'ins'], key => {
+            _.each( [ 'iodine', 'ins' ], key => {
                 result[ key ] = ( result[ key ] || 0 ) + oil[ key ] * ratio;
             } );
         } );

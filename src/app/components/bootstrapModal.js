@@ -49,7 +49,7 @@ export default React.createClass( {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <button type="button" className="close" onClick={this.animatedClose} aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                { this.props.title && <h4 className="modal-title">{this.props.title}</h4> }
+                                { this.props.title && <h5 className="modal-title">{this.props.title}</h5> }
                             </div>
                             { this.props.children }
                         </div>

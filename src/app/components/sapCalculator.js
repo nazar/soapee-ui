@@ -151,6 +151,7 @@ export default React.createClass( {
                                     <BootstrapModalLink
                                         elementToClick={<button className="btn btn-xs btn-default"><i className="fa fa-search-plus"></i></button>}
                                         modal={SelectOils}
+                                        title="Select Recipe Oils"
                                         />
                                 </div>
                                 <h3 className="panel-title">5 - Select Oils</h3>
