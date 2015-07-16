@@ -69,7 +69,7 @@ export default React.createClass( {
                             {this.renderColumnButtons()}
                             <div className="table-responsive">
                                 <Griddle
-                                    results={this.oilsForGrid()}
+                                    results={data}
                                     tableClassName="table table-striped table-hover table-bordered table-condensed"
                                     columns={ this.getViewColumns() }
                                     columnMetadata={ this.defineSelectedMetadata() }

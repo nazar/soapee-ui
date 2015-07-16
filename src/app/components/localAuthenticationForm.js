@@ -38,7 +38,7 @@ export default React.createClass( {
                                valueLink={this.linkState( 'username' )}
                             />
                         { this.props.errors.username &&
-                            <span className="label label-danger animate bounceIn">{ this.props.errors.username[ 0 ]}</span>
+                        <span className="label label-danger animate bounceIn">{ this.props.errors.username[ 0 ]}</span>
                         }
                     </div>
                     <div className={passwordCx}>
@@ -48,7 +48,7 @@ export default React.createClass( {
                                valueLink={this.linkState( 'password' )}
                             />
                         { this.props.errors.password &&
-                            <span className="label label-danger animate bounceIn">{ this.props.errors.password[ 0 ]}</span>
+                        <span className="label label-danger animate bounceIn">{ this.props.errors.password[ 0 ]}</span>
                         }
                     </div>
 

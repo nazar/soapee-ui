@@ -16,8 +16,8 @@ import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
 import RecipeTotals from 'components/recipeTotals';
 
-import SelectOils from 'modals/selectOils';
 import BootstrapModalLink from 'components/bootstrapModalLink';
+import SelectOils from 'modals/selectOils';
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -151,6 +151,7 @@ export default React.createClass( {
                                     <BootstrapModalLink
                                         elementToClick={<button className="btn btn-xs btn-default"><i className="fa fa-search-plus"></i></button>}
                                         modal={SelectOils}
+                                        large={true}
                                         title="Select Recipe Oils"
                                         />
                                 </div>
@@ -281,10 +282,6 @@ export default React.createClass( {
                 </div>
             );
         }
-    },
-
-    lookupOils( e ) {
-
     },
 
     addOil( e, oil ) {

@@ -61,7 +61,8 @@ export default React.createClass( {
 
     animatedClose() {
         $('body')
-            .removeClass( 'modal-open' );
+            .removeClass( 'modal-open' )
+            .css( { 'padding-right': '' } );
 
         setTimeout( () => {
             this.$modal.modal( 'hide' );

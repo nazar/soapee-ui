@@ -4,8 +4,12 @@ import cx from 'classnames';
 
 import recipeActions from 'actions/recipe';
 import recipeStore from 'stores/recipe';
+import authStore from 'stores/auth';
 import formLinkHandlers from 'mixins/formLinkHandlers';
+
 import TextEditor from 'components/textEditor';
+import BootstrapModalLink from 'components/bootstrapModalLink';
+import SignupOrLoginToSaveRecipe from 'modals/signupOrLoginToSaveRecipe';
 
 export default React.createClass( {
 
@@ -25,12 +29,8 @@ export default React.createClass( {
     },
 
     render() {
-        let nameClasses;
-        let nameMissing;
-
-        nameMissing = !(this.state.recipe.name);
-        nameClasses = cx( 'form-group', {
-            'has-error': nameMissing
+        let  nameClasses = cx( 'form-group', {
+            'has-error': !(this.state.recipe.name)
         } );
 
         return (
@@ -63,7 +63,7 @@ export default React.createClass( {
 
                         <div className="col-sm-12">
                             <div className="btn-toolbar">
-                                <button className="btn btn-primary" onClick={ this.saveRecipe } disabled={nameMissing}>Save Recipe</button>
+                                {this.renderSaveRecipeButton()}
                                 <button className="btn btn-primary" onClick={ this.printRecipe }>Print Recipe</button>
                             </div>
                         </div>
@@ -72,6 +72,22 @@ export default React.createClass( {
                 </form>
             </div>
         );
+    },
+
+    renderSaveRecipeButton() {
+        let nameMissing = !(this.state.recipe.name);
+
+        if ( authStore.isAuthenticated() ) {
+            return <button className="btn btn-primary" onClick={ this.saveRecipe } disabled={nameMissing}>Save Recipe</button>;
+        } else {
+            recipeActions.setNotes( this.notes );
+            return (
+                <BootstrapModalLink
+                    elementToClick={<button className="btn btn-primary" disabled={nameMissing}>Save Recipe</button>}
+                    modal={SignupOrLoginToSaveRecipe}
+                    />
+            );
+        }
     },
 
     setNotes( notes ) {

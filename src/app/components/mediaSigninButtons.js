@@ -17,6 +17,12 @@ export default React.createClass( {
         };
     },
 
+    getDefaultProps() {
+        return {
+            onAuthenticated: () => {}
+        };
+    },
+
     render() {
         return (
             <div className="media-signin-buttons">
@@ -47,6 +53,7 @@ export default React.createClass( {
 
         authFacebook( true )
             .then( this.thirdPartySignup( 'facebook' ) )
+            .then( this.props.onAuthenticated )
             .finally( this.enableButton( 'facebook' ) );
     },
 
@@ -55,6 +62,7 @@ export default React.createClass( {
 
         authGoogle( true )
             .then( this.thirdPartySignup( 'google' ) )
+            .then( this.props.onAuthenticated )
             .finally( this.enableButton( 'google' ) );
 
     },

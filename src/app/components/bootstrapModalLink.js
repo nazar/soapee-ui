@@ -15,7 +15,7 @@ export default React.createClass({
                 closeOnOutsideClick={false}
                 >
                 <BootstrapModal
-                    largeModal={true}
+                    largeModal={this.props.large}
                     title={this.props.title}
                     registerCloseFunction={this.registerCloseFunction}
                     >
