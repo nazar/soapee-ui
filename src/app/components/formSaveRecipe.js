@@ -29,6 +29,7 @@ export default React.createClass( {
     },
 
     render() {
+        let nameMissing = !(this.state.recipe.name);
         let  nameClasses = cx( 'form-group', {
             'has-error': !(this.state.recipe.name)
         } );
@@ -64,7 +65,7 @@ export default React.createClass( {
                         <div className="col-sm-12">
                             <div className="btn-toolbar">
                                 {this.renderSaveRecipeButton()}
-                                <button className="btn btn-primary" onClick={ this.printRecipe }>Print Recipe</button>
+                                <button className="btn btn-primary" onClick={ this.printRecipe } disabled={nameMissing}>Print Recipe</button>
                             </div>
                         </div>
 
@@ -101,7 +102,9 @@ export default React.createClass( {
 
     printRecipe() {
         recipeActions.setNotes( this.notes );
-        this.props.onPrint();
+        setTimeout( () => {
+            this.props.onPrint();
+        } );
     }
 
 } );

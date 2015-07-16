@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react/addons';
 import Reflux from 'reflux';
+import { Navigation } from 'react-router';
 
 import formLinkHandlers from 'mixins/formLinkHandlers';
 
@@ -25,7 +26,8 @@ export default React.createClass( {
     mixins: [
         Reflux.connect( recipeStore, 'recipe' ),
         React.addons.LinkedStateMixin,
-        formLinkHandlers
+        formLinkHandlers,
+        Navigation
     ],
 
     getInitialState() {
@@ -313,6 +315,8 @@ export default React.createClass( {
     },
 
     printRecipe() {
+        //todo save recipe to localstorage to guard against F5s
+        this.replaceWith( 'print' );
     }
 
 } );

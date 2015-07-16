@@ -7,11 +7,15 @@ import Signup from 'views/signup';
 import Application from 'views/application';
 import Account from 'views/account';
 import Calculator from 'views/calculator';
+import PrintRecipe from 'views/printRecipe';
 import Logout from 'views/logout';
 import MainLanding from 'views/mainLanding';
 import Oils from 'views/oils';
-import Profile from 'views/profile';
 import Recipes from 'views/recipes';
+
+import Profile from 'views/profile';
+import MyRecipes from 'views/myRecipes';
+import SavedRecipes from 'views/savedRecipes';
 
 
 let routes = (
@@ -27,8 +31,12 @@ let routes = (
         <Route name="recipes" handler={Recipes} />
         <Route name="oils" handler={Oils} />
 
+        <Route name="print" handler={PrintRecipe} />
+
         <Route name="account" path="/my" handler={Account}>
             <Route name="profile" handler={Profile} />
+            <Route name="my-recipes" handler={MyRecipes} />
+            <Route name="saved-recipes" handler={SavedRecipes} />
         </Route>
 
 

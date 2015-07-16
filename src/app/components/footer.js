@@ -7,7 +7,7 @@ export default React.createClass( {
 
     render() {
         return (
-            <footer className="footer">
+            <footer className="footer hidden-print">
                 <div className="container">
                     <div className="row">
 

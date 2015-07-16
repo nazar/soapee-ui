@@ -62,9 +62,9 @@ export default React.createClass( {
                             <span className="caret"></span>
                         </button>
                         <ul className="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">My Recipes</a></li>
-                            <li><a href="#">Saved Recipes</a></li>
+                            <NavLink to="profile">Profile</NavLink>
+                            <NavLink to="my-recipes">My Recipes</NavLink>
+                            <NavLink to="saved-recipes">Saved Recipes</NavLink>
                             <li role="separator" className="divider"></li>
                             <NavLink to="logout">Logout</NavLink>
                         </ul>
