@@ -1,5 +1,7 @@
 import React from 'react';
 
+import authActions from 'actions/auth';
+
 import LocalLoginForm from 'components/localLoginForm';
 import LocalSignupForm from 'components/localSignupForm';
 import MediaSigninButtons from 'components/mediaSigninButtons';
@@ -64,6 +66,7 @@ export default React.createClass( {
 
     authenticated() {
         this.props.closeModal();
+        authActions.SignedUpToLoggedInToSaveRecipe();
     }
 
 

@@ -35,7 +35,7 @@ export default React.createClass( {
                     return (
                         <tr>
                             <td>{_.capitalize( fattyAcid )}</td>
-                            <td>{value}</td>
+                            <td>{value}%</td>
                         </tr>
                     );
                 }

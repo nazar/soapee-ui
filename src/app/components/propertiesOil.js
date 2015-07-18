@@ -18,7 +18,6 @@ export default React.createClass( {
 
                 { oil &&
                     <div className="properties-container">
-                        <div className="name"><strong>{oil.name}</strong></div>
                         <table className="table table-striped table-condensed table-super-condensed">
                             <tbody>
                             <tr>
@@ -65,7 +64,7 @@ export default React.createClass( {
                 output.push(
                     <tr>
                         <td>{_.capitalize(fat)}</td>
-                        <td>{breakdown}</td>
+                        <td>{breakdown}%</td>
                     </tr>
                 );
             }
@@ -79,7 +78,7 @@ export default React.createClass( {
             return (
                 <tr>
                     <td>{_.capitalize( property )}</td>
-                    <td>{oil.properties[ property ]}</td>
+                    <td>{oil.properties[ property ]}%</td>
                 </tr>
             );
         }
@@ -98,7 +97,7 @@ export default React.createClass( {
             return (
                 <tr>
                     <td>{_.capitalize(saturation)}:</td>
-                    <td>{satType}</td>
+                    <td>{satType}%</td>
                 </tr>
             );
         } );

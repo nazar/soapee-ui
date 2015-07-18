@@ -65,7 +65,7 @@ export default React.createClass( {
                         <div className="col-sm-12">
                             <div className="btn-toolbar">
                                 {this.renderSaveRecipeButton()}
-                                <button className="btn btn-primary" onClick={ this.printRecipe } disabled={nameMissing}>Print Recipe</button>
+                                <button className="btn btn-primary" onClick={ this.printRecipe }>Print Recipe</button>
                             </div>
                         </div>
 
@@ -81,7 +81,6 @@ export default React.createClass( {
         if ( authStore.isAuthenticated() ) {
             return <button className="btn btn-primary" onClick={ this.saveRecipe } disabled={nameMissing}>Save Recipe</button>;
         } else {
-            recipeActions.setNotes( this.notes );
             return (
                 <BootstrapModalLink
                     elementToClick={<button className="btn btn-primary" disabled={nameMissing}>Save Recipe</button>}

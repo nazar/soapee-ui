@@ -39,7 +39,7 @@ export default React.createClass( {
                 return (
                     <tr>
                         <td>{_.capitalize( property )}</td>
-                        <td>{value}</td>
+                        <td>{value}%</td>
                     </tr>
                 );
             } )

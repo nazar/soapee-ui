@@ -166,23 +166,26 @@ export default React.createClass( {
                         </div>
                     </div>
 
-                    { this.state.selectedOil &&
+                    <ReactCSSTransitionGroup  transitionName="fade" >
+                        { this.state.selectedOil &&
                         <div className="col-md-3 col-sm-6">
                             <div className="panel panel-info">
                                 <div className="panel-heading">
                                     <div className="btn-toolbar pull-right">
                                         <button onClick={this.addOil} className="pull-right btn btn-xs btn-default"><i className="fa fa-plus-circle"></i></button>
                                     </div>
-                                    <h3 className="panel-title">Oil Properties</h3>
+                                    <h3 className="panel-title">Selected Oil Properties</h3>
                                 </div>
                                 <PropertiesOil
                                     oil={ this.state.selectedOil }
                                     />
                             </div>
                         </div>
-                    }
+                        }
+                    </ReactCSSTransitionGroup>
 
-                    { recipeStore.countOils() > 0 &&
+                    <ReactCSSTransitionGroup  transitionName="fade" >
+                        { recipeStore.countOils() > 0 &&
                         <div className="col-md-5 col-sm-12">
                             <div className="panel panel-info">
                                 <div className="panel-heading">
@@ -195,11 +198,13 @@ export default React.createClass( {
                                 </div>
                             </div>
                         </div>
-                    }
+                        }
+                    </ReactCSSTransitionGroup>
 
                 </div>
 
-                { recipeStore.countWeights() > 0 &&
+                <ReactCSSTransitionGroup  transitionName="fade" >
+                    { recipeStore.countWeights() > 0 &&
                     <div>
                         <legend>Recipe</legend>
                         <div className="row">
@@ -243,8 +248,8 @@ export default React.createClass( {
                                 />
                         </div>
                     </div>
-                }
-
+                    }
+                </ReactCSSTransitionGroup>
             </div>
         );
     },

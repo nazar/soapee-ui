@@ -30,13 +30,15 @@ export default React.createClass( {
 
                     <div className="container">
 
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <div className="name">
-                                    <h4>Recipe: {this.state.recipe.name}</h4>
+                        { this.state.recipe.name &&
+                            <div className="row">
+                                <div className="col-xs-12">
+                                    <div className="name">
+                                        <h4>Recipe: {this.state.recipe.name}</h4>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
 
                         <div className="row">
                             <div className="col-xs-12">
