@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 
 import oilsStore from 'stores/oils';
-import recipeStore from 'stores/recipe';
+import calculatorStore from 'stores/calculator';
 
 export default React.createClass( {
 
@@ -22,7 +22,7 @@ export default React.createClass( {
                             <tbody>
                             <tr>
                                 <td>Sap KOH<br />NaOH</td>
-                                <td>{oil.sap}<br />{recipeStore.sapForNaOh(oil)}</td>
+                                <td>{oil.sap}<br />{calculatorStore.sapForNaOh(oil)}</td>
                             </tr>
                             <tr>
                                 <td>Iodine</td>

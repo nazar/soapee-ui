@@ -2,7 +2,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import { Navigation } from 'react-router';
 
-import recipeStore from 'stores/recipe';
+import calculatorStore from 'stores/calculator';
 
 import RecipeBreakdown from 'components/recipeBreakdown';
 import RecipeTotals from 'components/recipeTotals';
@@ -15,7 +15,7 @@ export default React.createClass( {
 
     mixins: [
         Navigation,
-        Reflux.connect( recipeStore, 'recipe' )
+        Reflux.connect( calculatorStore, 'recipe' )
     ],
 
     componentDidMount() {

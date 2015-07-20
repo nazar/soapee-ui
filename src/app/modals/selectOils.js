@@ -5,7 +5,7 @@ import Griddle from 'griddle-react';
 import cx from 'classnames';
 
 import oilsStore from 'stores/oils';
-import recipeStore from 'stores/recipe';
+import calculatorStore from 'stores/calculator';
 
 import GriddlePager from 'components/griddlePager';
 import Spinner from 'components/spinner';
@@ -55,7 +55,7 @@ export default React.createClass( {
     },
 
     componentWillMount() {
-        recipeOilIds = _.pluck( recipeStore.recipeOils(), 'id' );
+        recipeOilIds = _.pluck( calculatorStore.recipeOils(), 'id' );
     },
 
     render() {
@@ -99,7 +99,7 @@ export default React.createClass( {
     },
 
     save() {
-        recipeStore.setRecipeOilsByIds( recipeOilIds );
+        calculatorStore.setRecipeOilsByIds( recipeOilIds );
         this.props.closeModal();
     },
 

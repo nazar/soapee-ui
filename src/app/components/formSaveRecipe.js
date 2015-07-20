@@ -3,7 +3,7 @@ import Reflux from 'reflux';
 import cx from 'classnames';
 
 import recipeActions from 'actions/recipe';
-import recipeStore from 'stores/recipe';
+import calculatorStore from 'stores/calculator';
 import authStore from 'stores/auth';
 import formLinkHandlers from 'mixins/formLinkHandlers';
 
@@ -16,7 +16,8 @@ export default React.createClass( {
     notes: null,
 
     mixins: [
-        Reflux.connectFilter( recipeStore, 'recipe', extractName ),
+        Reflux.connect( authStore, 'user' ),
+        Reflux.connectFilter( calculatorStore, 'recipe', extractName ),
         React.addons.LinkedStateMixin,
         formLinkHandlers
     ],
@@ -47,7 +48,7 @@ export default React.createClass( {
                                            className="form-control"
                                            id="inputRecipeName"
                                            placeholder="Type recipe name"
-                                           valueLink={ this.linkStore( recipeStore, 'name' ) }
+                                           valueLink={ this.linkStore( calculatorStore, 'name' ) }
                                         />
                                 </div>
                             </div>

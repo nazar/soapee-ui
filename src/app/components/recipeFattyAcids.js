@@ -2,12 +2,12 @@ import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
 
-import recipeStore from 'stores/recipe';
+import calculatorStore from 'stores/calculator';
 
 export default React.createClass( {
 
     mixins: [
-        Reflux.connectFilter( recipeStore, 'recipe', extractBreakdowns )
+        Reflux.connectFilter( calculatorStore, 'recipe', extractBreakdowns )
     ],
 
     render() {

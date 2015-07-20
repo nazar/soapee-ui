@@ -2,20 +2,20 @@ import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
 
-import recipeStore from 'stores/recipe';
+import calculatorStore from 'stores/calculator';
 
 export default React.createClass( {
 
     mixins: [
-        Reflux.connect( recipeStore, 'recipe' )
+        Reflux.connect( calculatorStore, 'recipe' )
     ],
 
     render() {
-        let uom = _.capitalize( recipeStore.recipeOilsUom() ) + 's';
+        let uom = _.capitalize( calculatorStore.recipeOilsUom() ) + 's';
 
         return (
             <div className="recipe-breakdown">
-                { recipeStore.countWeights() > 0 &&
+                { calculatorStore.countWeights() > 0 &&
                     <table className="table table-striped table-hover table-condensed">
                         <thead>
                         <tr>
@@ -36,7 +36,7 @@ export default React.createClass( {
     },
 
     recipeOilRows() {
-        let oilRows = recipeStore.recipeOilsWeightsRatios();
+        let oilRows = calculatorStore.recipeOilsWeightsRatios();
 
         return _.map( oilRows,  row => {
             return (
@@ -56,7 +56,7 @@ export default React.createClass( {
     },
 
     totalsRow() {
-        let totals = _.reduce( recipeStore.recipeOilsWeightsRatios(), ( result, oilRow ) => {
+        let totals = _.reduce( calculatorStore.recipeOilsWeightsRatios(), ( result, oilRow ) => {
             return _.tap( result, r => {
                 r.ratio = result.ratio + oilRow.ratio * 100;
                 r.weight = result.weight + Number( oilRow.weight );

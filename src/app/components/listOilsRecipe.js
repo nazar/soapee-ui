@@ -2,14 +2,14 @@ import _ from 'lodash';
 import React from 'react/addons';
 import Reflux from 'reflux';
 
-import recipeStore from 'stores/recipe';
+import calculatorStore from 'stores/calculator';
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default React.createClass( {
 
     mixins: [
-        Reflux.connect( recipeStore, 'recipe' )
+        Reflux.connect( calculatorStore, 'recipe' )
     ],
 
     render() {
@@ -33,7 +33,7 @@ export default React.createClass( {
         let placeholder;
         let uomCaption;
 
-        oilWeight   =  recipeStore.getOilWeight( oil );
+        oilWeight   =  calculatorStore.getOilWeight( oil );
         placeholder = oilWeight ? '' : this.getPlaceholder();
         uomCaption  = oilWeight ? this.getPlaceholder() : '';
 
@@ -67,7 +67,7 @@ export default React.createClass( {
                 <td></td>
                 <td>
                     <strong>
-                        { recipeStore.sumWeights() }
+                        { calculatorStore.sumWeights() }
                         { this.getPlaceholder() }
                     </strong>
                 </td>
@@ -77,15 +77,15 @@ export default React.createClass( {
     },
 
     renderCompletionMessages() {
-        if ( recipeStore.isPercentRecipe() ) {
-            if ( recipeStore.sumWeights() !== 100 ) {
+        if ( calculatorStore.isPercentRecipe() ) {
+            if ( calculatorStore.sumWeights() !== 100 ) {
                 return (
                     <div className="alert alert-warning" role="alert">
                         Total oils % should be 100%.
                     </div>
                 );
             }
-        } else if (  !( recipeStore.sumWeights() > 0 )  ) {
+        } else if (  !( calculatorStore.sumWeights() > 0 )  ) {
             return (
                 <div className="alert alert-warning" role="alert">
                     Total oil weights should be greater than 0.
@@ -96,7 +96,7 @@ export default React.createClass( {
 
     changed( oil ) {
         return e => {
-            recipeStore.setOilWeight( oil, e.target.value );  //TODO should be an action?
+            calculatorStore.setOilWeight( oil, e.target.value );  //TODO should be an action?
         };
     },
 
@@ -112,7 +112,7 @@ export default React.createClass( {
 
     removeOilFromRecipe( oil ) {
         return () => {
-            recipeStore.removeOil( oil ); //TODO should be an action?
+            calculatorStore.removeOil( oil ); //TODO should be an action?
         };
     }
 

@@ -1,5 +1,5 @@
-fast-transition-speed=0.2s;
-very-fast-transition-speed=0.1s;
+fast-transition-speed = 0.2s;
+very-fast-transition-speed = 0.1s;
 
 .fade {
 
@@ -12,7 +12,6 @@ very-fast-transition-speed=0.1s;
         }
     }
 
-
     &-leave {
         opacity: 1;
         transition: opacity very-fast-transition-speed ease-out;
@@ -22,5 +21,30 @@ very-fast-transition-speed=0.1s;
         }
     }
 
+}
+
+.zoom {
+
+    &-enter {
+        opacity: 0.01;
+        transform: scale3d(.3, .3, .3);
+        transition: all 0.1s ease-in;
+
+        &-active {
+            opacity: 1;
+            transform: scale3d(1, 1, 1);
+        }
+
+    }
+
+    &-leave {
+        opacity: 1;
+        transition: all 0.1s ease-in;
+
+        &-active {
+            opacity: 0.01;
+            transform: scale3d(.3, .3, .3);
+        }
+    }
 
 }

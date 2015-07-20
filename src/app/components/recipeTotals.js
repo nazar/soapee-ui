@@ -2,20 +2,20 @@ import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
 
-import recipeStore from 'stores/recipe';
+import calculatorStore from 'stores/calculator';
 
 export default React.createClass( {
 
     mixins: [
-        Reflux.connectFilter( recipeStore, 'recipe', extractTotals )
+        Reflux.connectFilter( calculatorStore, 'recipe', extractTotals )
     ],
 
     render() {
-        let uom = recipeStore.recipeOilsUom() + 's';
+        let uom = calculatorStore.recipeOilsUom() + 's';
 
         return (
             <div className="recipe-totals">
-                { recipeStore.countWeights() > 0 &&
+                { calculatorStore.countWeights() > 0 &&
                     <table className="table table-striped table-hover table-condensed">
                         <tbody>
                         <tr>
