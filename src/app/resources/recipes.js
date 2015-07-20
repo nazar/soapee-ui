@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import when from 'when';
 
-import {post} from 'utils/http';
+import { get, post } from 'utils/http';
 import baseUrl from 'utils/baseUrl';
 
 export function createRecipe( recipe ) {
@@ -29,4 +29,17 @@ export function createRecipe( recipe ) {
             params: packet
         } )
     );
+}
+
+export function getRecipes() {
+    return when(
+        get( baseUrl( 'recipes' ) )
+    );
+}
+
+export function soapTypeToDescription( soapType ) {
+    return {
+        noah: 'solid',
+        koh: 'liquid'
+    }[ soapType ];
 }

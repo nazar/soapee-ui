@@ -9,7 +9,6 @@ export default Reflux.createStore( {
 
     init() {
         this.loadOils();
-//        this.listenTo( authActions.logout, logout.bind( this ) );
     },
 
     getInitialState() {
@@ -72,13 +71,13 @@ export default Reflux.createStore( {
         function assignToStore( data ) {
             this.store = data;
         }
-        function trigger() {
+        function doTrigger() {
             this.trigger( this.store );
         }
 
         getOils()
             .then( assignToStore.bind( this ) )
-            .then( trigger.bind( this ) );
+            .then( doTrigger.bind( this ) );
     }
 
 } );
