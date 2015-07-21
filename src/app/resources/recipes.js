@@ -37,6 +37,12 @@ export function getRecipes() {
     );
 }
 
+export function getRecipeById( id ) {
+    return when(
+        get( baseUrl( `recipes/${id}` ) )
+    );
+}
+
 export function soapTypeToDescription( soapType ) {
     return {
         noah: 'solid',

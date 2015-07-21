@@ -1,15 +1,17 @@
 import Reflux from 'reflux';
 
-import {createRecipe} from 'resources/recipes';
+import { createRecipe, getRecipeById } from 'resources/recipes';
 
 let actions = Reflux.createActions( {
     //ui actions
-    setNotes: {},
+    setSaveFormFields: {},
 
     //async action
-    createRecipe: { asyncResult: true }
+    createRecipe: { asyncResult: true },
+    getRecipeById: { asyncResult: true }
 } );
 
 export default actions;
 
 actions.createRecipe.listenAndPromise( createRecipe );
+actions.getRecipeById.listenAndPromise( getRecipeById );

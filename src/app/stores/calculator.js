@@ -9,6 +9,7 @@ export default Reflux.createStore( {
 
     store: {
         name: '',
+        description: '',
         notes: '',
 
         oils: [],
@@ -25,7 +26,8 @@ export default Reflux.createStore( {
     },
 
     init() {
-        this.listenTo( recipeActions.setNotes, setNotes.bind( this ) );
+        this.listenTo( recipeActions.setSaveFormFields, setNotesAndDescription.bind( this ) );
+        this.listenTo( recipeActions.getRecipeById.completed, loadRecipeIntoCalculator.bind( this ) );
     },
 
     getInitialState() {
@@ -370,7 +372,17 @@ function conversions() {
     };
 }
 
-function setNotes( notes ) {
+function setNotesAndDescription( notes, description ) {
     this.store.notes = notes;
+    this.store.description = description;
+
+    doTrigger.call( this );
+}
+
+function loadRecipeIntoCalculator( recipe ) {
+    this.store = _.merge( this.store, recipe );
+
+    this.calculateRecipe();
+
     doTrigger.call( this );
 }

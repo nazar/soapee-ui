@@ -30,7 +30,6 @@ export default React.createClass( {
     },
 
     render() {
-        let nameMissing = !(this.state.recipe.name);
         let  nameClasses = cx( 'form-group', {
             'has-error': !(this.state.recipe.name)
         } );
@@ -55,7 +54,15 @@ export default React.createClass( {
                         </div>
 
                         <div className="col-md-6">
-                            <legend>Recipe Description / Notes</legend>
+                            <legend>Recipe Description</legend>
+                            <TextEditor
+                                content={ this.state.recipe.description }
+                                onHtml={ this.setDescription }
+                                />
+                        </div>
+
+                        <div className="col-md-12">
+                            <legend>Recipe Notes / Method </legend>
                             <TextEditor
                                 content={ this.state.recipe.notes }
                                 onHtml={ this.setNotes }
@@ -95,13 +102,17 @@ export default React.createClass( {
         this.notes = notes;
     },
 
+    setDescription( description ) {
+        this.description = description;
+    },
+
     saveRecipe() {
-        recipeActions.setNotes( this.notes );
+        recipeActions.setSaveFormFields( this.notes, this.description );
         this.props.onSave();
     },
 
     printRecipe() {
-        recipeActions.setNotes( this.notes );
+        recipeActions.setSaveFormFields( this.notes, this.description );
         setTimeout( () => {
             this.props.onPrint();
         } );
@@ -115,6 +126,7 @@ export default React.createClass( {
 function extractName( store ) {
     return {
         name: store.name,
-        notes: store.notes
+        notes: store.notes,
+        description: store.description
     };
 }
