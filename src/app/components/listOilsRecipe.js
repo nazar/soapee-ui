@@ -17,7 +17,7 @@ export default React.createClass( {
             <div className="list-oils-recipe">
                 <table className="recipe-oils form-inline table table-striped table-condensed table-super-condensed">
                     <ReactCSSTransitionGroup  transitionName="fade" component="tbody" >
-                        { _.map( this.state.recipe.oils, this.renderOil )}
+                        { _.map( this.state.recipe.getRecipeValue( 'oils' ), this.renderOil )}
                         { this.renderTotalsRow() }
                     </ReactCSSTransitionGroup>
                 </table>
@@ -33,7 +33,7 @@ export default React.createClass( {
         let placeholder;
         let uomCaption;
 
-        oilWeight   =  calculatorStore.getOilWeight( oil );
+        oilWeight   = this.state.recipe.getOilWeight( oil );
         placeholder = oilWeight ? '' : this.getPlaceholder();
         uomCaption  = oilWeight ? this.getPlaceholder() : '';
 
@@ -67,7 +67,7 @@ export default React.createClass( {
                 <td></td>
                 <td>
                     <strong>
-                        { calculatorStore.sumWeights() }
+                        { this.state.recipe.sumWeights() }
                         { this.getPlaceholder() }
                     </strong>
                 </td>
@@ -77,15 +77,15 @@ export default React.createClass( {
     },
 
     renderCompletionMessages() {
-        if ( calculatorStore.isPercentRecipe() ) {
-            if ( calculatorStore.sumWeights() !== 100 ) {
+        if ( this.state.recipe.isPercentRecipe() ) {
+            if ( this.state.recipe.sumWeights() !== 100 ) {
                 return (
                     <div className="alert alert-warning" role="alert">
                         Total oils % should be 100%.
                     </div>
                 );
             }
-        } else if (  !( calculatorStore.sumWeights() > 0 )  ) {
+        } else if (  !( this.state.recipe.sumWeights() > 0 )  ) {
             return (
                 <div className="alert alert-warning" role="alert">
                     Total oil weights should be greater than 0.
@@ -96,7 +96,7 @@ export default React.createClass( {
 
     changed( oil ) {
         return e => {
-            calculatorStore.setOilWeight( oil, e.target.value );  //TODO should be an action?
+            this.state.recipe.setOilWeight( oil, e.target.value );  //TODO should be an action?
         };
     },
 
@@ -112,7 +112,7 @@ export default React.createClass( {
 
     removeOilFromRecipe( oil ) {
         return () => {
-            calculatorStore.removeOil( oil ); //TODO should be an action?
+            this.state.recipe.removeOil( oil ); //TODO should be an action?
         };
     }
 

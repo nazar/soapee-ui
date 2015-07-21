@@ -1,21 +1,14 @@
 import _ from 'lodash';
 import React from 'react';
-import Reflux from 'reflux';
-
-import calculatorStore from 'stores/calculator';
 
 export default React.createClass( {
 
-    mixins: [
-        Reflux.connectFilter( calculatorStore, 'recipe', extractTotals )
-    ],
-
     render() {
-        let uom = calculatorStore.recipeOilsUom() + 's';
+        let uom = this.props.recipe.recipeOilsUom() + 's';
 
         return (
             <div className="recipe-totals">
-                { calculatorStore.countWeights() > 0 &&
+                { this.props.recipe.countWeights() > 0 &&
                     <table className="table table-striped table-hover table-condensed">
                         <tbody>
                         <tr>
@@ -23,15 +16,15 @@ export default React.createClass( {
                                 Total Water Weight
                             </td>
                             <td>
-                                { this.roundedValue( 'totals.totalWaterWeight' ) } { uom }
+                                { this.roundedValue( 'summary.totals.totalWaterWeight' ) } { uom }
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                Total {this.soapTypeToLye()} Weight
+                                Total {this.props.recipe.soapTypeToLye()} Weight
                             </td>
                             <td>
-                                { this.roundedValue( 'totals.totalLye' ) } {uom} {this.purityInfo()}
+                                { this.roundedValue( 'summary.totals.totalLye' ) } {uom} {this.purityInfo()}
                             </td>
                         </tr>
                         <tr>
@@ -39,7 +32,7 @@ export default React.createClass( {
                                 Total Batch Weight
                             </td>
                             <td>
-                                { this.roundedValue( 'totals.totalBatchWeight' ) } { uom }
+                                { this.roundedValue( 'summary.totals.totalBatchWeight' ) } { uom }
                             </td>
                         </tr>
                         <tr>
@@ -47,7 +40,7 @@ export default React.createClass( {
                                 Lye Concentration
                             </td>
                             <td>
-                                { this.roundedValue( 'totals.lyeConcentration' ) }%
+                                { this.roundedValue( 'summary.totals.lyeConcentration' ) }%
                             </td>
                         </tr>
                         <tr>
@@ -55,7 +48,7 @@ export default React.createClass( {
                                 Water <strong>:</strong> Lye Ratio
                             </td>
                             <td>
-                                { this.roundedValue( 'totals.waterLyeRatio', 3 ) } <strong>:</strong> 1
+                                { this.roundedValue( 'summary.totals.waterLyeRatio', 3 ) } <strong>:</strong> 1
                             </td>
                         </tr>
                         <tr>
@@ -74,39 +67,19 @@ export default React.createClass( {
     },
 
     roundedValue( key, precision ) {
-        return _.round( _.get( this.state.recipe, key ), precision );
+        return _.round( this.props.recipe.getRecipeValue( key ), precision );
     },
 
     roundedSaturation( fatType ) {
-        return _.round( _.get( this.state.recipe, `saturations.${fatType}` ) );
-    },
-
-    soapTypeToLye() {
-        return {
-            noah: 'NaOH',
-            koh: 'KOH'
-        }[ this.state.recipe.soapType ];
+        return _.round( this.props.recipe.getRecipeValue( `summary.saturations.${fatType}` ) );
     },
 
     purityInfo() {
-        if ( this.state.recipe.soapType === 'koh' ) {
-            return `at ${this.state.recipe.kohPurity}% purity`;
+        if ( this.props.recipe.isKohRecipe() ) {
+            return `at ${this.props.recipe.getRecipeValue( 'kohPurity' )}% purity`;
         }
     }
 
 
 
 } );
-
-
-/////////////////////
-//// Private
-
-function extractTotals( store ) {
-    return {
-        totals: _.get( store.summary, 'totals' ),
-        saturations: _.get( store.summary, 'saturations' ),
-        soapType: store.soapType,
-        kohPurity: store.kohPurity
-    };
-}

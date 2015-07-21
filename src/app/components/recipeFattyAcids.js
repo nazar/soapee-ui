@@ -1,14 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import Reflux from 'reflux';
-
-import calculatorStore from 'stores/calculator';
 
 export default React.createClass( {
-
-    mixins: [
-        Reflux.connectFilter( calculatorStore, 'recipe', extractBreakdowns )
-    ],
 
     render() {
         return (
@@ -23,7 +16,7 @@ export default React.createClass( {
     },
 
     renderOrderedBreakdowns() {
-        let breakdowns = this.state.recipe.breakdowns;
+        let breakdowns = this.props.recipe.getRecipeValue( 'summary.breakdowns' );
 
         return _( breakdowns )
             .keys()
@@ -45,14 +38,3 @@ export default React.createClass( {
     }
 
 } );
-
-
-/////////////////////
-//// Private
-
-function extractBreakdowns( store ) {
-    return {
-        breakdowns: _.get( store.summary, 'breakdowns' ),
-        saturations: _.get( store.summary, 'saturations' )
-    };
-}

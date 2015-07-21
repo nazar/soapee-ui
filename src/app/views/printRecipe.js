@@ -24,17 +24,20 @@ export default React.createClass( {
     },
 
     render() {
+        let recipeName = this.state.recipe.getRecipeValue( 'name ');
+        let recipeNotes = this.state.recipe.getRecipeValue( 'notes ');
+
         return (
             <div id="print-recipe">
                 <div className="print-area">
 
                     <div className="container">
 
-                        { this.state.recipe.name &&
+                        { recipeName &&
                             <div className="row">
                                 <div className="col-xs-12">
                                     <div className="name">
-                                        <h4>{this.state.recipe.name}</h4>
+                                        <h4>{recipeName}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -43,11 +46,15 @@ export default React.createClass( {
                         <div className="row">
                             <div className="col-xs-12">
                                 <h6>Recipe Oils</h6>
-                                <RecipeBreakdown />
+                                <RecipeBreakdown
+                                    recipe={ this.state.recipe }
+                                    />
                             </div>
                             <div className="col-xs-12">
                                 <h6>Recipe Totals</h6>
-                                <RecipeTotals />
+                                <RecipeTotals
+                                    recipe={ this.state.recipe }
+                                    />
                             </div>
                         </div>
 
@@ -55,20 +62,24 @@ export default React.createClass( {
                         <div className="col-xs-12 summary">
                             <div className="col-xs-6">
                                 <h6>Fatty Acids</h6>
-                                <RecipeFattyAcids/>
+                                <RecipeFattyAcids
+                                    recipe={ this.state.recipe }
+                                    />
                             </div>
                             <div className="col-xs-6">
                                 <h6>Recipe Properties</h6>
-                                <RecipeProperties/>
+                                <RecipeProperties
+                                    recipe={ this.state.recipe }
+                                    />
                             </div>
                         </div>
 
-                        { this.state.recipe.notes &&
+                        { recipeNotes &&
                             <div className="row">
                                 <div className="col-xs-12">
                                     <h6>Notes</h6>
                                     <div className="notes">
-                                        <div dangerouslySetInnerHTML={ { __html: this.state.recipe.notes } }></div>
+                                        <div dangerouslySetInnerHTML={ { __html: recipeNotes } }></div>
                                     </div>
                                 </div>
                             </div>

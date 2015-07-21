@@ -38,24 +38,30 @@ export default React.createClass( {
     },
 
     renderRecipe() {
+        let recipeName = this.state.recipe.getRecipeValue( 'name' );
+        let recipeDescription = this.state.recipe.getRecipeValue( 'description' );
+        let recipeNotes = this.state.recipe.getRecipeValue( 'notes' );
+
         if ( this.state.recipe ) {
             return (
                 <div>
                     <ol className="breadcrumb">
                         <li><Link to="home">Home</Link></li>
                         <li><Link to="recipes">Recipes</Link></li>
-                        <li className="active">{this.state.recipe.name}</li>
+                        <li className="active">{recipeName}</li>
                     </ol>
 
-                    <legend><h1>{this.state.recipe.name}</h1></legend>
-                    { this.state.recipe.description && <div className="description" dangerouslySetInnerHTML={ { __html: this.state.recipe.description } }></div> }
+                    <legend><h1>{recipeName}</h1></legend>
+                    { recipeDescription && <div className="description" dangerouslySetInnerHTML={ { __html: recipeDescription } }></div> }
                     <div className="row">
                         <div className="col-md-4 col-sm-6">
                             <div className="panel panel-success">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Oils</h3>
                                 </div>
-                                <RecipeBreakdown />
+                                <RecipeBreakdown
+                                    recipe={ this.state.recipe }
+                                    />
                             </div>
                         </div>
                         <div className="col-md-4 col-sm-6">
@@ -63,7 +69,9 @@ export default React.createClass( {
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Total Weights</h3>
                                 </div>
-                                <RecipeTotals />
+                                <RecipeTotals
+                                    recipe={ this.state.recipe }
+                                    />
                             </div>
                         </div>
                         <div className="col-md-2 col-sm-6">
@@ -71,7 +79,9 @@ export default React.createClass( {
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Fatty Acids</h3>
                                 </div>
-                                <RecipeFattyAcids/>
+                                <RecipeFattyAcids
+                                    recipe={ this.state.recipe }
+                                    />
                             </div>
                         </div>
                         <div className="col-md-2 col-sm-6">
@@ -79,21 +89,23 @@ export default React.createClass( {
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Recipe Properties</h3>
                                 </div>
-                                <RecipeProperties/>
+                                <RecipeProperties
+                                    recipe={ this.state.recipe }
+                                    />
                             </div>
                         </div>
                     </div>
 
                     <div>
                         <ul className="nav nav-tabs" role="tablist">
-                            { this.state.recipe.notes && <li role="presentation" className="active"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a></li> }
+                            { recipeNotes && <li role="presentation" className="active"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a></li> }
                             <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
                             <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
                         </ul>
                         <div className="tab-content">
-                            { this.state.recipe.notes &&
+                            { recipeNotes &&
                                 <div role="tabpanel" className="tab-pane active" id="notes">
-                                    <div dangerouslySetInnerHTML={ { __html: this.state.recipe.notes } }></div>
+                                    <div dangerouslySetInnerHTML={ { __html: recipeNotes } }></div>
                                 </div>
                             }
                             <div role="tabpanel" className="tab-pane" id="facebook">

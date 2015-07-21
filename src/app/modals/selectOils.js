@@ -45,7 +45,8 @@ let SelectedComponent = React.createClass( {
 export default React.createClass( {
 
     mixins: [
-        Reflux.connect( oilsStore, 'oils' )
+        Reflux.connect( oilsStore, 'oils' ),
+        Reflux.connect( calculatorStore, 'recipe' )
     ],
 
     getInitialState() {
@@ -55,7 +56,7 @@ export default React.createClass( {
     },
 
     componentWillMount() {
-        recipeOilIds = _.pluck( calculatorStore.recipeOils(), 'id' );
+        recipeOilIds = _.pluck( this.state.recipe.getRecipeValue( 'oils' ), 'id' );
     },
 
     render() {
@@ -99,7 +100,7 @@ export default React.createClass( {
     },
 
     save() {
-        calculatorStore.setRecipeOilsByIds( recipeOilIds );
+        this.state.recipe.setRecipeOilsByIds( recipeOilIds );
         this.props.closeModal();
     },
 

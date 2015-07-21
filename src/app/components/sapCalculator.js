@@ -185,7 +185,7 @@ export default React.createClass( {
                     </ReactCSSTransitionGroup>
 
                     <ReactCSSTransitionGroup  transitionName="zoom" >
-                        { calculatorStore.countOils() > 0 &&
+                        { this.state.recipe.countOils() > 0 &&
                         <div className="col-md-5 col-sm-12">
                             <div className="panel panel-info">
                                 <div className="panel-heading">
@@ -193,7 +193,7 @@ export default React.createClass( {
                                 </div>
                                 <div className="recipe-oils-container">
                                     <ListOilsRecipe
-                                        uom={this.state.recipe.uom}
+                                        uom={this.state.recipe.getRecipeValue('uom') }
                                         />
                                 </div>
                             </div>
@@ -204,7 +204,7 @@ export default React.createClass( {
                 </div>
 
                 <ReactCSSTransitionGroup  transitionName="zoom" >
-                    { calculatorStore.countWeights() > 0 &&
+                    { this.state.recipe.countWeights() > 0 &&
                     <div>
                         <legend>Recipe</legend>
                         <div className="row">
@@ -213,7 +213,9 @@ export default React.createClass( {
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Recipe Oils</h3>
                                     </div>
-                                    <RecipeBreakdown />
+                                    <RecipeBreakdown
+                                        recipe={ this.state.recipe }
+                                        />
                                 </div>
                             </div>
                             <div className="col-md-4 col-sm-6">
@@ -221,7 +223,9 @@ export default React.createClass( {
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Recipe Totals</h3>
                                     </div>
-                                    <RecipeTotals />
+                                    <RecipeTotals
+                                        recipe={ this.state.recipe }
+                                        />
                                 </div>
                             </div>
                             <div className="col-md-2 col-sm-6">
@@ -229,7 +233,9 @@ export default React.createClass( {
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Fatty Acids</h3>
                                     </div>
-                                    <RecipeFattyAcids/>
+                                    <RecipeFattyAcids
+                                        recipe={ this.state.recipe }
+                                        />
                                 </div>
                             </div>
                             <div className="col-md-2 col-sm-6">
@@ -237,7 +243,9 @@ export default React.createClass( {
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Recipe Properties</h3>
                                     </div>
-                                    <RecipeProperties/>
+                                    <RecipeProperties
+                                        recipe={ this.state.recipe }
+                                        />
                                 </div>
                             </div>
                         </div>
@@ -297,7 +305,7 @@ export default React.createClass( {
         oilToAdd = this.state.selectedOil || _.isObject( oil ) && oil;
 
         if ( oilToAdd ) {
-            calculatorStore.addOil( oilToAdd );
+            this.state.recipe.addOil( oilToAdd );
         }
     },
 
@@ -308,11 +316,11 @@ export default React.createClass( {
     },
 
     percentMode() {
-        return this.state.recipe.uom === 'percent';
+        return this.state.recipe.isPercentRecipe();
     },
 
     isKoh() {
-        return this.state.recipe.soapType === 'koh';
+        return this.state.recipe.isKohRecipe();
     },
 
     saveRecipe() {

@@ -17,7 +17,7 @@ export default React.createClass( {
 
     mixins: [
         Reflux.connect( authStore, 'user' ),
-        Reflux.connectFilter( calculatorStore, 'recipe', extractName ),
+        Reflux.connect( calculatorStore, 'recipe' ),
         React.addons.LinkedStateMixin,
         formLinkHandlers
     ],
@@ -31,7 +31,7 @@ export default React.createClass( {
 
     render() {
         let  nameClasses = cx( 'form-group', {
-            'has-error': !(this.state.recipe.name)
+            'has-error': !(this.state.recipe.getRecipeValue( 'name' ))
         } );
 
         return (
@@ -56,7 +56,7 @@ export default React.createClass( {
                         <div className="col-md-6">
                             <legend>Recipe Description</legend>
                             <TextEditor
-                                content={ this.state.recipe.description }
+                                content={ this.state.recipe.getRecipeValue( 'description' ) }
                                 onHtml={ this.setDescription }
                                 />
                         </div>
@@ -64,7 +64,7 @@ export default React.createClass( {
                         <div className="col-md-12">
                             <legend>Recipe Notes / Method </legend>
                             <TextEditor
-                                content={ this.state.recipe.notes }
+                                content={ this.state.recipe.getRecipeValue( 'notes' ) }
                                 onHtml={ this.setNotes }
                                 />
                         </div>
@@ -84,7 +84,7 @@ export default React.createClass( {
     },
 
     renderSaveRecipeButton() {
-        let nameMissing = !(this.state.recipe.name);
+        let nameMissing = !(this.state.recipe.getRecipeValue( 'name' ));
 
         if ( authStore.isAuthenticated() ) {
             return <button className="btn btn-primary" onClick={ this.saveRecipe } disabled={nameMissing}>Save Recipe</button>;
@@ -119,14 +119,3 @@ export default React.createClass( {
     }
 
 } );
-
-//////////////////////
-///// Private
-
-function extractName( store ) {
-    return {
-        name: store.name,
-        notes: store.notes,
-        description: store.description
-    };
-}

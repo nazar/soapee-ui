@@ -1,14 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import Reflux from 'reflux';
-
-import calculatorStore from 'stores/calculator';
 
 export default React.createClass( {
-
-    mixins: [
-        Reflux.connectFilter( calculatorStore, 'properties', extractBreakdowns )
-    ],
 
     render() {
         return (
@@ -28,7 +21,7 @@ export default React.createClass( {
     },
 
     renderOrderedBreakdowns() {
-        let properties = this.state.properties;
+        let properties = this.props.recipe.getRecipeValue( 'summary.properties' );
 
         return _( properties )
             .keys()
@@ -47,7 +40,7 @@ export default React.createClass( {
     },
 
     renderNonProperties() {
-        let properties = this.state.properties;
+        let properties = this.props.recipe.getRecipeValue( 'summary.properties' );
 
         if (  _.keys( properties ).length  ) {
             return _.map( [ 'iodine', 'ins' ], property => {
@@ -62,11 +55,3 @@ export default React.createClass( {
         }
     }
 } );
-
-
-/////////////////////
-//// Private
-
-function extractBreakdowns( store ) {
-    return _.get( store.summary, 'properties' );
-}
