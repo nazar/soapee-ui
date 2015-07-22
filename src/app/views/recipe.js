@@ -10,6 +10,8 @@ import RecipeBreakdown from 'components/recipeBreakdown';
 import RecipeTotals from 'components/recipeTotals';
 import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
+import GoogleComments from 'components/googleComments';
+import FacebookComments from 'components/facebookComments';
 
 export default React.createClass( {
 
@@ -23,10 +25,6 @@ export default React.createClass( {
         State,
         Reflux.connect( recipeStore, 'recipe' )
     ],
-
-    componentDidMount() {
-        this.width = $( this.getDOMNode() ).width();
-    },
 
     render() {
         return (
@@ -109,18 +107,10 @@ export default React.createClass( {
                                 </div>
                             }
                             <div role="tabpanel" className="tab-pane" id="facebook">
-                                <div className="fb-comments"
-                                     data-href={window.location}
-                                     data-width="100%">
-                                </div>
+                                <FacebookComments />
                             </div>
                             <div role="tabpanel" className="tab-pane" id="google">
-                                <div className="g-comments"
-                                     data-href={window.location}
-                                     data-width={this.width}
-                                     data-first_party_property="BLOGGER"
-                                     data-view_type="FILTERED_POSTMOD">
-                                </div>
+                                <GoogleComments />
                             </div>
                         </div>
 

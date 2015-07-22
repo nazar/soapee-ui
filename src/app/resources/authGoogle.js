@@ -24,7 +24,7 @@ export default function authenticate( doLogin ) {
 
 
     function loadGooglePlatformSdk() {
-        return when.promise( ( resolve ) => {
+        return when.promise( resolve => {
             if ( typeof gapi === 'undefined' ) {
                 load( 'https://apis.google.com/js/platform.js', { attrs: { defer: 'defer' } }, () => {
                     resolve();

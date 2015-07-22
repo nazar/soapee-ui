@@ -1,0 +1,55 @@
+/*global gapi*/
+
+import React from 'react';
+import when from 'when';
+import load from 'load-script';
+
+let plusOne;
+
+export default React.createClass( {
+
+    componentDidMount() {
+        this.width = $( 'body .container' ).width();
+
+        this.loadPlusOneSDK()
+            .then( this.initialiseCommentsWidget );
+    },
+
+    componentDidUpdate() {
+        this.loadPlusOneSDK()
+            .then( this.initialiseCommentsWidget );
+    },
+
+    render() {
+        return (
+            <div id="google-comments-widget" className="google-comments">
+            </div>
+        );
+    },
+
+    loadPlusOneSDK() {
+        return when.promise( resolve => {
+            if ( typeof plusOne === 'undefined' ) {
+                load( 'https://apis.google.com/js/plusone.js', () => {
+                    plusOne = gapi.comments;
+                    resolve();
+                } );
+            } else {
+                resolve();
+            }
+        } );
+    },
+
+    initialiseCommentsWidget() {
+        $( this.getDOMNode() ).find( '#google-comments-widget' ).empty();
+
+        gapi.comments.render( 'google-comments-widget', {
+            href: window.location,
+            width: this.width,
+            first_party_property: 'BLOGGER',
+            view_type: 'FILTERED_POSTMOD'
+        } );
+    }
+
+
+} );
