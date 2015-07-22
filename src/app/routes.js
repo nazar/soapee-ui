@@ -7,11 +7,12 @@ import Signup from 'views/signup';
 import Application from 'views/application';
 import Account from 'views/account';
 import Calculator from 'views/calculator';
-import PrintRecipe from 'views/printRecipe';
+import PrintCalculation from 'views/printCalculation';
 import Logout from 'views/logout';
 import MainLanding from 'views/mainLanding';
 import Oils from 'views/oils';
 import Recipe from 'views/recipe';
+import RecipePrint from 'views/recipePrint';
 import Recipes from 'views/recipes';
 
 import Profile from 'views/profile';
@@ -32,10 +33,11 @@ let routes = (
 
         <Route name="recipes" handler={Recipes} />
         <Route path="recipes/:id" name="recipe" handler={Recipe} />
+        <Route path="recipes/:id/print" name="printRecipe" handler={RecipePrint} />
 
         <Route name="oils" handler={Oils} />
 
-        <Route name="print" handler={PrintRecipe} />
+        <Route name="print" handler={PrintCalculation} />
 
         <Route name="account" path="/my" handler={Account}>
             <Route name="profile" handler={Profile} />

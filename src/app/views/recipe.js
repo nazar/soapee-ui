@@ -1,8 +1,10 @@
 import React from 'react';
 import Reflux from 'reflux';
-import { State, Link } from 'react-router';
+import { Link, Navigation, State } from 'react-router';
 
 import recipeStore from 'stores/recipe';
+import authStore from 'stores/auth';
+
 import recipeActions from 'actions/recipe';
 
 import Spinner from 'components/spinner';
@@ -12,6 +14,9 @@ import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
 import GoogleComments from 'components/googleComments';
 import FacebookComments from 'components/facebookComments';
+import BootstrapModalLink from 'components/bootstrapModalLink';
+
+import SignupOrLoginToSaveRecipe from 'modals/signupOrLoginToSaveRecipe';
 
 export default React.createClass( {
 
@@ -23,7 +28,9 @@ export default React.createClass( {
 
     mixins: [
         State,
-        Reflux.connect( recipeStore, 'recipe' )
+        Navigation,
+        Reflux.connect( recipeStore, 'recipe' ),
+        Reflux.connect( authStore, 'auth' )
     ],
 
     render() {
@@ -94,6 +101,9 @@ export default React.createClass( {
                         </div>
                     </div>
 
+                    <legend></legend>
+                    { this.renderActionButtons() }
+
                     <div>
                         <ul className="nav nav-tabs" role="tablist">
                             { recipeNotes && <li role="presentation" className="active"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a></li> }
@@ -102,9 +112,9 @@ export default React.createClass( {
                         </ul>
                         <div className="tab-content">
                             { recipeNotes &&
-                                <div role="tabpanel" className="tab-pane active" id="notes">
-                                    <div dangerouslySetInnerHTML={ { __html: recipeNotes } }></div>
-                                </div>
+                            <div role="tabpanel" className="tab-pane active" id="notes">
+                                <div dangerouslySetInnerHTML={ { __html: recipeNotes } }></div>
+                            </div>
                             }
                             <div role="tabpanel" className="tab-pane" id="facebook">
                                 <FacebookComments />
@@ -124,6 +134,51 @@ export default React.createClass( {
         if ( !(this.state.recipe) ) {
             return <Spinner />;
         }
+    },
+
+    renderActionButtons() {
+        let printButton;
+        let editButton;
+        let addToFavouritesButton;
+
+        printButton = <Link to="printRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-print"></i> Print Recipe</Link>;
+
+        if ( authStore.isAuthenticated() ) {
+            addToFavouritesButton = <button className="btn btn-primary"><i className="fa fa-star"></i> Add to Favourites</button>;
+
+            if ( authStore.isMyId( this.state.recipe.getRecipeValue( 'user_id' ) ) ) {
+                editButton = <button className="btn btn-primary" onClick={this.editRecipe}><i className="fa fa-pencil-square-o"></i> Edit Recipe</button>;
+            } else {
+                editButton = <button className="btn btn-primary" onClick={this.editRecipe}><i className="fa fa-pencil-square-o"></i> Copy and Edit Recipe</button>;
+            }
+        } else {
+            editButton = <button className="btn btn-primary" onClick={this.editRecipe}><i className="fa fa-pencil-square-o"></i> Edit Recipe</button>;
+            addToFavouritesButton = (
+                <BootstrapModalLink
+                    elementToClick={<button className="btn btn-primary"><i className="fa fa-star"></i> Add to Favourites</button>}
+                    modal={SignupOrLoginToSaveRecipe}
+                    action="add recipe to favourites"
+                    />
+            );
+
+        }
+
+        return (
+            <div className="btn-toolbar">
+                { printButton }
+                { editButton }
+                { addToFavouritesButton }
+            </div>
+        );
+    },
+
+    editRecipe() {
+        function redirectToCalculator() {
+            this.transitionTo( 'calculator' );
+        }
+
+        recipeActions.editRecipeById( this.state.recipe.getRecipeValue( 'id' ) )
+            .then( redirectToCalculator.bind( this ) );
     }
 
 } );

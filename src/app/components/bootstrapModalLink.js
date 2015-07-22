@@ -20,6 +20,7 @@ export default React.createClass({
                     registerCloseFunction={this.registerCloseFunction}
                     >
                     <Modal
+                        action={this.props.action}
                         closeModal={this.closeModal}
                         />
                 </BootstrapModal>

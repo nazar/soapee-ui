@@ -8,6 +8,12 @@ import MediaSigninButtons from 'components/mediaSigninButtons';
 
 export default React.createClass( {
 
+    getDefaultProps() {
+        return {
+            action: 'save recipes'
+        }
+    },
+
     render() {
         return (
             <div className="signup-or-login-to-save-changes">
@@ -16,7 +22,7 @@ export default React.createClass( {
                     <div className="row">
                         <div className="col-md-10 col-md-offset-1">
                             <div className="alert alert-info" role="alert">
-                                Must be a Soapee member to save recipes
+                                Please Login or Sign up to {this.props.action}
                             </div>
                             <div>
                                 <ul className="nav nav-pills" role="tablist">

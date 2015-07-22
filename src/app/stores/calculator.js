@@ -12,6 +12,7 @@ export default Reflux.createStore( {
         this.store.on( 'calculated', doTrigger.bind( this ) );
 
         this.listenTo( recipeActions.setSaveFormFields, setNotesAndDescription.bind( this ) );
+        this.listenTo( recipeActions.editRecipeById.completed, loadRecipeIntoCalculator.bind( this ) );
     },
 
     getInitialState() {
@@ -46,5 +47,10 @@ function setNotesAndDescription( notes, description ) {
     this.store.setRecipeValue( 'notes', notes );
     this.store.setRecipeValue( 'description', description );
 
+    doTrigger.call( this );
+}
+
+function loadRecipeIntoCalculator( recipe ) {
+    this.store.setRecipe( recipe );
     doTrigger.call( this );
 }

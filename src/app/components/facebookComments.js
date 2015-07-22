@@ -40,6 +40,7 @@ export default React.createClass( {
     },
 
     initialiseCommentsWidget() {
+        //reparse to load comments for the updated data-href
         FB.XFBML.parse( this.getDOMNode() );
     }
 

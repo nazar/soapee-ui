@@ -35,8 +35,11 @@ export default Reflux.createStore( {
 
     userName() {
         return this.store.name;
-    }
+    },
 
+    isMyId( userId ) {
+        return Number( userId ) === this.store.id;
+    }
 
 } );
 
