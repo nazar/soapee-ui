@@ -12,6 +12,7 @@ import Logout from 'views/logout';
 import MainLanding from 'views/mainLanding';
 import Oils from 'views/oils';
 import Recipe from 'views/recipe';
+import RecipeEdit from 'views/recipeEdit';
 import RecipePrint from 'views/recipePrint';
 import Recipes from 'views/recipes';
 
@@ -33,6 +34,7 @@ let routes = (
 
         <Route name="recipes" handler={Recipes} />
         <Route path="recipes/:id" name="recipe" handler={Recipe} />
+        <Route path="recipes/:id/edit" name="editRecipe" handler={RecipeEdit} />
         <Route path="recipes/:id/print" name="printRecipe" handler={RecipePrint} />
 
         <Route name="oils" handler={Oils} />

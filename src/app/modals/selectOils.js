@@ -5,7 +5,6 @@ import Griddle from 'griddle-react';
 import cx from 'classnames';
 
 import oilsStore from 'stores/oils';
-import calculatorStore from 'stores/calculator';
 
 import GriddlePager from 'components/griddlePager';
 import Spinner from 'components/spinner';
@@ -13,6 +12,7 @@ import Spinner from 'components/spinner';
 let recipeOilIds = [];
 
 let SelectedComponent = React.createClass( {
+
     getInitialState() {
         return {
             checked: _.contains( recipeOilIds, this.props.rowData.id )
@@ -42,11 +42,16 @@ let SelectedComponent = React.createClass( {
     }
 } );
 
-export default React.createClass( {
+let SelectOilsModal =  React.createClass( {
+
+    statics: {
+        setRecipeModel( recipe ) {
+            this.recipe = recipe;
+        }
+    },
 
     mixins: [
-        Reflux.connect( oilsStore, 'oils' ),
-        Reflux.connect( calculatorStore, 'recipe' )
+        Reflux.connect( oilsStore, 'oils' )
     ],
 
     getInitialState() {
@@ -56,7 +61,7 @@ export default React.createClass( {
     },
 
     componentWillMount() {
-        recipeOilIds = _.pluck( this.state.recipe.getRecipeValue( 'oils' ), 'id' );
+        recipeOilIds = _.pluck( SelectOilsModal.recipe.getModelValue( 'oils' ), 'id' );
     },
 
     render() {
@@ -100,7 +105,7 @@ export default React.createClass( {
     },
 
     save() {
-        this.state.recipe.setRecipeOilsByIds( recipeOilIds );
+        SelectOilsModal.recipe.setRecipeOilsByIds( recipeOilIds );
         this.props.closeModal();
     },
 
@@ -151,6 +156,8 @@ export default React.createClass( {
     }
 
 } );
+
+export default SelectOilsModal;
 
 
 

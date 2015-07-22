@@ -16,7 +16,7 @@ export default React.createClass( {
     },
 
     renderOrderedBreakdowns() {
-        let breakdowns = this.props.recipe.getRecipeValue( 'summary.breakdowns' );
+        let breakdowns = this.props.recipe.getModelValue( 'summary.breakdowns' );
 
         return _( breakdowns )
             .keys()

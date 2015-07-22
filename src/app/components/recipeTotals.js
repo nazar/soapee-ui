@@ -67,16 +67,16 @@ export default React.createClass( {
     },
 
     roundedValue( key, precision ) {
-        return _.round( this.props.recipe.getRecipeValue( key ), precision );
+        return _.round( this.props.recipe.getModelValue( key ), precision );
     },
 
     roundedSaturation( fatType ) {
-        return _.round( this.props.recipe.getRecipeValue( `summary.saturations.${fatType}` ) );
+        return _.round( this.props.recipe.getModelValue( `summary.saturations.${fatType}` ) );
     },
 
     purityInfo() {
         if ( this.props.recipe.isKohRecipe() ) {
-            return `at ${this.props.recipe.getRecipeValue( 'kohPurity' )}% purity`;
+            return `at ${this.props.recipe.getModelValue( 'kohPurity' )}% purity`;
         }
     }
 

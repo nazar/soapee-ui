@@ -21,7 +21,7 @@ export default React.createClass( {
     },
 
     renderOrderedBreakdowns() {
-        let properties = this.props.recipe.getRecipeValue( 'summary.properties' );
+        let properties = this.props.recipe.getModelValue( 'summary.properties' );
 
         return _( properties )
             .keys()
@@ -40,7 +40,7 @@ export default React.createClass( {
     },
 
     renderNonProperties() {
-        let properties = this.props.recipe.getRecipeValue( 'summary.properties' );
+        let properties = this.props.recipe.getModelValue( 'summary.properties' );
 
         if (  _.keys( properties ).length  ) {
             return _.map( [ 'iodine', 'ins' ], property => {

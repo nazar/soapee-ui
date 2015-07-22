@@ -43,9 +43,9 @@ export default React.createClass( {
     },
 
     renderRecipe() {
-        let recipeName = this.state.recipe.getRecipeValue( 'name' );
-        let recipeDescription = this.state.recipe.getRecipeValue( 'description' );
-        let recipeNotes = this.state.recipe.getRecipeValue( 'notes' );
+        let recipeName = this.state.recipe.getModelValue( 'name' );
+        let recipeDescription = this.state.recipe.getModelValue( 'description' );
+        let recipeNotes = this.state.recipe.getModelValue( 'notes' );
 
         if ( this.state.recipe ) {
             return (
@@ -57,7 +57,7 @@ export default React.createClass( {
                     </ol>
 
                     <legend><h1>{recipeName}</h1></legend>
-                    { recipeDescription && <div className="description" dangerouslySetInnerHTML={ { __html: recipeDescription } }></div> }
+                    { recipeDescription && <div className="description">{ recipeDescription }</div> }
                     <div className="row">
                         <div className="col-md-4 col-sm-6">
                             <div className="panel panel-success">
@@ -142,17 +142,15 @@ export default React.createClass( {
         let addToFavouritesButton;
 
         printButton = <Link to="printRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-print"></i> Print Recipe</Link>;
+        editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Edit Recipe</Link>;
 
         if ( authStore.isAuthenticated() ) {
             addToFavouritesButton = <button className="btn btn-primary"><i className="fa fa-star"></i> Add to Favourites</button>;
 
-            if ( authStore.isMyId( this.state.recipe.getRecipeValue( 'user_id' ) ) ) {
-                editButton = <button className="btn btn-primary" onClick={this.editRecipe}><i className="fa fa-pencil-square-o"></i> Edit Recipe</button>;
-            } else {
-                editButton = <button className="btn btn-primary" onClick={this.editRecipe}><i className="fa fa-pencil-square-o"></i> Copy and Edit Recipe</button>;
+            if ( !(authStore.isMyId( this.state.recipe.getModelValue( 'user_id' )) ) ) {
+                editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Copy and Edit Recipe</Link>;
             }
         } else {
-            editButton = <button className="btn btn-primary" onClick={this.editRecipe}><i className="fa fa-pencil-square-o"></i> Edit Recipe</button>;
             addToFavouritesButton = (
                 <BootstrapModalLink
                     elementToClick={<button className="btn btn-primary"><i className="fa fa-star"></i> Add to Favourites</button>}
@@ -177,7 +175,7 @@ export default React.createClass( {
             this.transitionTo( 'calculator' );
         }
 
-        recipeActions.editRecipeById( this.state.recipe.getRecipeValue( 'id' ) )
+        recipeActions.editRecipeById( this.state.recipe.getModelValue( 'id' ) )
             .then( redirectToCalculator.bind( this ) );
     }
 

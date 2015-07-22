@@ -10,8 +10,8 @@ export default React.createClass( {
 
     getDefaultProps() {
         return {
-            action: 'save recipes'
-        }
+            action: 'Save Recipes'
+        };
     },
 
     render() {

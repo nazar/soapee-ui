@@ -12,25 +12,13 @@ export default Reflux.createStore( {
         this.store.on( 'calculated', doTrigger.bind( this ) );
 
         this.listenTo( recipeActions.setSaveFormFields, setNotesAndDescription.bind( this ) );
-        this.listenTo( recipeActions.editRecipeById.completed, loadRecipeIntoCalculator.bind( this ) );
     },
 
     getInitialState() {
         return this.store;
     },
 
-    setStoreValue( key, value ) {
-        this.store.setRecipeValue( key, value );
-        this.store.calculateRecipe();
-
-        doTrigger.call( this );
-    },
-
-    getStoreValue( key ) {
-        return this.store.getRecipeValue( key );
-    },
-
-    sapForNaOh( oil ) {
+    sapForNaOh( oil ) {   //todo - shouldn't really be in here...
         return _.round( oil.sap / 1.403, 3 );
     }
 
@@ -44,13 +32,8 @@ function doTrigger() {
 }
 
 function setNotesAndDescription( notes, description ) {
-    this.store.setRecipeValue( 'notes', notes );
-    this.store.setRecipeValue( 'description', description );
+    this.store.setModelValue( 'notes', notes );
+    this.store.setModelValue( 'description', description );
 
-    doTrigger.call( this );
-}
-
-function loadRecipeIntoCalculator( recipe ) {
-    this.store.setRecipe( recipe );
     doTrigger.call( this );
 }

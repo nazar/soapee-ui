@@ -28,14 +28,17 @@ export default class extends EventEmitter {
     }
 
     setRecipe( recipe ) {
-        this.recipe = _.merge( {}, this.recipe, recipe );
+        this.recipe = _.extend( {}, this.recipe, recipe );
     }
 
-    setRecipeValue( key, value ) {
+    setModelValue( key, value ) {
         _.set( this.recipe, key, value );
+
+        this.calculateRecipe();
+        this.emit( 'calculated' );
     }
 
-    getRecipeValue( key ) {
+    getModelValue( key ) {
         return _.get( this.recipe, key );
     }
 

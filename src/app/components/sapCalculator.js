@@ -1,14 +1,8 @@
 import _ from 'lodash';
 import React from 'react/addons';
-import Reflux from 'reflux';
-import { Navigation } from 'react-router';
 
 import formLinkHandlers from 'mixins/formLinkHandlers';
 
-import calculatorStore from 'stores/calculator';
-import recipeActions from 'actions/recipe';
-
-import FormSaveRecipe from 'components/formSaveRecipe';
 import ListOilsSelector from 'components/listOilsSelector';
 import ListOilsRecipe from 'components/listOilsRecipe';
 import PropertiesOil from 'components/propertiesOil';
@@ -24,16 +18,18 @@ let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default React.createClass( {
     mixins: [
-        Reflux.connect( calculatorStore, 'recipe' ),
         React.addons.LinkedStateMixin,
-        formLinkHandlers,
-        Navigation
+        formLinkHandlers
     ],
 
     getInitialState() {
         return {
             selectedOil: null
         };
+    },
+
+    componentDidMount() {
+        SelectOils.setRecipeModel( this.props.recipe );
     },
 
     render() {
@@ -50,13 +46,13 @@ export default React.createClass( {
                                 <div className="form-group">
                                     <div className="radio">
                                         <label>
-                                            <input type="radio" name="soap-type" value="noah" checkedLink={this.radioStore( calculatorStore, 'soapType', 'noah' ) } />
+                                            <input type="radio" name="soap-type" value="noah" checkedLink={this.radioModel( this.props.recipe, 'soapType', 'noah' ) } />
                                             <strong>Solid</strong> Soap - using <strong>NaOH</strong> (Sodium Hydroxide)
                                         </label>
                                     </div>
                                     <div className="radio">
                                         <label>
-                                            <input type="radio" name="soap-type" value="koh" checkedLink={ this.radioStore( calculatorStore, 'soapType', 'koh' ) }/>
+                                            <input type="radio" name="soap-type" value="koh" checkedLink={ this.radioModel( this.props.recipe, 'soapType', 'koh' ) }/>
                                             <strong>Liquid</strong> Soap - using <strong>KOH</strong> (Potassium Hydroxide)
                                         </label>
                                     </div>
@@ -76,19 +72,19 @@ export default React.createClass( {
                             <div className="panel-body">
                                 <div className="form-group">
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom" value="percent" checkedLink={this.radioStore( calculatorStore, 'uom', 'percent' )} /> Percentages
+                                        <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'uom', 'percent' )} /> Percentages
                                     </label>
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom"  value="gram" checkedLink={this.radioStore( calculatorStore, 'uom', 'gram' )} /> Grams
+                                        <input type="radio" name="uom"  value="gram" checkedLink={this.radioModel( this.props.recipe, 'uom', 'gram' )} /> Grams
                                     </label>
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom"  value="kilo" checkedLink={this.radioStore( calculatorStore, 'uom', 'kilo' )} /> Kilograms
+                                        <input type="radio" name="uom"  value="kilo" checkedLink={this.radioModel( this.props.recipe, 'uom', 'kilo' )} /> Kilograms
                                     </label>
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom"  value="pound" checkedLink={this.radioStore( calculatorStore, 'uom', 'pound' )} /> Pounds
+                                        <input type="radio" name="uom"  value="pound" checkedLink={this.radioModel( this.props.recipe, 'uom', 'pound' )} /> Pounds
                                     </label>
                                     <label className="radio-inline">
-                                        <input type="radio" name="uom"  value="ounce" checkedLink={this.radioStore( calculatorStore, 'uom', 'ounce' )} /> Ounces
+                                        <input type="radio" name="uom"  value="ounce" checkedLink={this.radioModel( this.props.recipe, 'uom', 'ounce' )} /> Ounces
                                     </label>
                                 </div>
 
@@ -113,7 +109,7 @@ export default React.createClass( {
                                         <input type="text"
                                                className="form-control short-numeric"
                                                placeholder="%"
-                                               valueLink={ this.linkStore( calculatorStore, 'waterRatio' ) }
+                                               valueLink={ this.linkModel( this.props.recipe, 'waterRatio' ) }
                                             />
                                         <span> % water as a percent of oils - recommended 33%-38% for solid soaps</span>
                                     </div>
@@ -133,7 +129,7 @@ export default React.createClass( {
                                         <input type="text"
                                                className="form-control short-numeric"
                                                placeholder="%"
-                                               valueLink={ this.linkStore( calculatorStore, 'superFat' ) }
+                                               valueLink={ this.linkModel( this.props.recipe, 'superFat' ) }
                                             />
                                         <span> % of superfat of oils - recommended 5%</span>
                                     </div>
@@ -185,7 +181,7 @@ export default React.createClass( {
                     </ReactCSSTransitionGroup>
 
                     <ReactCSSTransitionGroup  transitionName="zoom" >
-                        { this.state.recipe.countOils() > 0 &&
+                        { this.props.recipe.countOils() > 0 &&
                         <div className="col-md-5 col-sm-12">
                             <div className="panel panel-info">
                                 <div className="panel-heading">
@@ -193,7 +189,7 @@ export default React.createClass( {
                                 </div>
                                 <div className="recipe-oils-container">
                                     <ListOilsRecipe
-                                        uom={this.state.recipe.getRecipeValue('uom') }
+                                        recipe={ this.props.recipe }
                                         />
                                 </div>
                             </div>
@@ -204,7 +200,7 @@ export default React.createClass( {
                 </div>
 
                 <ReactCSSTransitionGroup  transitionName="zoom" >
-                    { this.state.recipe.countWeights() > 0 &&
+                    { this.props.recipe.countWeights() > 0 &&
                     <div>
                         <legend>Recipe</legend>
                         <div className="row">
@@ -214,7 +210,7 @@ export default React.createClass( {
                                         <h3 className="panel-title">Recipe Oils</h3>
                                     </div>
                                     <RecipeBreakdown
-                                        recipe={ this.state.recipe }
+                                        recipe={ this.props.recipe }
                                         />
                                 </div>
                             </div>
@@ -224,7 +220,7 @@ export default React.createClass( {
                                         <h3 className="panel-title">Recipe Totals</h3>
                                     </div>
                                     <RecipeTotals
-                                        recipe={ this.state.recipe }
+                                        recipe={ this.props.recipe }
                                         />
                                 </div>
                             </div>
@@ -234,7 +230,7 @@ export default React.createClass( {
                                         <h3 className="panel-title">Fatty Acids</h3>
                                     </div>
                                     <RecipeFattyAcids
-                                        recipe={ this.state.recipe }
+                                        recipe={ this.props.recipe }
                                         />
                                 </div>
                             </div>
@@ -244,16 +240,10 @@ export default React.createClass( {
                                         <h3 className="panel-title">Recipe Properties</h3>
                                     </div>
                                     <RecipeProperties
-                                        recipe={ this.state.recipe }
+                                        recipe={ this.props.recipe }
                                         />
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <FormSaveRecipe
-                                onSave={this.saveRecipe}
-                                onPrint={this.printRecipe}
-                                />
                         </div>
                     </div>
                     }
@@ -267,7 +257,7 @@ export default React.createClass( {
             return (
                 <div key="kohPurity" className="form-inline">
                     <div className="form-group">
-                        <input type="text" id="inputHelpBlock" className="form-control short-numeric" valueLink={this.linkStore(calculatorStore, 'kohPurity')}  /> %
+                        <input type="text" id="inputHelpBlock" className="form-control short-numeric" valueLink={this.linkModel(this.props.recipe, 'kohPurity')}  /> %
                         <span id="helpBlock">KOH Purity - recommended 90%</span>
                     </div>
                 </div>
@@ -280,18 +270,18 @@ export default React.createClass( {
             return (
                 <div className="form-inline">
                     <div className="form-group">
-                        <input type="text" className="form-control short-numeric" valueLink={ this.linkStore( calculatorStore, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
+                        <input type="text" className="form-control short-numeric" valueLink={ this.linkModel( this.props.recipe, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
                         <label className="radio-inline">
-                            <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioStore( calculatorStore, 'totalUom', 'gram' )} /> Grams
+                            <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'gram' )} /> Grams
                         </label>
                         <label className="radio-inline">
-                            <input type="radio" name="total-uom"  value="kilo" checkedLink={this.radioStore( calculatorStore, 'totalUom', 'kilo' )} /> Kilograms
+                            <input type="radio" name="total-uom"  value="kilo" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'kilo' )} /> Kilograms
                         </label>
                         <label className="radio-inline">
-                            <input type="radio" name="total-uom"  value="pound" checkedLink={this.radioStore( calculatorStore, 'totalUom', 'pound' )} /> Pounds
+                            <input type="radio" name="total-uom"  value="pound" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'pound' )} /> Pounds
                         </label>
                         <label className="radio-inline">
-                            <input type="radio" name="total-uom"  value="ounce" checkedLink={this.radioStore( calculatorStore, 'totalUom', 'ounce' )} /> Ounces
+                            <input type="radio" name="total-uom"  value="ounce" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'ounce' )} /> Ounces
                         </label>
                     </div>
                 </div>
@@ -305,7 +295,7 @@ export default React.createClass( {
         oilToAdd = this.state.selectedOil || _.isObject( oil ) && oil;
 
         if ( oilToAdd ) {
-            this.state.recipe.addOil( oilToAdd );
+            this.props.recipe.addOil( oilToAdd );
         }
     },
 
@@ -316,20 +306,11 @@ export default React.createClass( {
     },
 
     percentMode() {
-        return this.state.recipe.isPercentRecipe();
+        return this.props.recipe.isPercentRecipe();
     },
 
     isKoh() {
-        return this.state.recipe.isKohRecipe();
-    },
-
-    saveRecipe() {
-        recipeActions.createRecipe( this.state.recipe );
-    },
-
-    printRecipe() {
-        //todo save recipe to localstorage to guard against F5s
-        this.replaceWith( 'print' );
+        return this.props.recipe.isKohRecipe();
     }
 
 } );

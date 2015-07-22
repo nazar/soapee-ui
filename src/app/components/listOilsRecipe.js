@@ -1,23 +1,16 @@
 import _ from 'lodash';
 import React from 'react/addons';
-import Reflux from 'reflux';
-
-import calculatorStore from 'stores/calculator';
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default React.createClass( {
-
-    mixins: [
-        Reflux.connect( calculatorStore, 'recipe' )
-    ],
 
     render() {
         return (
             <div className="list-oils-recipe">
                 <table className="recipe-oils form-inline table table-striped table-condensed table-super-condensed">
                     <ReactCSSTransitionGroup  transitionName="fade" component="tbody" >
-                        { _.map( this.state.recipe.getRecipeValue( 'oils' ), this.renderOil )}
+                        { _.map( this.props.recipe.getModelValue( 'oils' ), this.renderOil )}
                         { this.renderTotalsRow() }
                     </ReactCSSTransitionGroup>
                 </table>
@@ -33,7 +26,7 @@ export default React.createClass( {
         let placeholder;
         let uomCaption;
 
-        oilWeight   = this.state.recipe.getOilWeight( oil );
+        oilWeight   = this.props.recipe.getOilWeight( oil );
         placeholder = oilWeight ? '' : this.getPlaceholder();
         uomCaption  = oilWeight ? this.getPlaceholder() : '';
 
@@ -67,7 +60,7 @@ export default React.createClass( {
                 <td></td>
                 <td>
                     <strong>
-                        { this.state.recipe.sumWeights() }
+                        { this.props.recipe.sumWeights() }
                         { this.getPlaceholder() }
                     </strong>
                 </td>
@@ -77,15 +70,15 @@ export default React.createClass( {
     },
 
     renderCompletionMessages() {
-        if ( this.state.recipe.isPercentRecipe() ) {
-            if ( this.state.recipe.sumWeights() !== 100 ) {
+        if ( this.props.recipe.isPercentRecipe() ) {
+            if ( this.props.recipe.sumWeights() !== 100 ) {
                 return (
                     <div className="alert alert-warning" role="alert">
                         Total oils % should be 100%.
                     </div>
                 );
             }
-        } else if (  !( this.state.recipe.sumWeights() > 0 )  ) {
+        } else if (  !( this.props.recipe.sumWeights() > 0 )  ) {
             return (
                 <div className="alert alert-warning" role="alert">
                     Total oil weights should be greater than 0.
@@ -96,7 +89,7 @@ export default React.createClass( {
 
     changed( oil ) {
         return e => {
-            this.state.recipe.setOilWeight( oil, e.target.value );  //TODO should be an action?
+            this.props.recipe.setOilWeight( oil, e.target.value );
         };
     },
 
@@ -107,12 +100,12 @@ export default React.createClass( {
             kilo: 'kg',
             pound: 'p',
             ounce: 'oz'
-        }[ this.props.uom ];
+        }[ this.props.recipe.getModelValue( 'uom' ) ];
     },
 
     removeOilFromRecipe( oil ) {
         return () => {
-            this.state.recipe.removeOil( oil ); //TODO should be an action?
+            this.props.recipe.removeOil( oil );
         };
     }
 

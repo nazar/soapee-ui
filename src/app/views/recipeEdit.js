@@ -2,22 +2,28 @@ import React from 'react';
 import Reflux from 'reflux';
 import { Navigation } from 'react-router';
 
-import calculatorStore from 'stores/calculator';
 import recipeActions from 'actions/recipe';
+import recipeStore from 'stores/recipe';
 
 import SapCalculator from 'components/sapCalculator';
 import FormSaveRecipe from 'components/formSaveRecipe';
 
 export default React.createClass( {
 
+    statics: {
+        willTransitionTo: function ( transition, params ) {
+            recipeActions.getRecipeById( params.id );
+        }
+    },
+
     mixins: [
         Navigation,
-        Reflux.connect( calculatorStore, 'recipe' )
+        Reflux.connect( recipeStore, 'recipe' )
     ],
 
     render() {
         return (
-            <div id="calculator">
+            <div id="recipe-edit">
                 <SapCalculator
                     recipe={ this.state.recipe }
                     />
@@ -37,12 +43,11 @@ export default React.createClass( {
     },
 
     saveRecipe() {
-        recipeActions.createRecipe( this.state.recipe );
+        recipeActions.updateRecipe( this.state.recipe );
     },
 
     printRecipe() {
-        this.replaceWith( 'print' );
+        this.replaceWith( 'printRecipe', { id: this.state.recipe.getModelValue( 'id' ) } );
     }
-
 
 } );

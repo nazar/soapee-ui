@@ -26,11 +26,31 @@ export default {
         };
     },
 
+    radioModel( model, key, checkedValue ) {
+        return {
+            value: model.getModelValue( key ) === checkedValue,
+            requestChange: checked => {
+                if ( checked ) {
+                    model.setModelValue( key, checkedValue );
+                }
+            }
+        };
+    },
+
     linkStore( store, key ) {
         return {
             value: store.getStoreValue( key ),
             requestChange: v => {
                 store.setStoreValue( key, v );
+            }
+        };
+    },
+
+    linkModel( model, key ) {
+        return {
+            value: model.getModelValue( key ),
+            requestChange: v => {
+                model.setModelValue( key, v );
             }
         };
     }

@@ -8,8 +8,9 @@ import RecipeProperties from 'components/recipeProperties';
 export default React.createClass( {
 
     render() {
-        let recipeName =  this.props.recipe.getRecipeValue( 'name' );
-        let recipeNotes = this.props.recipe.getRecipeValue( 'notes');
+        let recipeName =  this.props.recipe.getModelValue( 'name' );
+        let recipeDescription = this.props.recipe.getModelValue( 'description');
+        let recipeNotes = this.props.recipe.getModelValue( 'notes');
 
         return (
             <div className="recipe-print-area">
@@ -20,7 +21,17 @@ export default React.createClass( {
                         <div className="row">
                             <div className="col-xs-12">
                                 <div className="name">
-                                    <h4>{recipeName}</h4>
+                                    <h4>{ recipeName }</h4>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    { recipeDescription &&
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <div className="description">
+                                    { recipeDescription }
                                 </div>
                             </div>
                         </div>

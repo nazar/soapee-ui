@@ -1,11 +1,13 @@
 import React from 'react/addons';
 import Reflux from 'reflux';
 import cx from 'classnames';
+import TextArea from 'react-textarea-autosize';
 
 import recipeActions from 'actions/recipe';
-import calculatorStore from 'stores/calculator';
 import authStore from 'stores/auth';
 import formLinkHandlers from 'mixins/formLinkHandlers';
+
+import ValidateRecipeFormFields from 'services/validateRecipeFormFields';
 
 import TextEditor from 'components/textEditor';
 import BootstrapModalLink from 'components/bootstrapModalLink';
@@ -17,7 +19,6 @@ export default React.createClass( {
 
     mixins: [
         Reflux.connect( authStore, 'user' ),
-        Reflux.connect( calculatorStore, 'recipe' ),
         React.addons.LinkedStateMixin,
         formLinkHandlers
     ],
@@ -31,7 +32,7 @@ export default React.createClass( {
 
     render() {
         let  nameClasses = cx( 'form-group', {
-            'has-error': !(this.state.recipe.getRecipeValue( 'name' ))
+            'has-error': this.state.errors.name
         } );
 
         return (
@@ -41,37 +42,43 @@ export default React.createClass( {
                         <legend>Save recipe?</legend>
 
                         <div className="col-md-6">
+                            <legend>Recipe Name</legend>
                             <div className={nameClasses}  >
                                 <div className="col-lg-10">
                                     <input type="text"
                                            className="form-control"
                                            id="inputRecipeName"
                                            placeholder="Type recipe name"
-                                           valueLink={ this.linkStore( calculatorStore, 'name' ) }
+                                           valueLink={ this.linkModel( this.props.recipe, 'name' ) }
                                         />
+
+                                    { this.state.errors.name &&
+                                        <span className="label label-danger animate bounceIn">{ this.state.errors.name[ 0 ]}</span>
+                                    }
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-md-6">
                             <legend>Recipe Description</legend>
-                            <TextEditor
-                                content={ this.state.recipe.getRecipeValue( 'description' ) }
-                                onHtml={ this.setDescription }
+                            <TextArea
+                                className="input-description"
+                                useCacheForDOMMeasurements
+                                valueLink={ this.linkModel( this.props.recipe, 'description' ) }
                                 />
                         </div>
 
                         <div className="col-md-12">
                             <legend>Recipe Notes / Method </legend>
                             <TextEditor
-                                content={ this.state.recipe.getRecipeValue( 'notes' ) }
+                                content={ this.props.recipe.getModelValue( 'notes' ) }
                                 onHtml={ this.setNotes }
                                 />
                         </div>
 
 
                         <div className="col-sm-12">
-                            <div className="btn-toolbar">
+                            <div className="btn-toolbar action-buttons">
                                 {this.renderSaveRecipeButton()}
                                 <button className="btn btn-primary" onClick={ this.printRecipe }>Print Recipe</button>
                             </div>
@@ -84,7 +91,7 @@ export default React.createClass( {
     },
 
     renderSaveRecipeButton() {
-        let nameMissing = !(this.state.recipe.getRecipeValue( 'name' ));
+        let nameMissing = !(this.props.recipe.getModelValue( 'name' ));
 
         if ( authStore.isAuthenticated() ) {
             return <button className="btn btn-primary" onClick={ this.saveRecipe } disabled={nameMissing}>Save Recipe</button>;
@@ -107,8 +114,26 @@ export default React.createClass( {
     },
 
     saveRecipe() {
-        recipeActions.setSaveFormFields( this.notes, this.description );
-        this.props.onSave();
+
+        function validateForm() {
+            return new ValidateRecipeFormFields( {
+                name: this.props.recipe.getModelValue( 'name' )
+            } )
+                .execute();
+        }
+
+        function setFormTextFields() {
+            return recipeActions.setSaveFormFields( this.notes, this.description );
+        }
+
+        this.setState( {
+            errors: {}
+        } );
+
+        validateForm.call( this )
+            .then( setFormTextFields.bind( this ) )
+            .then( this.props.onSave )
+            .catch( setErrors.bind( this ) );
     },
 
     printRecipe() {
@@ -119,3 +144,14 @@ export default React.createClass( {
     }
 
 } );
+
+///////////////
+///
+
+function setErrors( e ) {
+    if ( e.name === 'CheckitError' ) {
+        this.setState( {
+            errors: e.toJSON()
+        } );
+    }
+}
