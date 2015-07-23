@@ -43,11 +43,15 @@ export default React.createClass( {
     },
 
     renderRecipe() {
-        let recipeName = this.state.recipe.getModelValue( 'name' );
-        let recipeDescription = this.state.recipe.getModelValue( 'description' );
-        let recipeNotes = this.state.recipe.getModelValue( 'notes' );
+        let recipeName;
+        let recipeDescription;
+        let recipeNotes;
 
         if ( this.state.recipe ) {
+            recipeName = this.state.recipe.getModelValue( 'name' );
+            recipeDescription = this.state.recipe.getModelValue( 'description' );
+            recipeNotes = this.state.recipe.getModelValue( 'notes' );
+
             return (
                 <div>
                     <ol className="breadcrumb">
@@ -58,19 +62,21 @@ export default React.createClass( {
 
                     <legend><h1>{recipeName}</h1></legend>
                     { recipeDescription && <div className="description">{ recipeDescription }</div> }
+
                     <div className="row">
-                        <div className="col-md-4 col-sm-6">
-                            <div className="panel panel-success">
+                        <div className="col-sm-12">
+                            <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Oils</h3>
                                 </div>
                                 <RecipeBreakdown
                                     recipe={ this.state.recipe }
+                                    withOilLinks={true}
                                     />
                             </div>
                         </div>
-                        <div className="col-md-4 col-sm-6">
-                            <div className="panel panel-success">
+                        <div className="col-sm-4">
+                            <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Total Weights</h3>
                                 </div>
@@ -79,8 +85,8 @@ export default React.createClass( {
                                     />
                             </div>
                         </div>
-                        <div className="col-md-2 col-sm-6">
-                            <div className="panel panel-success">
+                        <div className="col-sm-4">
+                            <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Fatty Acids</h3>
                                 </div>
@@ -89,13 +95,14 @@ export default React.createClass( {
                                     />
                             </div>
                         </div>
-                        <div className="col-md-2 col-sm-6">
-                            <div className="panel panel-success">
+                        <div className="col-sm-4">
+                            <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Recipe Properties</h3>
                                 </div>
                                 <RecipeProperties
                                     recipe={ this.state.recipe }
+                                    withRange={true}
                                     />
                             </div>
                         </div>
@@ -123,8 +130,8 @@ export default React.createClass( {
                                 <GoogleComments />
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             );
         }
@@ -168,15 +175,6 @@ export default React.createClass( {
                 { addToFavouritesButton }
             </div>
         );
-    },
-
-    editRecipe() {
-        function redirectToCalculator() {
-            this.transitionTo( 'calculator' );
-        }
-
-        recipeActions.editRecipeById( this.state.recipe.getModelValue( 'id' ) )
-            .then( redirectToCalculator.bind( this ) );
     }
 
 } );

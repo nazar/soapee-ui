@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import { Link } from 'react-router';
 
 export default React.createClass( {
 
@@ -35,7 +36,7 @@ export default React.createClass( {
             return (
                 <tr>
                     <td>
-                        { row.oil.name }
+                        { this.oilCell( row.oil ) }
                     </td>
                     <td>
                         { _.round( row.ratio * 100 ) }
@@ -46,6 +47,14 @@ export default React.createClass( {
                 </tr>
             );
         } );
+    },
+
+    oilCell( oil ) {
+        if ( this.props.withOilLinks ) {
+            return <Link to="oil" params={ { id: oil.id } }>{ oil.name }</Link>;
+        } else {
+            return oil.name;
+        }
     },
 
     totalsRow() {

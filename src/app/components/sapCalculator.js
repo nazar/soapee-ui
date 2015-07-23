@@ -204,7 +204,7 @@ export default React.createClass( {
                     <div>
                         <legend>Recipe</legend>
                         <div className="row">
-                            <div className="col-md-4 col-sm-6">
+                            <div className="col-sm-12">
                                 <div className="panel panel-success">
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Recipe Oils</h3>
@@ -214,7 +214,7 @@ export default React.createClass( {
                                         />
                                 </div>
                             </div>
-                            <div className="col-md-4 col-sm-6">
+                            <div className="col-sm-4">
                                 <div className="panel panel-success">
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Recipe Totals</h3>
@@ -224,7 +224,7 @@ export default React.createClass( {
                                         />
                                 </div>
                             </div>
-                            <div className="col-md-2 col-sm-6">
+                            <div className="col-sm-4">
                                 <div className="panel panel-success">
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Fatty Acids</h3>
@@ -234,13 +234,14 @@ export default React.createClass( {
                                         />
                                 </div>
                             </div>
-                            <div className="col-md-2 col-sm-6">
+                            <div className="col-sm-4">
                                 <div className="panel panel-success">
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Recipe Properties</h3>
                                     </div>
                                     <RecipeProperties
                                         recipe={ this.props.recipe }
+                                        withRange={true}
                                         />
                                 </div>
                             </div>

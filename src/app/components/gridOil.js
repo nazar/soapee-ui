@@ -2,11 +2,21 @@ import React from 'react';
 import Reflux from 'reflux';
 import Griddle from 'griddle-react';
 import cx from 'classnames';
+import { Link } from 'react-router';
 
 import oilsStore from 'stores/oils';
 
 import GriddlePager from 'components/griddlePager';
 import Spinner from 'components/spinner';
+
+let oilLinkColumn = React.createClass( {
+
+    render() {
+        return (
+            <Link to="oil" params={ { id: this.props.rowData.id } }>{ this.props.rowData.name }</Link>
+        );
+    }
+} );
 
 
 export default React.createClass( {
@@ -33,6 +43,7 @@ export default React.createClass( {
                             results={data}
                             tableClassName="table table-striped table-hover table-bordered table-condensed"
                             columns={ this.getViewColumns() }
+                            columnMetadata={ this.defineSelectedMetadata() }
                             useGriddleStyles={false}
                             showFilter={true}
                             showSettings={true}
@@ -79,7 +90,17 @@ export default React.createClass( {
         let columns = oilsStore.oilPropertyGroupings();
 
         return columns[ this.state.gridColumns ];
+    },
+
+    defineSelectedMetadata() {
+        return [
+            {
+                columnName: 'name',
+                customComponent: oilLinkColumn
+            }
+        ];
     }
+
 
 } );
 

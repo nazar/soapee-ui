@@ -3,14 +3,27 @@ import React from 'react';
 
 export default React.createClass( {
 
+    getDefaultProps() {
+        return {
+            withRange: false
+        };
+    },
+
     render() {
         return (
             <div className="recipe-fatty-acids">
                 <table className="table table-striped table-condensed table-super-condensed">
+                    <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>%</th>
+                        { this.props.withRange && <th width="1%">Recommended</th> }
+                    </tr>
+                    </thead>
                     <tbody>
                         { this.renderOrderedBreakdowns() }
                         <tr>
-                            <td colSpan="2"></td>
+                            <td colSpan="3"></td>
                         </tr>
                         { this.renderNonProperties() }
                     </tbody>
@@ -32,7 +45,8 @@ export default React.createClass( {
                 return (
                     <tr>
                         <td>{_.capitalize( property )}</td>
-                        <td>{value}%</td>
+                        <td>{value}</td>
+                        { this.props.withRange && <td style={ {'text-align': 'center'} }>{ this.rangesForProperty( property ) }</td> }
                     </tr>
                 );
             } )
@@ -49,9 +63,22 @@ export default React.createClass( {
                     <tr>
                         <td>{_.capitalize( property )}: </td>
                         <td>{value}</td>
+                        { this.props.withRange && <td style={ {'text-align': 'center'} }>{ this.rangesForProperty( property ) }</td> }
                     </tr>
                 );
             } );
         }
+    },
+
+    rangesForProperty( property ) {
+        return {
+            bubbly: '14 - 46',
+            cleansing: '12 - 22',
+            condition: '44 - 69',
+            hardness: '29 - 54',
+            stable: '16 - 48',
+            iodine: '41 - 70',
+            ins: '136 - 165'
+        }[ property ];
     }
 } );

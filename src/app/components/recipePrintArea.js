@@ -61,9 +61,9 @@ export default React.createClass( {
                                 />
                         </div>
                         <div className="col-xs-6">
-                            <h6>Recipe Properties</h6>
                             <RecipeProperties
                                 recipe={ this.props.recipe }
+                                withRange={true}
                                 />
                         </div>
                     </div>
@@ -86,4 +86,4 @@ export default React.createClass( {
     }
 
 
-} )
+} );

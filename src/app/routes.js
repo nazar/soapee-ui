@@ -10,6 +10,7 @@ import Calculator from 'views/calculator';
 import PrintCalculation from 'views/printCalculation';
 import Logout from 'views/logout';
 import MainLanding from 'views/mainLanding';
+import Oil from 'views/oil';
 import Oils from 'views/oils';
 import Recipe from 'views/recipe';
 import RecipeEdit from 'views/recipeEdit';
@@ -38,6 +39,7 @@ let routes = (
         <Route path="recipes/:id/print" name="printRecipe" handler={RecipePrint} />
 
         <Route name="oils" handler={Oils} />
+        <Route path="oils/:id" name="oil" handler={Oil} />
 
         <Route name="print" handler={PrintCalculation} />
 

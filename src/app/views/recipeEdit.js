@@ -43,7 +43,12 @@ export default React.createClass( {
     },
 
     saveRecipe() {
-        recipeActions.updateRecipe( this.state.recipe );
+        function toRecipeView( recipe ) {
+            this.transitionTo( 'recipe', { id: recipe.id } );
+        }
+
+        recipeActions.updateRecipe( this.state.recipe )
+            .then( toRecipeView.bind( this ) );
     },
 
     printRecipe() {

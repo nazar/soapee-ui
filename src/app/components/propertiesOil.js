@@ -93,7 +93,7 @@ export default React.createClass( {
     renderSaturation() {
         let oil = this.props.oil;
 
-        return _.map( oil.saturation, ( satType, saturation ) => {
+        return _.map( oil.saturations, ( satType, saturation ) => {
             return (
                 <tr>
                     <td>{_.capitalize(saturation)}:</td>
