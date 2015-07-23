@@ -6,6 +6,7 @@ import recipeStore from 'stores/recipe';
 import authStore from 'stores/auth';
 
 import recipeActions from 'actions/recipe';
+import meActions from 'actions/me';
 
 import Spinner from 'components/spinner';
 import RecipeBreakdown from 'components/recipeBreakdown';
@@ -152,7 +153,7 @@ export default React.createClass( {
         editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Edit Recipe</Link>;
 
         if ( authStore.isAuthenticated() ) {
-            addToFavouritesButton = <button className="btn btn-primary"><i className="fa fa-star"></i> Add to Favourites</button>;
+            addToFavouritesButton = <button className="btn btn-primary" onClick={ this.addToFavourites }><i className="fa fa-star"></i> Add to Favourites</button>;
 
             if ( !(authStore.isMyId( this.state.recipe.getModelValue( 'user_id' )) ) ) {
                 editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Copy and Edit Recipe</Link>;
@@ -175,6 +176,10 @@ export default React.createClass( {
                 { addToFavouritesButton }
             </div>
         );
+    },
+
+    addToFavourites() {
+        meActions.addRecipeToFavourites( this.state.recipe.recipe );
     }
 
 } );

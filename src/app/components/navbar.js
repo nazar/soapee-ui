@@ -32,6 +32,7 @@ export default React.createClass( {
                             <NavLink to="calculator">Calculator</NavLink>
                             <NavLink to="recipes">Recipes</NavLink>
                             <NavLink to="oils">Oils</NavLink>
+                            <NavLink to="resources">Resources</NavLink>
                         </ul>
 
                         { !(authStore.isAuthenticated()) && this.renderGuestNavigation()}

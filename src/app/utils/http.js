@@ -12,6 +12,10 @@ export function put( url, options = {} ) {
     return ajax( url, 'PUT', options );
 }
 
+export function del( url, options = {} ) {
+    return ajax( url, 'DELETE', options );
+}
+
 
 ///////////
 //// PRIVATE

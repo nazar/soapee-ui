@@ -16,6 +16,7 @@ import Recipe from 'views/recipe';
 import RecipeEdit from 'views/recipeEdit';
 import RecipePrint from 'views/recipePrint';
 import Recipes from 'views/recipes';
+import Resources from 'views/resources';
 
 import Profile from 'views/profile';
 import MyRecipes from 'views/myRecipes';
@@ -43,12 +44,13 @@ let routes = (
 
         <Route name="print" handler={PrintCalculation} />
 
+        <Route name="resources" handler={Resources} />
+
         <Route name="account" path="/my" handler={Account}>
             <Route name="profile" handler={Profile} />
             <Route name="my-recipes" handler={MyRecipes} />
             <Route name="saved-recipes" handler={SavedRecipes} />
         </Route>
-
 
     </Route>
 );
