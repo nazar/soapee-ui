@@ -8,9 +8,11 @@ var stylus = require( 'gulp-stylus' );
 var clean = require( 'gulp-clean' );
 var rsync = require( 'gulp-rsync' );
 var runSequence = require( 'run-sequence' );
+var imagemin = require( 'gulp-imagemin' );
+var shipitCaptain = require('shipit-captain');
 
 function handleError( task ) {
-    return function( err ) {
+    return function ( err ) {
         this.emit( 'end' );
         gutil.log( 'Error handler for', task, err.toString() );
     };
@@ -54,6 +56,15 @@ gulp.task( 'clean:build', function () {
         .pipe( clean() );
 } );
 
+gulp.task( 'build:image:min', function () {
+    return gulp.src( './build/bundle/*.jpg' )
+        .pipe( imagemin( {
+            progressive: true,
+            svgoPlugins: [ { removeViewBox: false } ]
+        } ) )
+        .pipe( gulp.dest( 'build/bundle' ) );
+} );
+
 gulp.task( 'build:cp:index', function () {
     return gulp.src( [
         './src/index.html',
@@ -62,26 +73,29 @@ gulp.task( 'build:cp:index', function () {
         .pipe( gulp.dest( 'build/' ) );
 } );
 
-gulp.task( 'build', function ( cb ) {
-    runSequence( 'clean:build', [ 'stylus:compile', 'build:cp:index' ], function () {
-        return gulp.src( 'src/app/app.js' )
-            .pipe( gulpWebpack( require( './webpack.prod.js' ), webpack ) )
-            .pipe( gulp.dest( 'build/bundle/' ) )
-            .on( 'end', cb );
-    } );
+gulp.task( 'build:webpack', function () {
+    return gulp.src( 'src/app/app.js' )
+        .pipe( gulpWebpack( require( './webpack.prod.js' ), webpack ) )
+        .pipe( gulp.dest( 'build/bundle/' ) );
 } );
 
-gulp.task( 'deploy', [ 'build' ], function () {
-    return gulp.src( 'build/**' )
-        .pipe( rsync( {
-            root: 'build',
-            hostname: '176.58.125.89',
-            username: 'nazar',
-            destination: '/var/www/charts.charb.it/spa/',
-            incremental: true,
-            progress: true,
-            recursive: true,
-            clean: true,
-            compress: true
-        } ) );
+
+gulp.task( 'build', function ( cb ) {
+    runSequence(
+        'clean:build',
+        [ 'stylus:compile', 'build:cp:index' ],
+        'build:webpack',
+        'build:image:min',
+        cb
+    );
+} );
+
+gulp.task( 'deploy', [ 'build' ], function ( cb ) {
+    var options = {
+        init: require( './deploy/shipit' ).init,
+        run: 'deploy-local',
+        targetEnv: 'production'
+    };
+
+    shipitCaptain( require( './deploy/shipit' ).config, options, cb  );
 } );

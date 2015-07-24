@@ -25,7 +25,7 @@ export default React.createClass( {
 
                 <section id="about">
                     <div className="col-ld-12 text-center">
-                        <h3>Soapee is a Saponification Calculator and Soap Recipe Database.</h3>
+                        <h3>Soapee is a Saponification Calculator and a Soap Recipe Database.</h3>
                         <p className="lead"><Link to="signup">Register</Link> today to start creating, saving and sharing all your soap recipes.</p>
                     </div>
                 </section>

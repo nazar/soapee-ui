@@ -17,3 +17,4 @@ nvm alias default 0.12.5
 # install global npm packages
 
 npm install -g gulp@3.9.0
+npm install -g shipit-cli@1.3.0
