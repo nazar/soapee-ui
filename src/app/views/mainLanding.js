@@ -1,23 +1,104 @@
 import React from 'react';
+import { Link } from 'react-router';
 
-import {RouteHandler} from 'react-router';
+import background from 'assets/img/landing-background.jpg';
 
 export default React.createClass( {
 
     render() {
+        let style = {
+            background: `url(${background}) no-repeat center center scroll`
+        };
+
         return (
             <div id="main-landing">
 
-                <div className="jumbotron">
-                    <h1>Welcome to Soapee</h1>
-                    <p>Soapee main landing / marketing page</p>
-                    <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                <div className="header-container">
+                    <div className="header clearfix" style={style}>
+                        <div className="text-vertical-center">
+                            <h1>Soapee</h1>
+                            <br />
+                            <button className="btn btn-primary btn-lg" onClick={ this.scrollTo( '#about' ) }>Find Out More</button>
+                        </div>
+                    </div>
                 </div>
 
+                <section id="about">
+                    <div className="col-ld-12 text-center">
+                        <h3>Soapee is a Saponification Calculator and Soap Recipe Database.</h3>
+                        <p className="lead"><Link to="signup">Register</Link> today to start creating, saving and sharing all your soap recipes.</p>
+                    </div>
+                </section>
 
-                <RouteHandler/>
+                <section id="start">
+                    <div className="row">
+                        <div className="col-md-3 col-sm-6">
+                            <div className="start-item">
+                                <span className="fa-stack fa-4x">
+                                    <i className="fa fa-circle fa-stack-2x"></i>
+                                    <i className="fa fa-calculator fa-stack-1x text-primary"></i>
+                                </span>
+                                <h4>
+                                    <strong>Soap Calculator</strong>
+                                </h4>
+                                <p>Make Solid or Liquid soaps.</p>
+                                <Link to="calculator" className="btn btn-primary">Start</Link>
+                            </div>
+                        </div>
+
+                        <div className="col-md-3 col-sm-6">
+                            <div className="start-item">
+                                <span className="fa-stack fa-4x">
+                                    <i className="fa fa-circle fa-stack-2x"></i>
+                                    <i className="fa fa-database fa-stack-1x text-primary"></i>
+                                </span>
+                                <h4>
+                                    <strong>Recipe Database</strong>
+                                </h4>
+                                <p>View user submitted recipes</p>
+                                <Link to="recipes" className="btn btn-primary">Start</Link>
+                            </div>
+                        </div>
+
+                        <div className="col-md-3 col-sm-6">
+                            <div className="start-item">
+                                <span className="fa-stack fa-4x">
+                                    <i className="fa fa-circle fa-stack-2x"></i>
+                                    <i className="fa fa-table fa-stack-1x text-primary"></i>
+                                </span>
+                                <h4>
+                                    <strong>Oils Database</strong>
+                                </h4>
+                                <p>View oil properties</p>
+                                <Link to="oils" className="btn btn-primary">Start</Link>
+                            </div>
+                        </div>
+
+                        <div className="col-md-3 col-sm-6">
+                            <div className="start-item">
+                                <span className="fa-stack fa-4x">
+                                    <i className="fa fa-circle fa-stack-2x"></i>
+                                    <i className="fa fa-book fa-stack-1x text-primary"></i>
+                                </span>
+                                <h4>
+                                    <strong>Resources</strong>
+                                </h4>
+                                <p>View soap making resources</p>
+                                <Link to="resources" className="btn btn-primary">Start</Link>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         );
+    },
+
+    scrollTo( ref ) {
+        return () => {
+            $( 'html,body' ).animate( {
+                scrollTop: $( ref ).offset().top
+            }, 1000 );
+        };
     }
 
 } );
