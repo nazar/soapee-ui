@@ -1,6 +1,21 @@
+import _ from 'lodash';
 import React from 'react';
 
 export default React.createClass( {
+
+    getDefaultProps() {
+        return {
+            tipPlacement: 'top'
+        };
+    },
+
+    componentDidMount() {
+        this.initToolTip();
+    },
+
+    componentDidUpdate() {
+        this.initToolTip();
+    },
 
     render() {
         return (
@@ -16,9 +31,13 @@ export default React.createClass( {
     renderLocal() {
         let user = this.props.user;
 
-        if ( !( user.image_url ) ) {
+        if ( !( _.get( user, 'image_url' ) ) ) {
             return (
-                <i className="fa fa-user"></i>
+                <i className="fa fa-user"
+                   data-toggle="tooltip"
+                   data-placement={ this.props.tipPlacement }
+                   title={ _.get( user, 'name' ) }
+                    ></i>
             );
         }
     },
@@ -26,11 +45,19 @@ export default React.createClass( {
     renderImageUrl() {
         let user = this.props.user;
 
-        if ( user.image_url ) {
+        if ( _.get( user, 'image_url' ) ) {
             return (
-                <img src={ user.image_url } />
+                <img src={ user.image_url }
+                     data-toggle="tooltip"
+                     data-placement={ this.props.tipPlacement }
+                     title={ _.get( user, 'name' ) }
+                    />
             );
         }
+    },
+
+    initToolTip() {
+        $( this.getDOMNode() ).find('[data-toggle="tooltip"]').tooltip();
     }
 
 } );

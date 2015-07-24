@@ -16,6 +16,9 @@ import RecipeProperties from 'components/recipeProperties';
 import GoogleComments from 'components/googleComments';
 import FacebookComments from 'components/facebookComments';
 import BootstrapModalLink from 'components/bootstrapModalLink';
+import UserAvatar from 'components/userAvatar';
+import ButtonFBLike from 'components/buttonFBLike';
+import ButtonGPlusLike from 'components/buttonGPlusLike';
 
 import SignupOrLoginToSaveRecipe from 'modals/signupOrLoginToSaveRecipe';
 
@@ -65,7 +68,7 @@ export default React.createClass( {
                     { recipeDescription && <div className="description">{ recipeDescription }</div> }
 
                     <div className="row">
-                        <div className="col-sm-12">
+                        <div className="col-sm-10">
                             <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Oils</h3>
@@ -76,6 +79,20 @@ export default React.createClass( {
                                     />
                             </div>
                         </div>
+
+                        <div className="col-sm-1 text-center">
+                            <UserAvatar
+                                user={ this.state.recipe.getModelValue( 'user' ) }
+                                />
+                        </div>
+
+                        <div className="col-sm-1 text-center">
+                            <div className="social">
+                                <ButtonFBLike />
+                                <ButtonGPlusLike />
+                            </div>
+                        </div>
+
                         <div className="col-sm-4">
                             <div className="panel panel-primary">
                                 <div className="panel-heading">
@@ -153,9 +170,8 @@ export default React.createClass( {
         editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Edit Recipe</Link>;
 
         if ( authStore.isAuthenticated() ) {
-            addToFavouritesButton = <button className="btn btn-primary" onClick={ this.addToFavourites }><i className="fa fa-star"></i> Add to Favourites</button>;
-
-            if ( !(authStore.isMyId( this.state.recipe.getModelValue( 'user_id' )) ) ) {
+            if ( !(authStore.isMyId( this.state.recipe.getModelValue( 'user_id' ) ) ) ) {
+                addToFavouritesButton = <button className="btn btn-primary" onClick={ this.addToFavourites }><i className="fa fa-star"></i> Add to Favourites</button>;
                 editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Copy and Edit Recipe</Link>;
             }
         } else {
@@ -179,7 +195,12 @@ export default React.createClass( {
     },
 
     addToFavourites() {
-        meActions.addRecipeToFavourites( this.state.recipe.recipe );
+        function success() {
+            $.bootstrapGrowl( 'Recipe Added to your Favourites', { type: 'warning', delay: 5000 } );
+        }
+
+        meActions.addRecipeToFavourites( this.state.recipe.recipe )
+            .then( success );
     }
 
 } );

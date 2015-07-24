@@ -1,7 +1,8 @@
 /*global gapi*/
 
 import when from 'when';
-import load from 'load-script';
+
+import loadPlatformSDK from 'resources/loadPlatformSDK';
 import config from 'config';
 
 // define googleAuth as a module var as Chrome seems to hang if it is
@@ -16,24 +17,12 @@ let googleAuth;
 
 export default function authenticate( doLogin ) {
 
-    return loadGooglePlatformSdk()
+    return loadPlatformSDK()
         .then( loadAuth2Sdk )
         .then( initialiseSdk )
         .then( authoriseUser )
         .then( extractAccessToken );
 
-
-    function loadGooglePlatformSdk() {
-        return when.promise( resolve => {
-            if ( typeof gapi === 'undefined' ) {
-                load( 'https://apis.google.com/js/platform.js', { attrs: { defer: 'defer' } }, () => {
-                    resolve();
-                } );
-            } else {
-                resolve();
-            }
-        } );
-    }
 
     function loadAuth2Sdk() {
         return when.promise( resolve => {

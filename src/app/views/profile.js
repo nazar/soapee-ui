@@ -105,6 +105,10 @@ export default React.createClass( {
             } );
         }
 
+        function successNotification() {
+            $.bootstrapGrowl( 'Profile Updated', { type: 'warning', delay: 5000 } );
+        }
+
         function setErrors( e ) {
             if ( e.name === 'CheckitError' ) {
                 this.setState( {
@@ -119,6 +123,7 @@ export default React.createClass( {
 
         validateForm.call( this )
             .then( save.bind( this ) )
+            .then( successNotification )
             .catch( setErrors.bind( this ) );
     }
 

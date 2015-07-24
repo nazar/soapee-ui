@@ -1,18 +1,17 @@
 /*global FB*/
 
 import React from 'react';
-import when from 'when';
-import load from 'load-script';
+import loadFBSdk from 'resources/loadFBSdk';
 
 export default React.createClass( {
 
     componentDidMount() {
-        this.loadFacebookSDK()
+        loadFBSdk()
             .then( this.initialiseCommentsWidget );
     },
 
     componentDidUpdate() {
-        this.loadFacebookSDK()
+        loadFBSdk()
             .then( this.initialiseCommentsWidget );
     },
 
@@ -27,21 +26,11 @@ export default React.createClass( {
         );
     },
 
-    loadFacebookSDK() {
-        return when.promise( resolve => {
-            if ( typeof FB === 'undefined' ) {
-                load( 'https://connect.facebook.net/en_US/sdk.js', () => {
-                    resolve();
-                } );
-            } else {
-                resolve();
-            }
-        } );
-    },
-
     initialiseCommentsWidget() {
         //reparse to load comments for the updated data-href
-        FB.XFBML.parse( this.getDOMNode() );
+        if ( typeof FB !== 'undefined') {
+            FB.XFBML.parse( this.getDOMNode() );
+        }
     }
 
 

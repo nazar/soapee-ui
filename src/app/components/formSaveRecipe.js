@@ -65,6 +65,7 @@ export default React.createClass( {
                                 className="input-description"
                                 useCacheForDOMMeasurements
                                 valueLink={ this.linkModel( this.props.recipe, 'description' ) }
+                                placeholder="Add a short description"
                                 />
                         </div>
 

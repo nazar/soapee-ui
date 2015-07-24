@@ -46,7 +46,7 @@ export default React.createClass( {
                     <tr>
                         <td>{_.capitalize( property )}</td>
                         <td>{value}</td>
-                        { this.props.withRange && <td style={ {'text-align': 'center'} }>{ this.rangesForProperty( property ) }</td> }
+                        { this.props.withRange && <td style={ {textAlign: 'center'} }>{ this.rangesForProperty( property ) }</td> }
                     </tr>
                 );
             } )
@@ -63,7 +63,7 @@ export default React.createClass( {
                     <tr>
                         <td>{_.capitalize( property )}: </td>
                         <td>{value}</td>
-                        { this.props.withRange && <td style={ {'text-align': 'center'} }>{ this.rangesForProperty( property ) }</td> }
+                        { this.props.withRange && <td style={ {textAlign: 'center'} }>{ this.rangesForProperty( property ) }</td> }
                     </tr>
                 );
             } );

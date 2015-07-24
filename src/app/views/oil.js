@@ -12,6 +12,8 @@ import calculatorStore from 'stores/calculator';
 import Spinner from 'components/spinner';
 import FacebookComments from 'components/facebookComments';
 import GoogleComments from 'components/googleComments';
+import ButtonFBLike from 'components/buttonFBLike';
+import ButtonGPlusLike from 'components/buttonGPlusLike';
 
 export default React.createClass( {
 
@@ -70,12 +72,19 @@ export default React.createClass( {
                             </div>
                         </div>
 
-                        <div className="col-sm-4">
+                        <div className="col-sm-3">
                             <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Oil Properties</h3>
                                 </div>
                                 { this.renderProperties() }
+                            </div>
+                        </div>
+
+                        <div className="col-sm-1 text-center">
+                            <div className="social">
+                                <ButtonFBLike />
+                                <ButtonGPlusLike />
                             </div>
                         </div>
 
@@ -205,7 +214,7 @@ export default React.createClass( {
 
     renderInRecipes() {
         let oil = this.state.oil;
-        console.log('renderInRecipes', oil );
+
         function recipeRow( recipe ) {
             return (
                 <tr>
@@ -214,20 +223,27 @@ export default React.createClass( {
             );
         }
 
-        return (
-            <div className="properties-container">
-                <table className="table table-striped table-condensed table-super-condensed table-bordered">
-                    <thead>
-                    <th>
-                        Recipe Name
-                    </th>
-                    </thead>
-                    <tbody>
-                    { _.map( oil.recipes, recipeRow, this ) }
-                    </tbody>
-                </table>
-            </div>
-        );
+        if ( oil.recipes && oil.recipes.length ) {
+            return (
+                <div className="properties-container">
+                    <table className="table table-striped table-condensed table-super-condensed table-bordered">
+                        <thead>
+                        <th>
+                            Recipe Name
+                        </th>
+                        </thead>
+                        <tbody>
+                        { _.map( oil.recipes, recipeRow, this ) }
+                        </tbody>
+                    </table>
+                </div>
+            );
+        } else {
+            return (
+                <div>Not used in any recipes.</div>
+            );
+        }
+
     },
 
     renderLoading() {

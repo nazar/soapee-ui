@@ -7,6 +7,7 @@ let config = {
     general: {},
 
     development: {
+        homeUrl: 'http://dev.soapee.com/',
         baseUrl: 'http://192.168.30.21:3000/api/',
         auth: {
             facebookClientId: '696173290526521',
@@ -15,6 +16,7 @@ let config = {
     },
 
     production: {
+        homeUrl: 'http://soapee.com/',
         baseUrl: 'http://soapee.com/api/',
         auth: {
             facebookClientId: '696173107193206',

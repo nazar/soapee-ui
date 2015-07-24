@@ -21,6 +21,7 @@
         "react-ga": "1.0.12",
         "react-portal": "0.6.0",
         "react-router": "0.13.3",
+        "react-social": "0.1.5",
         "react-textarea-autosize": "2.3.1",
         "reflux": "0.2.9",
         "scribe-editor" :"1.4.14",
