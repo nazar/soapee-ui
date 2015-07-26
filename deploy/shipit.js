@@ -2,20 +2,24 @@ var config = {
     default: {
         workspace: './build',
         deployTo: '/var/www/soapee.com/ui/',
-        rsync: ['--del'],
+        rsync: [ '--del' ],
         keepReleases: 3,
         deleteOnRollback: false
     },
 
     production: {
-        servers: 'soapee.com'
+        servers: [ {
+            host: '176.58.125.89',
+            user: 'nazar'
+        } ],
+        key: '/home/vagrant/files/deploy/keys/production'
     }
 };
 
 module.exports.config = config;
 
-module.exports.init = function(shipit) {
-    require('./deploy')(shipit);
+module.exports.init = function ( shipit ) {
+    require( './deploy' )( shipit );
 
-    shipit.initConfig(config);
+    shipit.initConfig( config );
 };
