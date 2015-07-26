@@ -17,6 +17,7 @@ export default React.createClass( {
                     <div className="header clearfix" style={style}>
                         <div className="text-vertical-center">
                             <h1>Soapee</h1>
+                            <h3>Soap Making Community and Resources</h3>
                             <br />
                             <button className="btn btn-primary btn-lg" onClick={ this.scrollTo( '#about' ) }>Find Out More</button>
                         </div>
@@ -87,6 +88,13 @@ export default React.createClass( {
                                 <Link to="resources" className="btn btn-primary">Start</Link>
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                <section id="info">
+                    <div className="jumbotron">
+                        <p className="lead">Soapee is a community driven resource. Find us on <strong>Reddit</strong> and <strong>Facebook</strong> and post to add your ideas, suggestions and feedback.</p>
+                        <p className="lead">All application source code is released to the public domain. The UI and API source code can be found <strong>here</strong> and <strong>here</strong>.</p>
                     </div>
                 </section>
             </div>
