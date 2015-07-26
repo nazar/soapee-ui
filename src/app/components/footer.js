@@ -1,12 +1,12 @@
-import React, { PureRenderMixin  } from 'react/addons';
+import React from 'react';
 
 import ShareThis from 'components/shareThis';
 
 export default React.createClass( {
 
-    mixins: [
-        PureRenderMixin
-    ],
+    shouldComponentUpdate() {
+        return false;
+    },
 
     render() {
         return (

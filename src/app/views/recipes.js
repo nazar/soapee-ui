@@ -44,6 +44,7 @@ export default React.createClass( {
         return (
             <RecipeListItem
                 recipe={recipe}
+                showUser={ true }
                 />
         );
     }

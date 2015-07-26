@@ -36,15 +36,6 @@ export function getRecipeById( id ) {
     );
 }
 
-export function soapTypeToDescription( soapType ) {
-    return {
-        noah: 'solid',
-        koh: 'liquid'
-    }[ soapType ];
-}
-
-
-
 ///////////////
 /// private
 

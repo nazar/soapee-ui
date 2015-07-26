@@ -34,13 +34,19 @@ export default React.createClass( {
                 </div>
 
                 <h2>Books</h2>
-
                 <div className="row">
                     <div className="col-md-2">
                         <iframe width="120" height="240" marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0" src="//ws-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=GB&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=mybo-21&marketplace=amazon&region=GB&placement=B00E8GWRKS&asins=B00E8GWRKS&linkId=5DROKJPPAEVCVQG6&show_border=true&link_opens_in_new_window=true"></iframe>
                     </div>
                     <div className="col-md-2">
                         <iframe width="120" height="240" marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0" src="//ws-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=GB&source=ac&ref=qf_sp_asin_til&ad_type=product_link&tracking_id=mybo-21&marketplace=amazon&region=GB&placement=B004C04PF0&asins=B004C04PF0&linkId=64MZJB5I2MS77OIL&show_border=false&link_opens_in_new_window=true"></iframe>
+                    </div>
+                </div>
+
+                <h2>Products</h2>
+                <div className="row">
+                    <div className="col-md-2">
+                        <iframe width="120" height="240" marginWidth="0" marginHeight="0" scrolling="no" frameBorder="0" src="//ws-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=GB&source=ac&ref=tf_til&ad_type=product_link&tracking_id=mybo-21&marketplace=amazon&region=GB&placement=B007JT27BK&asins=B007JT27BK&linkId=DI4KJG4P3NJEGWMP&show_border=true&link_opens_in_new_window=true"></iframe>
                     </div>
                 </div>
 

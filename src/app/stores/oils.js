@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Reflux from 'reflux';
 
-import {getOils} from 'resources/oils';
+import { getOils } from 'resources/oils';
 
 export default Reflux.createStore( {
 

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Link, Navigation } from 'react-router';
 
-import { soapTypeToDescription } from 'resources/recipes';
+import UserAvatar from 'components/userAvatar';
 
 export default React.createClass( {
 
@@ -14,28 +14,53 @@ export default React.createClass( {
         let recipe = this.props.recipe;
 
         return (
-            <div className='recipe-list-item'>
-                <Link className="recipe-name" to="recipe" params={{id: recipe.id}}>{ recipe.name }</Link>
-                <div className="description">
-                    <div className="soap-type">{ _.capitalize( soapTypeToDescription( recipe.soapType ) ) } soap</div>
-                    <div className="ins-iodine">
-                        <span className="iodine">Iodine: { _.round( recipe.summary.properties.iodine ) }</span>
-                        <span className="ins">INS: { _.round( recipe.summary.properties.ins ) }</span>
-                    </div>
-                    <div className="properties clearfix">
-                        <ul className="list-unstyled">
-                            { this.renderOrderedBreakdowns() }
-                        </ul>
-                    </div>
-                    <div className="fats clearfix">
-                        <ul className="list-unstyled">
-                            { this.renderFats() }
-                        </ul>
-                    </div>
-                    <div className="recipe-description">
-                        { recipe.description }
-                    </div>
-                </div>
+            <div className='recipe-list-item' key={ `recipe-list-item-${recipe.id}` }>
+                <table className="table table-striped table-bordered table-condensed">
+                    <tr>
+                        <td colSpan="3">
+                            { this.props.showUser &&
+                                <UserAvatar
+                                    user={ recipe.user }
+                                    />
+                            }
+                            <Link className="recipe-name" to="recipe" params={{id: recipe.id}}>{ recipe.name }</Link>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{recipe.soapType}</td>
+                        <td>
+                            <span className="iodine">Iodine: { _.round( recipe.summary.properties.iodine ) }</span>
+                            <span className="ins">INS: { _.round( recipe.summary.properties.ins ) }</span>
+                        </td>
+                        <td className="properties">
+                            <ul className="list-unstyled">
+                                { this.renderOrderedBreakdowns() }
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="3" className="oils">
+                            <ul className="list-unstyled">
+                                { this.renderOils() }
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="3" className="fats" >
+                            <ul className="list-unstyled">
+                                { this.renderFats() }
+                            </ul>
+                        </td>
+                    </tr>
+                    { recipe.description &&
+                        <tr>
+                            <td colSpan="3">
+                                { recipe.description }
+                            </td>
+                        </tr>
+                    }
+
+                </table>
             </div>
         );
     },
@@ -76,6 +101,21 @@ export default React.createClass( {
             } )
             .value();
 
+    },
+
+    renderOils() {
+        function renderOil( oil ) {
+            return (
+                <li>
+                    <Link to="oil" params={ { id: oil.id } }>{ oil.name }</Link>
+                </li>
+            );
+        }
+
+        return  _( this.props.recipe.oils )
+            .sortBy( 'name' )
+            .map( renderOil )
+            .value();
     }
 
 

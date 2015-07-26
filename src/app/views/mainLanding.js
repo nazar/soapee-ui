@@ -93,7 +93,7 @@ export default React.createClass( {
 
                 <section id="info">
                     <div className="jumbotron">
-                        <p className="lead">Soapee is a community driven resource. Find us on <strong>Reddit</strong> and <strong>Facebook</strong> and post to add your ideas, suggestions and feedback.</p>
+                        <p className="lead">Soapee is a community driven resource. Find us on <strong>Reddit</strong> and <strong>Facebook</strong> to add your ideas, suggestions and feedback.</p>
                         <p className="lead">All application source code is released to the public domain. The UI and API source code can be found <strong>here</strong> and <strong>here</strong>.</p>
                     </div>
                 </section>
