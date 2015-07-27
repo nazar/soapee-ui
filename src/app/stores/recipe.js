@@ -32,9 +32,8 @@ function gotRecipe( recipe ) {
     doTrigger.call( this );
 }
 
-function setNotesAndDescription( notes, description ) {
+function setNotesAndDescription( notes ) {
     this.store.setModelValue( 'notes', notes );
-    this.store.setModelValue( 'description', description );
 
     doTrigger.call( this );
 }

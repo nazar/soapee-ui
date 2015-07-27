@@ -110,10 +110,6 @@ export default React.createClass( {
         this.notes = notes;
     },
 
-    setDescription( description ) {
-        this.description = description;
-    },
-
     saveRecipe() {
 
         function validateForm() {

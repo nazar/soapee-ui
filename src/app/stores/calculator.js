@@ -33,7 +33,6 @@ function doTrigger() {
 
 function setNotesAndDescription( notes, description ) {
     this.store.setModelValue( 'notes', notes );
-    this.store.setModelValue( 'description', description );
 
     doTrigger.call( this );
 }

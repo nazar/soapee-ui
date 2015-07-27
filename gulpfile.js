@@ -6,7 +6,6 @@ var gulpWebpack = require( 'gulp-webpack' );
 var WebpackDevServer = require( 'webpack-dev-server' );
 var stylus = require( 'gulp-stylus' );
 var clean = require( 'gulp-clean' );
-var rsync = require( 'gulp-rsync' );
 var runSequence = require( 'run-sequence' );
 var imagemin = require( 'gulp-imagemin' );
 var shipitCaptain = require('shipit-captain');

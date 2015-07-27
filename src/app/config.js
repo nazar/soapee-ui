@@ -21,6 +21,9 @@ let config = {
         auth: {
             facebookClientId: '696173107193206',
             googleClientId: '454314644896-jj8kjlbq9edd1k0e5hbrvfo3jq73succ.apps.googleusercontent.com'
+        },
+        analytics: {
+            google: 'UA-55368874-3'
         }
     }
 };

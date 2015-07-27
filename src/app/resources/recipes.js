@@ -44,6 +44,7 @@ function recipeModelToPacket( recipeModel ) {
 
     return {
         name: recipe.name,
+        description: recipe.description,
         notes: recipe.notes,
 
         kohPurity: recipe.kohPurity,
