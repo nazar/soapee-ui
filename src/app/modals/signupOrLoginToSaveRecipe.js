@@ -1,4 +1,5 @@
 import React from 'react';
+import ga from 'react-ga';
 
 import authActions from 'actions/auth';
 
@@ -12,6 +13,10 @@ export default React.createClass( {
         return {
             action: 'Save Recipes'
         };
+    },
+
+    componentDidMount() {
+        ga.modalview( 'sign-up-or-login-to-save-recipe' );
     },
 
     render() {

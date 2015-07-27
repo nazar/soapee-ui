@@ -12,10 +12,16 @@ import routes from './routes';
 ///////////////////
 /// INITIALISE
 
-if ( _.get( config, 'analytics.google' )  ) {
-    ga.initialize( _.get( config, 'analytics.google' ) );
+let analytics = _.get( config, 'analytics.google' );
+
+if ( analytics ) {
+    ga.initialize( analytics );
 }
 
-Router.run( routes, Router.HistoryLocation, function ( Handler ) {
+Router.run( routes, Router.HistoryLocation, function ( Handler, state ) {
+    if ( analytics ) {
+        ga.pageview( state.pathname );
+    }
+
     React.render( <Handler/>, document.getElementById( 'application' ) );
 } );

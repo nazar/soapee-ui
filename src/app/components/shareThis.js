@@ -13,7 +13,7 @@ export default React.createClass( {
             <div className="share-this">
                 <div className="t-cell">
                     <TwitterButton
-                        className="btn btn-primary btn-xs"
+                        className="btn btn-primary btn-xs hidden-sm"
                         url={ config.homeUrl }>
                         <i className="fa fa-twitter"> &nbsp;&nbsp;<TwitterCount /></i>
                     </TwitterButton>

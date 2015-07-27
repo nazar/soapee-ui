@@ -3,6 +3,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import Griddle from 'griddle-react';
 import cx from 'classnames';
+import ga from 'react-ga';
 
 import oilsStore from 'stores/oils';
 
@@ -62,6 +63,10 @@ let SelectOilsModal =  React.createClass( {
 
     componentWillMount() {
         recipeOilIds = _.pluck( SelectOilsModal.recipe.getModelValue( 'oils' ), 'id' );
+    },
+
+    componentDidMount() {
+        ga.modalview( 'select-oils' );
     },
 
     render() {

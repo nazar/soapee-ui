@@ -22,7 +22,7 @@ export default React.createClass( {
                             </div>
                         </div>
 
-                        <div className="col-md-6 col-sm-12">
+                        <div className="col-md-6 col-sm-12 hidden-sm hidden-xs">
                             <div className="pull-right">
                                 <ShareThis />
                             </div>

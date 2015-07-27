@@ -54,16 +54,7 @@ export default React.createClass( {
 
                     <div className="row">
 
-                        <div className="col-sm-4">
-                            <div className="panel panel-primary">
-                                <div className="panel-heading">
-                                    <h3 className="panel-title">Saponification Values</h3>
-                                </div>
-                                { this.renderSaponification() }
-                            </div>
-                        </div>
-
-                        <div className="col-sm-4">
+                        <div className="col-sm-4 col-xs-6">
                             <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Fatty Acids</h3>
@@ -72,7 +63,7 @@ export default React.createClass( {
                             </div>
                         </div>
 
-                        <div className="col-sm-3">
+                        <div className="col-sm-3 col-xs-6">
                             <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Oil Properties</h3>
@@ -81,7 +72,16 @@ export default React.createClass( {
                             </div>
                         </div>
 
-                        <div className="col-sm-1 text-center">
+                        <div className="col-sm-4 col-xs-6">
+                            <div className="panel panel-primary">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">Saponification Values</h3>
+                                </div>
+                                { this.renderSaponification() }
+                            </div>
+                        </div>
+
+                        <div className="col-sm-1 col-xs-6 text-center">
                             <div className="social">
                                 <ButtonFBLike />
                                 <ButtonGPlusLike />
@@ -161,7 +161,7 @@ export default React.createClass( {
         let ratios = `${oil.saturations.saturated} : ${ oil.saturations.monoSaturated + oil.saturations.polySaturated }`;
         let ratiosRow = (
             <tr>
-                <td>Saturation Rations</td>
+                <td>Saturation Ratios</td>
                 <td>{ ratios }</td>
             </tr>
         );
