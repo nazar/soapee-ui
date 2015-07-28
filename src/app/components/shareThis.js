@@ -7,7 +7,6 @@ import ButtonFBLike from 'components/buttonFBLike';
 import ButtonGPlusLike from 'components/buttonGPlusLike';
 
 export default React.createClass( {
-
     render() {
         return (
             <div className="share-this">
@@ -19,22 +18,19 @@ export default React.createClass( {
                     </TwitterButton>
                 </div>
                 <div className="t-cell">
-                    <ButtonFBLike
-                        url={ config.homeUrl }
-                        layout="button_count"
-                        />
-                </div>
-                <div className="t-cell">
                     <ButtonGPlusLike
                         url={ config.homeUrl }
                         layout="standard"
                         />
                 </div>
+                <div className="t-cell">
+                    <ButtonFBLike
+                        url={ config.homeUrl }
+                        layout="button_count"
+                        />
+                </div>
             </div>
         );
-    },
-
-    tweet() {
     }
 
 } );

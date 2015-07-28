@@ -17,6 +17,7 @@ module.exports = function ( options ) {
                 'bootstrap/dist/js/bootstrap.min.js',
                 'assets/css/theme.css',
                 'assets/css/animate.css',
+                'font-awesome/css/font-awesome.min.css',
                 'checkit',
                 'classnames',
                 'events',
@@ -90,10 +91,8 @@ module.exports = function ( options ) {
         module: {
             loaders: [
                 { test: /\.css$/, loader: 'style-loader!css-loader' },
-                { test: /\.woff2?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
-                { test: /\.ttf$/, loader: 'file-loader' },
-                { test: /\.eot$/, loader: 'file-loader' },
-                { test: /\.svg$/, loader: 'file-loader' },
+                { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
+                { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
                 {
                     test: /\.jpg|\.png|\.mp3/,
                     loader: 'file-loader'
