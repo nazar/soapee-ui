@@ -1,6 +1,6 @@
 # About
 
-A ReactJS based Soap Lye calculator.
+The ReactJS based front end for [Soapee](http://soapee.com), a Soap Lye calculator.
 
 # Development Environment Provisioning
 

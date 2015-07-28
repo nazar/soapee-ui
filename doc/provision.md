@@ -39,7 +39,7 @@ can be used to SSH into 192.168.30.20 using the username/password of vagrant/vag
 ### 5. Setup File Synchronization
 
 Vagrant allows using your favourite IDE/Text Editor on your OS. These files are then synced on the Vagrant box, which is configured to build and
-server the web application. During development, for example, the web application is accessible on http://192.168.30.20:8080.
+serve the web application. During development, for example, the web application is accessible on http://192.168.30.20:8080.
 
 Vagrant VMs are almost perfect apart from the default Shared Folder mechanism. In VirtualBox, the vboxfs shared folder has a number of shortcomings:
 
