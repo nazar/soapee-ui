@@ -9,8 +9,9 @@ import formLinkHandlers from 'mixins/formLinkHandlers';
 
 import ValidateRecipeFormFields from 'services/validateRecipeFormFields';
 
-import TextEditor from 'components/textEditor';
 import BootstrapModalLink from 'components/bootstrapModalLink';
+import MarkdownEditor from 'components/markdownEditor';
+
 import SignupOrLoginToSaveRecipe from 'modals/signupOrLoginToSaveRecipe';
 
 export default React.createClass( {
@@ -61,19 +62,21 @@ export default React.createClass( {
 
                         <div className="col-md-12">
                             <legend>Recipe Description</legend>
-                            <TextArea
+                            <MarkdownEditor
                                 className="input-description"
-                                useCacheForDOMMeasurements
                                 valueLink={ this.linkModel( this.props.recipe, 'description' ) }
                                 placeholder="Add a short description"
+                                rows="10"
                                 />
                         </div>
 
                         <div className="col-md-12">
                             <legend>Recipe Notes / Method </legend>
-                            <TextEditor
-                                content={ this.props.recipe.getModelValue( 'notes' ) }
-                                onHtml={ this.setNotes }
+                            <MarkdownEditor
+                                className="input-description"
+                                valueLink={ this.linkModel( this.props.recipe, 'notes' ) }
+                                placeholder="Add a short description"
+                                rows="20"
                                 />
                         </div>
 
@@ -106,10 +109,6 @@ export default React.createClass( {
         }
     },
 
-    setNotes( notes ) {
-        this.notes = notes;
-    },
-
     saveRecipe() {
 
         function validateForm() {
@@ -119,22 +118,16 @@ export default React.createClass( {
                 .execute();
         }
 
-        function setFormTextFields() {
-            return recipeActions.setSaveFormFields( this.notes, this.description );
-        }
-
         this.setState( {
             errors: {}
         } );
 
         validateForm.call( this )
-            .then( setFormTextFields.bind( this ) )
             .then( this.props.onSave )
             .catch( setErrors.bind( this ) );
     },
 
     printRecipe() {
-        recipeActions.setSaveFormFields( this.notes, this.description );
         setTimeout( () => {
             this.props.onPrint();
         } );

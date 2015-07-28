@@ -10,8 +10,6 @@ export default Reflux.createStore( {
     init() {
         this.store = new RecipeModel();
         this.store.on( 'calculated', doTrigger.bind( this ) );
-
-        this.listenTo( recipeActions.setSaveFormFields, setNotesAndDescription.bind( this ) );
     },
 
     getInitialState() {
@@ -29,10 +27,4 @@ export default Reflux.createStore( {
 
 function doTrigger() {
     this.trigger( this.store );
-}
-
-function setNotesAndDescription( notes, description ) {
-    this.store.setModelValue( 'notes', notes );
-
-    doTrigger.call( this );
 }

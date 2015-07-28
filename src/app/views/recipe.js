@@ -20,6 +20,7 @@ import BootstrapModalLink from 'components/bootstrapModalLink';
 import UserAvatar from 'components/userAvatar';
 import ButtonFBLike from 'components/buttonFBLike';
 import ButtonGPlusLike from 'components/buttonGPlusLike';
+import MarkedDisplay from 'components/markedDisplay';
 
 import SignupOrLoginToSaveRecipe from 'modals/signupOrLoginToSaveRecipe';
 
@@ -69,7 +70,7 @@ export default React.createClass( {
                     </ol>
 
                     <legend><h1>{recipeName}</h1></legend>
-                    { recipeDescription && <div className="description">{ recipeDescription }</div> }
+                    { recipeDescription && <div className="description"><MarkedDisplay content={ recipeDescription } /></div> }
 
                     <div className="row">
                         <div className="col-sm-10">
@@ -142,7 +143,7 @@ export default React.createClass( {
                         <div className="tab-content">
                             { recipeNotes &&
                             <div role="tabpanel" className="tab-pane active" id="notes">
-                                <div dangerouslySetInnerHTML={ { __html: recipeNotes } }></div>
+                                <MarkedDisplay content={ recipeNotes } />
                             </div>
                             }
                             <div role="tabpanel" className="tab-pane" id="facebook">

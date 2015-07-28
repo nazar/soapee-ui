@@ -23,9 +23,11 @@ module.exports = function ( options ) {
                 'jquery',
                 'lib/animatedModal.js',
                 'lib/growl.js',
+                'bootstrap-markdown/js/bootstrap-markdown',
                 'load-script',
                 'lodash',
                 'griddle-react',
+                'marked',
                 'moment',
                 'react',
                 'react/addons',
@@ -37,9 +39,6 @@ module.exports = function ( options ) {
                 'react-social',
                 'react-textarea-autosize',
                 'reflux',
-                'scribe-editor',
-                'scribe-plugin-sanitizer',
-                'scribe-plugin-toolbar',
                 'url',
                 'when'
             ]

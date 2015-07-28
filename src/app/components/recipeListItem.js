@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, Navigation } from 'react-router';
 
 import UserAvatar from 'components/userAvatar';
+import MarkedDisplay from 'components/markedDisplay';
 
 export default React.createClass( {
 
@@ -55,7 +56,9 @@ export default React.createClass( {
                     { recipe.description &&
                         <tr>
                             <td colSpan="3">
-                                { recipe.description }
+                                <MarkedDisplay
+                                    content={ recipe.description }
+                                    />
                             </td>
                         </tr>
                     }

@@ -7,9 +7,6 @@ import {
 } from 'resources/recipes';
 
 let actions = Reflux.createActions( {
-    //ui actions
-    setSaveFormFields: {},
-
     //async action
     createRecipe: { asyncResult: true },
     updateRecipe: { asyncResult: true },
