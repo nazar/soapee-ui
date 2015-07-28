@@ -67,7 +67,7 @@ gulp.task( 'build:image:min', function () {
 gulp.task( 'build:cp:index', function () {
     return gulp.src( [
         './src/index.html',
-        './src/favicon.ico'
+        './src/favicon.png'
     ] )
         .pipe( gulp.dest( 'build/' ) );
 } );
@@ -93,7 +93,8 @@ gulp.task( 'deploy', [ 'build' ], function ( cb ) {
     var options = {
         init: require( './deploy/shipit' ).init,
         run: 'deploy-local',
-        targetEnv: 'production'
+        targetEnv: 'production',
+        skipConfirm: true
     };
 
     shipitCaptain( require( './deploy/shipit' ).config, options, cb  );
