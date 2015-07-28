@@ -25,6 +25,8 @@ export default React.createClass( {
             this.replaceWith( 'profile' );
         }
 
+        document.title = 'Soapee - Signup';
+
         return (
             <div id="signup">
 

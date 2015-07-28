@@ -1,5 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
+import DocMeta from 'react-doc-meta';
+
 import { Navigation } from 'react-router';
 
 import calculatorStore from 'stores/calculator';
@@ -15,9 +17,14 @@ export default React.createClass( {
         Reflux.connect( calculatorStore, 'recipe' )
     ],
 
+    componentDidMount() {
+        document.title = 'Soapee - Lye Calculator';
+    },
+
     render() {
         return (
             <div id="calculator">
+                <DocMeta tags={ this.tags() } />
                 <SapCalculator
                     recipe={ this.state.recipe }
                     />
@@ -47,7 +54,17 @@ export default React.createClass( {
 
     printRecipe() {
         this.replaceWith( 'print' );
-    }
+    },
 
+    tags() {
+        let description = 'Soapee Lye Calculator';
+
+        return [
+            {name: 'description', content: description},
+            {name: 'twitter:card', content: description},
+            {name: 'twitter:title', content: description},
+            {property: 'og:title', content: description}
+        ];
+    }
 
 } );

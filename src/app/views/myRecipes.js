@@ -22,6 +22,8 @@ export default React.createClass( {
     },
 
     render() {
+        document.title = 'Soapee - My Recipes';
+
         return (
             <div id="my-recipes">
                 <legend>My Recipes</legend>

@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
-import { Link } from 'react-router';
+import DocMeta from 'react-doc-meta';
+import { Link, State } from 'react-router';
 
 import oilActions from 'actions/oil';
 
@@ -24,6 +25,7 @@ export default React.createClass( {
     },
 
     mixins: [
+        State,
         Reflux.connect( oilStore, 'oil' )
     ],
 
@@ -39,11 +41,14 @@ export default React.createClass( {
     renderOil() {
         let oilName;
 
-        if ( this.state.oil ) {
+        if ( this.pageIsForRequestedOil() ) {
             oilName = this.state.oil.name;
+
+            document.title = `Soapee - ${ oilName }`;
 
             return (
                 <div>
+                    <DocMeta tags={ this.tags() } />
                     <ol className="breadcrumb">
                         <li><Link to="home">Home</Link></li>
                         <li><Link to="oils">Oils</Link></li>
@@ -81,7 +86,7 @@ export default React.createClass( {
                             </div>
                         </div>
 
-                        <div className="col-sm-1 col-xs-6 text-center">
+                        <div className="col-sm-1 col-xs-6 text-center hidden-xs">
                             <div className="social">
                                 <ButtonFBLike />
                                 <ButtonGPlusLike />
@@ -90,25 +95,26 @@ export default React.createClass( {
 
                     </div>
 
-                    <div className="row">
-                        <ul className="nav nav-tabs" role="tablist">
-                            <li role="presentation" className="active"><a href="#in-recipes" aria-controls="in-recipes" role="tab" data-toggle="tab">Used in Recipes</a></li>
-                            <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
-                            <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
-                        </ul>
-                        <div className="tab-content">
-                            <div role="tabpanel" className="tab-pane active" id="in-recipes">
-                                { this.renderInRecipes() }
-                            </div>
-                            <div role="tabpanel" className="tab-pane" id="facebook">
-                                <FacebookComments />
-                            </div>
-                            <div role="tabpanel" className="tab-pane" id="google">
-                                <GoogleComments />
+                    <div className="row"    >
+                        <div className="col-md-12">
+                            <ul className="nav nav-tabs" role="tablist">
+                                <li role="presentation" className="active"><a href="#in-recipes" aria-controls="in-recipes" role="tab" data-toggle="tab">Used in Recipes</a></li>
+                                <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
+                                <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
+                            </ul>
+                            <div className="tab-content">
+                                <div role="tabpanel" className="tab-pane active" id="in-recipes">
+                                    { this.renderInRecipes() }
+                                </div>
+                                <div role="tabpanel" className="tab-pane" id="facebook">
+                                    <FacebookComments />
+                                </div>
+                                <div role="tabpanel" className="tab-pane" id="google">
+                                    <GoogleComments />
+                                </div>
                             </div>
                         </div>
                     </div>
-
 
                 </div>
             );
@@ -247,9 +253,16 @@ export default React.createClass( {
     },
 
     renderLoading() {
-        if ( !(this.state.oil) ) {
+        if ( !(this.pageIsForRequestedOil()) ) {
             return <Spinner />;
         }
+    },
+
+    pageIsForRequestedOil() {
+        let requested = Number( this.getParams().id );
+        let got = Number( _.get( this.state.oil, 'id' ) );
+
+        return requested === got;
     },
 
     gap() {
@@ -258,7 +271,19 @@ export default React.createClass( {
                 <td colSpan="2"></td>
             </tr>
         );
+    },
+
+    tags() {
+        let description = `Soapee Oil - ${ this.state.oil.name }`;
+
+        return [
+            {name: 'description', content: description},
+            {name: 'twitter:card', content: description},
+            {name: 'twitter:title', content: description},
+            {property: 'og:title', content: description}
+        ];
     }
+
 
 
 

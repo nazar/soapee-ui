@@ -31,6 +31,7 @@ module.exports = function ( options ) {
                 'react/addons',
                 'react-cookie',
                 'react-ga',
+                'react-doc-meta',
                 'react-portal',
                 'react-router',
                 'react-social',

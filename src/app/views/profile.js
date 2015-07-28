@@ -34,6 +34,8 @@ export default React.createClass( {
             'has-error': this.state.errors.name
         } );
 
+        document.title = 'Soapee - My Profile';
+
         return (
             <div id="profile">
                 <div className="jumbotron">

@@ -19,6 +19,7 @@
         "react": "0.13.3",
         "react-cookie": "0.2.5",
         "react-ga": "1.0.12",
+        "react-doc-meta": "0.2.0",
         "react-portal": "0.6.0",
         "react-router": "0.13.3",
         "react-social": "0.1.5",

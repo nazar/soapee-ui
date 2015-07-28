@@ -27,6 +27,8 @@ export default React.createClass( {
     },
 
     render() {
+        document.title = 'Soapee - Login';
+
         return (
             <div id="login">
 

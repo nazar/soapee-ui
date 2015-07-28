@@ -1,5 +1,6 @@
 import React from 'react';
 import Reflux from 'reflux';
+import DocMeta from 'react-doc-meta';
 import { Link, Navigation, State } from 'react-router';
 
 import recipeStore from 'stores/recipe';
@@ -40,6 +41,7 @@ export default React.createClass( {
     render() {
         return (
             <div id="recipe">
+                <DocMeta tags={ this.tags() } />
                 { this.renderLoading() }
                 { this.renderRecipe() }
             </div>
@@ -51,10 +53,12 @@ export default React.createClass( {
         let recipeDescription;
         let recipeNotes;
 
-        if ( this.state.recipe ) {
+        if ( this.pageIsForRequestedRecipe() ) {
             recipeName = this.state.recipe.getModelValue( 'name' );
             recipeDescription = this.state.recipe.getModelValue( 'description' );
             recipeNotes = this.state.recipe.getModelValue( 'notes' );
+
+            document.title = `Soapee - ${this.state.recipe.getModelValue( 'name' )}`;
 
             return (
                 <div>
@@ -80,13 +84,13 @@ export default React.createClass( {
                             </div>
                         </div>
 
-                        <div className="col-sm-1 text-center">
+                        <div className="col-sm-1 text-center hidden-xs">
                             <UserAvatar
                                 user={ this.state.recipe.getModelValue( 'user' ) }
                                 />
                         </div>
 
-                        <div className="col-sm-1 text-center">
+                        <div className="col-sm-1 text-center hidden-xs">
                             <div className="social">
                                 <ButtonFBLike />
                                 <ButtonGPlusLike />
@@ -156,7 +160,7 @@ export default React.createClass( {
     },
 
     renderLoading() {
-        if ( !(this.state.recipe) ) {
+        if ( !(this.pageIsForRequestedRecipe()) ) {
             return <Spinner />;
         }
     },
@@ -201,6 +205,25 @@ export default React.createClass( {
 
         meActions.addRecipeToFavourites( this.state.recipe.recipe )
             .then( success );
+    },
+
+    pageIsForRequestedRecipe() {
+        let requested = Number( this.getParams().id );
+        let got = Number( this.state.recipe.getModelValue( 'user_id' ) );
+
+        return requested === got;
+    },
+
+    tags() {
+        let description = `Soapee Recipe - ${this.state.recipe.getModelValue( 'name' )}`;
+
+        return [
+            {name: 'description', content: description},
+            {name: 'twitter:card', content: description},
+            {name: 'twitter:title', content: description},
+            {property: 'og:title', content: description}
+        ];
     }
+
 
 } );

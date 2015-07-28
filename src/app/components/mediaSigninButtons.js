@@ -6,6 +6,8 @@ import authGoogle from 'resources/authGoogle';
 
 import authActions from 'actions/auth';
 
+import Spinner from 'components/spinner';
+
 export default React.createClass( {
 
     getInitialState() {
@@ -24,23 +26,31 @@ export default React.createClass( {
     },
 
     render() {
+        let disabled = this.state.disabledButtons;
+
         return (
             <div className="media-signin-buttons">
                 <div className="action-button">
                     <button className="btn btn-primary link-signup" onClick={this.googleSignin} {...this.isButtonDisabled('google')}>
                         <span className="logo">
-                            <i className="fa fa-google-plus"></i>
+                            { !(disabled.google) && <i className="fa fa-google-plus"></i> }
                         </span>
-                        <span className="action">Sign in with Google+</span>
+                        <span className="action">
+                            { disabled.google && 'Signing in' }
+                            { !(disabled.google) && 'Sign in with Google+' }
+                        </span>
                     </button>
                 </div>
 
                 <div className="action-button">
                     <button className="btn btn-primary link-signup" onClick={this.facebookSignin} {...this.isButtonDisabled('facebook')}>
                         <span className="logo">
-                            <i className="fa fa-facebook"></i>
+                            { !(disabled.facebook) && <i className="fa fa-facebook"></i> }
                         </span>
-                        <span className="action">Sign in with Facebook</span>
+                        <span className="action">
+                            { disabled.facebook && 'Signing in' }
+                            { !(disabled.facebook) && 'Sign in with Facebook' }
+                        </span>
                     </button>
                 </div>
 

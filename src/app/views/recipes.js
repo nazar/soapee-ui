@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
+import DocMeta from 'react-doc-meta';
 
 import recipesStore from 'stores/recipes';
 
@@ -13,9 +14,14 @@ export default React.createClass( {
         Reflux.connect( recipesStore, 'recipes' )
     ],
 
+    componentDidMount() {
+        document.title = 'Soapee - Recipes';
+    },
+
     render() {
         return (
             <div id="recipes">
+                <DocMeta tags={ this.tags() } />
                 <h1>Latest Soap Recipes</h1>
 
                 { this.renderLoading() }
@@ -47,6 +53,18 @@ export default React.createClass( {
                 showUser={ true }
                 />
         );
+    },
+
+    tags() {
+        let description = 'Soapee Community Soap Recipes';
+
+        return [
+            {name: 'description', content: description},
+            {name: 'twitter:card', content: description},
+            {name: 'twitter:title', content: description},
+            {property: 'og:title', content: description}
+        ];
     }
+
 
 } );

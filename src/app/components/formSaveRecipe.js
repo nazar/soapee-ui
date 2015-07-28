@@ -41,7 +41,7 @@ export default React.createClass( {
                     <fieldset>
                         <legend>Save recipe?</legend>
 
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <legend>Recipe Name</legend>
                             <div className={nameClasses}  >
                                 <div className="col-lg-10">
@@ -59,7 +59,7 @@ export default React.createClass( {
                             </div>
                         </div>
 
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <legend>Recipe Description</legend>
                             <TextArea
                                 className="input-description"

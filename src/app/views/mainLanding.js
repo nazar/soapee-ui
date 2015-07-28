@@ -1,9 +1,15 @@
 import React from 'react';
+import DocMeta from 'react-doc-meta';
+
 import { Link } from 'react-router';
 
 import background from 'assets/img/landing-background.jpg';
 
 export default React.createClass( {
+
+    componentDidMount() {
+        document.title = 'Soapee';
+    },
 
     render() {
         let style = {
@@ -12,7 +18,7 @@ export default React.createClass( {
 
         return (
             <div id="main-landing">
-
+                <DocMeta tags={ this.tags() } />
                 <div className="header-container">
                     <div className="header clearfix" style={style}>
                         <div className="text-vertical-center">
@@ -107,6 +113,18 @@ export default React.createClass( {
                 scrollTop: $( ref ).offset().top
             }, 1000 );
         };
+    },
+
+    tags() {
+        let description = 'Soapee is a Saponification Calculator and a Soap Recipe Database';
+
+        return [
+            {name: 'description', content: description},
+            {name: 'twitter:card', content: description},
+            {name: 'twitter:title', content: description},
+            {property: 'og:title', content: description}
+        ];
     }
+
 
 } );

@@ -22,6 +22,8 @@ export default React.createClass( {
     ],
 
     render() {
+        document.title = 'Soapee - Edit';
+
         return (
             <div id="recipe-edit">
                 <SapCalculator
