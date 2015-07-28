@@ -1,12 +1,25 @@
 {
-    "name": "soaps-ui",
+    "name": "soapee-ui",
     "version": "1.0.0",
-    "description": "Soapie",
+    "description": "Soapee - ReactJS based Lye Calculator, Oil and Soap Recipe Database",
+    "homepage": "http://soapee.com",
+    "license" : "SEE LICENSE IN LICENSE",
     "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "mcnazar@gmail.com",
+    "author": {
+        "name": "Nazar Aziz",
+        "email": "mcnazar@gmail.com",
+        "url" : "http://charb.it"
+    },
+    "repository" :{
+        "type" : "git",
+        "url" : "https://github.com/nazar/soapee-ui"
+    },
+    "bugs": {
+        "url": "https://github.com/nazar/soapee-ui/issues"
+    },
     "dependencies": {
         "bootstrap": "3.3.5",
         "bootstrap-markdown": "2.9.0",
