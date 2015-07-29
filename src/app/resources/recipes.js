@@ -46,6 +46,7 @@ function recipeModelToPacket( recipeModel ) {
         name: recipe.name,
         description: recipe.description,
         notes: recipe.notes,
+        visibility: recipe.visibility,
 
         kohPurity: recipe.kohPurity,
         ratioNaoh: recipe.ratioNaoh,

@@ -12,6 +12,7 @@ export default Reflux.createStore( {
         this.store.on( 'calculated', doTrigger.bind( this ) );
 
         this.listenTo( recipeActions.getRecipeById.completed, gotRecipe.bind( this ) );
+        this.listenTo( recipeActions.getRecipeById.failed, setError.bind( this ) );
     },
 
     getInitialState() {
@@ -29,6 +30,12 @@ function gotRecipe( recipe ) {
     this.store.setRecipe( recipe );
 
     doTrigger.call( this );
+}
+
+function setError( error ) {
+    this.trigger( {
+        error: error.responseJSON
+    } );
 }
 
 function doTrigger() {
