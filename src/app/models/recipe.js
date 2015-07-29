@@ -25,7 +25,8 @@ export default class extends EventEmitter {
             totalWeight: 500,
             totalUom: 'gram',
             superFat: 5,
-            waterRatio: 38
+            waterRatio: 38,
+            visibility: 1
         };
     }
 
@@ -58,6 +59,10 @@ export default class extends EventEmitter {
 
     isMixedRecipe() {
         return this.recipe.soapType === 'mixed';
+    }
+
+    isPrivate() {
+        return Number( this.recipe.visibility ) === 0;
     }
 
     mixedTotalRatios() {

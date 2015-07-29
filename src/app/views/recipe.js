@@ -40,13 +40,21 @@ export default React.createClass( {
     ],
 
     render() {
-        return (
-            <div id="recipe">
-                <DocMeta tags={ this.tags() } />
-                { this.renderLoading() }
-                { this.renderRecipe() }
-            </div>
-        );
+        if ( this.state.recipe.error ) {
+            return (
+                <div id="recipe">
+                    { this.renderError() }
+                </div>
+            );
+        } else {
+            return (
+                <div id="recipe">
+                    <DocMeta tags={ this.tags() } />
+                    { this.renderLoading() }
+                    { this.renderRecipe() }
+                </div>
+            );
+        }
     },
 
     renderRecipe() {
@@ -89,6 +97,12 @@ export default React.createClass( {
                             <UserAvatar
                                 user={ this.state.recipe.getModelValue( 'user' ) }
                                 />
+                            { this.state.recipe.isPrivate() &&
+                                <div className="private">
+                                    <i className="fa fa-lock"></i>
+                                    <div>Private <br/>Recipe</div>
+                                </div>
+                            }
                         </div>
 
                         <div className="col-sm-1 text-center hidden-xs">
@@ -213,6 +227,35 @@ export default React.createClass( {
         let got = Number( this.state.recipe.getModelValue( 'id' ) );
 
         return requested === got;
+    },
+
+    renderError() {
+        let error = this.state.recipe.error;
+        let message;
+
+        if ( error.errorType === 'NotAuthorisedError' ) {
+            message = (
+                <div className="error">
+                    <h2>Private Recipe</h2>
+                    <p>This recipe has been marked as private and can only be viewed by the owner.</p>
+                    <p>Please <Link to="login">login</Link> to view this recipe if your are its author.</p>
+                </div>
+            );
+        } else {
+            message = (
+                <div className="error">
+                    <h2>Unexpected Error</h2>
+                    <p>Oh dear! Not sure what happened there.</p>
+                    <p>
+                        I would be most grateful if you would report this error to either the
+                        <a href="https://www.reddit.com/r/soapee/" target="_blank">Reddit</a> support group or to our
+                        page on <a href="https://www.facebook.com/soapeepage" target="_blank">Facebook</a>.
+                    </p>
+                </div>
+            );
+        }
+
+        return message;
     },
 
     tags() {

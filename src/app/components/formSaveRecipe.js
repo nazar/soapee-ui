@@ -73,11 +73,22 @@ export default React.createClass( {
                             <MarkdownEditor
                                 className="input-description"
                                 valueLink={ this.linkModel( this.props.recipe, 'notes' ) }
-                                placeholder="Add a short description"
-                                rows="20"
+                                placeholder="Describe how the recipe is prepared; mention anything interesting or relevant to this recipe"
+                                rows="18"
                                 />
                         </div>
 
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <legend>Recipe Visibility</legend>
+                                <label className="radio-inline">
+                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 1 )} /> Public - visible to Everyone
+                                </label>
+                                <label className="radio-inline">
+                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 0 )} /> Private - only visible to the Author
+                                </label>
+                            </div>
+                        </div>
 
                         <div className="col-sm-12">
                             <div className="btn-toolbar action-buttons">
