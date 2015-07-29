@@ -48,6 +48,8 @@ function recipeModelToPacket( recipeModel ) {
         notes: recipe.notes,
 
         kohPurity: recipe.kohPurity,
+        ratioNaoh: recipe.ratioNaoh,
+        ratioKoh: recipe.ratioKoh,
         soapType: recipe.soapType,
         superFat: recipe.superFat,
         totalUom: recipe.totalUom,

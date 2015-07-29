@@ -47,4 +47,4 @@ export default React.createClass( {
             .then( initialize.bind( this ) );
     }
 
-} )
+} );

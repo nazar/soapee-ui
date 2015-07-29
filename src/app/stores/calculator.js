@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import Reflux from 'reflux';
 
-import recipeActions from 'actions/recipe';
-
 import RecipeModel from 'models/recipe';
 
 export default Reflux.createStore( {

@@ -210,7 +210,7 @@ export default React.createClass( {
 
     pageIsForRequestedRecipe() {
         let requested = Number( this.getParams().id );
-        let got = Number( this.state.recipe.getModelValue( 'user_id' ) );
+        let got = Number( this.state.recipe.getModelValue( 'id' ) );
 
         return requested === got;
     },
