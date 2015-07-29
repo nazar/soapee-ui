@@ -31,6 +31,7 @@ export default React.createClass( {
 
     recipeOilRows() {
         let oilRows = this.props.recipe.recipeOilsWeightsRatios();
+        let places = this.props.recipe.roundPlaces();
 
         return _.map( oilRows,  row => {
             return (
@@ -42,7 +43,7 @@ export default React.createClass( {
                         { _.round( row.ratio * 100 ) }
                     </td>
                     <td>
-                        { _.round( row.weight ) }
+                        { _.round( row.weight, places ) }
                     </td>
                 </tr>
             );
@@ -64,6 +65,7 @@ export default React.createClass( {
                 r.weight = result.weight + Number( oilRow.weight );
             } );
         }, { ratio: 0, weight: 0 } );
+        let places = this.props.recipe.roundPlaces();
 
         return (
             <tr>
@@ -73,7 +75,7 @@ export default React.createClass( {
                     <strong>{ _.round( totals.ratio ) }</strong>
                 </td>
                 <td>
-                    <strong>{ _.round( totals.weight ) }</strong>
+                    <strong>{ _.round( totals.weight, places ) }</strong>
                 </td>
             </tr>
         );

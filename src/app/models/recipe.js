@@ -64,6 +64,15 @@ export default class extends EventEmitter {
         return Number( this.recipe.ratioNaoh ) + Number( this.recipe.ratioKoh );
     }
 
+    roundPlaces() {
+        return {
+            gram: 0,
+            ounce: 1,
+            kilo: 3,
+            pound: 3
+        }[ this.recipeOilsUom() ];
+    }
+
     sapForSoapType( lye, oil ) {
         let factors = {
             koh: ( this.recipe.kohPurity / 100 ),
