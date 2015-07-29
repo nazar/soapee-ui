@@ -5,6 +5,7 @@ export default React.createClass( {
 
     render() {
         let uom = this.props.recipe.recipeOilsUom() + 's';
+        let places = this.props.recipe.roundPlaces();
 
         return (
             <div className="recipe-totals">
@@ -16,7 +17,7 @@ export default React.createClass( {
                                 Total Water Weight
                             </td>
                             <td>
-                                { this.roundedValue( 'summary.totals.totalWaterWeight' ) } { uom }
+                                { this.roundedValue( 'summary.totals.totalWaterWeight', places ) } { uom }
                             </td>
                         </tr>
                         { this.props.recipe.isMixedRecipe() &&
@@ -26,7 +27,7 @@ export default React.createClass( {
                                         Total NaOH Weight
                                     </td>
                                     <td>
-                                        { this.roundedValue( 'summary.totals.totalNaoh' ) } {uom}
+                                        { this.roundedValue( 'summary.totals.totalNaoh', places ) } {uom}
                                     </td>
                                 </tr>
                                 ,
@@ -35,7 +36,7 @@ export default React.createClass( {
                                         Total KoH Weight
                                     </td>
                                     <td>
-                                        { this.roundedValue( 'summary.totals.totalKoh' ) } {uom} { `at ${this.props.recipe.getModelValue( 'kohPurity' )}% purity` }
+                                        { this.roundedValue( 'summary.totals.totalKoh', places ) } {uom} { `at ${this.props.recipe.getModelValue( 'kohPurity' )}% purity` }
                                     </td>
                                 </tr>
                                 ,
@@ -44,7 +45,7 @@ export default React.createClass( {
                                         Total Lye Weight
                                     </td>
                                     <td>
-                                        { this.roundedValue( 'summary.totals.totalLye' ) } {uom}
+                                        { this.roundedValue( 'summary.totals.totalLye', places ) } {uom}
                                     </td>
                                 </tr>
                             ]
@@ -55,16 +56,24 @@ export default React.createClass( {
                                     Total {this.props.recipe.soapTypeToLye()} Weight
                                 </td>
                                 <td>
-                                    { this.roundedValue( 'summary.totals.totalLye' ) } {uom} {this.purityInfo()}
+                                    { this.roundedValue( 'summary.totals.totalLye', places ) } {uom} {this.purityInfo()}
                                 </td>
                             </tr>
                         }
                         <tr>
                             <td>
+                                Total Oil Weight
+                            </td>
+                            <td>
+                                { this.roundedValue( 'summary.totals.totalOilWeight', places ) } { uom }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 Total Batch Weight
                             </td>
                             <td>
-                                { this.roundedValue( 'summary.totals.totalBatchWeight' ) } { uom }
+                                { this.roundedValue( 'summary.totals.totalBatchWeight', places ) } { uom }
                             </td>
                         </tr>
                         <tr>
@@ -72,7 +81,7 @@ export default React.createClass( {
                                 Lye Concentration
                             </td>
                             <td>
-                                { this.roundedValue( 'summary.totals.lyeConcentration' ) }%
+                                { this.roundedValue( 'summary.totals.lyeConcentration', places ) }%
                             </td>
                         </tr>
                         <tr>

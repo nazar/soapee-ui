@@ -23,7 +23,7 @@ export default React.createClass( {
                     <div className="header clearfix" style={style}>
                         <div className="text-vertical-center">
                             <h1>Soapee</h1>
-                            <h3>Soap Making Community and Resources</h3>
+                            <h2>Soap Making Community and Resources</h2>
                             <br />
                             <button className="btn btn-primary btn-lg" onClick={ this.scrollTo( '#about' ) }>Find Out More</button>
                         </div>
