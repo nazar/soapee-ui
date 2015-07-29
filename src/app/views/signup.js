@@ -20,11 +20,13 @@ export default React.createClass( {
         };
     },
 
-    render() {
+    componentWillUpdate() {
         if ( authStore.isAuthenticated() ) {
             this.replaceWith( 'profile' );
         }
+    },
 
+    render() {
         document.title = 'Soapee - Signup';
 
         return (
