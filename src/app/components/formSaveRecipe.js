@@ -1,9 +1,7 @@
 import React from 'react/addons';
 import Reflux from 'reflux';
 import cx from 'classnames';
-import TextArea from 'react-textarea-autosize';
 
-import recipeActions from 'actions/recipe';
 import authStore from 'stores/auth';
 import formLinkHandlers from 'mixins/formLinkHandlers';
 

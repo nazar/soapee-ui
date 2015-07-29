@@ -46,7 +46,7 @@ export default React.createClass( {
                                 <div className="form-group">
                                     <div className="radio">
                                         <label>
-                                            <input type="radio" name="soap-type" value="noah" checkedLink={this.radioModel( this.props.recipe, 'soapType', 'noah' ) } />
+                                            <input type="radio" name="soap-type" value="naoh" checkedLink={this.radioModel( this.props.recipe, 'soapType', 'naoh' ) } />
                                             <strong>Solid</strong> Soap - using <strong>NaOH</strong> (Sodium Hydroxide)
                                         </label>
                                     </div>
@@ -56,9 +56,16 @@ export default React.createClass( {
                                             <strong>Liquid</strong> Soap - using <strong>KOH</strong> (Potassium Hydroxide)
                                         </label>
                                     </div>
+                                    <div className="radio">
+                                        <label>
+                                            <input type="radio" name="soap-type" value="mixed" checkedLink={ this.radioModel( this.props.recipe, 'soapType', 'mixed' ) }/>
+                                            <strong>Hybrid</strong> Soap - using both <strong>KOH</strong> and <strong>NaOH</strong>
+                                        </label>
+                                    </div>
                                 </div>
                                 <ReactCSSTransitionGroup  transitionName="fade" transitionAppear={true}>
-                                    {this.renderKohPurity()}
+                                    { this.renderKohPurity() }
+                                    { this.renderMixedRatios() }
                                 </ReactCSSTransitionGroup>
                             </div>
                         </div>
@@ -266,6 +273,41 @@ export default React.createClass( {
         }
     },
 
+    renderMixedRatios() {
+        if ( this.isMixed() ) {
+            return (
+                <div key="mixedFields" id="mixed-fields" className="form-inline">
+                    <div>
+                        <div className="form-group">
+                            <input type="text" className="form-control short-numeric" valueLink={this.linkModel(this.props.recipe, 'ratioKoh')}  /> %
+                            <span> KOH</span>
+                        </div>
+                        <div className="form-group left-spacer">
+                            <input type="text" className="form-control short-numeric" valueLink={this.linkModel(this.props.recipe, 'ratioNaoh')}  /> %
+                            <span> NaOH</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="form-group">
+                            <input type="text" className="form-control short-numeric" valueLink={this.linkModel(this.props.recipe, 'kohPurity')}  /> %
+                            <span> KOH Purity - recommended 90%</span>
+                        </div>
+                    </div>
+                    { this.props.recipe.mixedTotalRatios() > 100 &&
+                        <div className="alert alert-danger text-center animate bounceIn" role="alert">
+                            Lye ratios are over 100%
+                        </div>
+                    }
+                    { this.props.recipe.mixedTotalRatios() < 100 &&
+                        <div className="alert alert-warning text-center animate bounceIn" role="alert">
+                            Lye ratios should total 100%
+                        </div>
+                    }
+                </div>
+            );
+        }
+    },
+
     renderTotalSoapWeight() {
         if ( this.percentMode() ) {
             return (
@@ -312,6 +354,10 @@ export default React.createClass( {
 
     isKoh() {
         return this.props.recipe.isKohRecipe();
+    },
+
+    isMixed() {
+        return this.props.recipe.isMixedRecipe();
     }
 
 } );

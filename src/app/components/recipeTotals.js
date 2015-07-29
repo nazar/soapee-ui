@@ -19,14 +19,46 @@ export default React.createClass( {
                                 { this.roundedValue( 'summary.totals.totalWaterWeight' ) } { uom }
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                Total {this.props.recipe.soapTypeToLye()} Weight
-                            </td>
-                            <td>
-                                { this.roundedValue( 'summary.totals.totalLye' ) } {uom} {this.purityInfo()}
-                            </td>
-                        </tr>
+                        { this.props.recipe.isMixedRecipe() &&
+                            [
+                                <tr>
+                                    <td>
+                                        Total NaOH Weight
+                                    </td>
+                                    <td>
+                                        { this.roundedValue( 'summary.totals.totalNaoh' ) } {uom}
+                                    </td>
+                                </tr>
+                                ,
+                                <tr>
+                                    <td>
+                                        Total KoH Weight
+                                    </td>
+                                    <td>
+                                        { this.roundedValue( 'summary.totals.totalKoh' ) } {uom} { `at ${this.props.recipe.getModelValue( 'kohPurity' )}% purity` }
+                                    </td>
+                                </tr>
+                                ,
+                                <tr>
+                                    <td>
+                                        Total Lye Weight
+                                    </td>
+                                    <td>
+                                        { this.roundedValue( 'summary.totals.totalLye' ) } {uom}
+                                    </td>
+                                </tr>
+                            ]
+                        }
+                        { !(this.props.recipe.isMixedRecipe()) &&
+                            <tr>
+                                <td>
+                                    Total {this.props.recipe.soapTypeToLye()} Weight
+                                </td>
+                                <td>
+                                    { this.roundedValue( 'summary.totals.totalLye' ) } {uom} {this.purityInfo()}
+                                </td>
+                            </tr>
+                        }
                         <tr>
                             <td>
                                 Total Batch Weight

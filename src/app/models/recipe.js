@@ -17,7 +17,9 @@ export default class extends EventEmitter {
             weights: {},
             recipe: {},
 
-            soapType: 'noah',
+            soapType: 'naoh',
+            ratioNaoh: 50,
+            ratioKoh: 50,
             kohPurity: 90,
             uom: 'gram',
             totalWeight: 500,
@@ -54,13 +56,21 @@ export default class extends EventEmitter {
         return this.recipe.soapType === 'koh';
     }
 
-    sapForSoapType( oil ) {
+    isMixedRecipe() {
+        return this.recipe.soapType === 'mixed';
+    }
+
+    mixedTotalRatios() {
+        return Number( this.recipe.ratioNaoh ) + Number( this.recipe.ratioKoh );
+    }
+
+    sapForSoapType( lye, oil ) {
         let factors = {
             koh: ( this.recipe.kohPurity / 100 ),
-            noah: 1.403
+            naoh: 1.403
         };
 
-        return oil.sap / factors[ this.recipe.soapType ];
+        return oil.sap / factors[ lye ];
     }
 
     setRecipeOilsByIds( oilIds ) {
@@ -178,6 +188,8 @@ export default class extends EventEmitter {
         let totalOilWeight;
         let totalWaterWeight;
         let totalLye;
+        let totalNaoh;
+        let totalKoh;
         let totalBatchWeight;
         let lyeConcentration;
         let waterLyeRatio;
@@ -194,9 +206,22 @@ export default class extends EventEmitter {
         }
 
         totalWaterWeight = totalOilWeight * ( this.recipe.waterRatio / 100 );
-        totalLye = _.sum( this.recipe.weights, ( weightOrRatio, oilId ) => {
-            return this.lyeWeightForOilId( weightOrRatio, oilId );
-        } );
+
+        if ( this.isMixedRecipe() ) {
+            totalNaoh = _.sum( this.recipe.weights, ( weightOrRatio, oilId ) => {
+                return this.lyeRatioWeightForOilId( 'naoh', weightOrRatio, oilId );
+            } );
+            totalKoh = _.sum( this.recipe.weights, ( weightOrRatio, oilId ) => {
+                return this.lyeRatioWeightForOilId( 'koh', weightOrRatio, oilId );
+            } );
+
+            totalLye = totalNaoh + totalKoh;
+        } else {
+            totalLye = _.sum( this.recipe.weights, ( weightOrRatio, oilId ) => {
+                return this.lyeWeightForOilId( this.recipe.soapType, weightOrRatio, oilId );
+            } );
+        }
+
         totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye );
 
         if ( totalWaterWeight + totalLye ) {
@@ -212,6 +237,8 @@ export default class extends EventEmitter {
             totals: {
                 totalOilWeight,
                 totalWaterWeight,
+                totalNaoh,
+                totalKoh,
                 totalLye,
                 totalBatchWeight,
                 lyeConcentration,
@@ -223,7 +250,7 @@ export default class extends EventEmitter {
         };
     }
 
-    lyeWeightForOilId( weightRatio, oilId ) {
+    lyeWeightForOilId( lye, weightRatio, oilId ) {
         if ( weightRatio ) {
             let oilWeight;
             let oil;
@@ -238,7 +265,7 @@ export default class extends EventEmitter {
 
             grams = this.convertToGrams( oilWeight );
             oil = _.find( this.recipe.oils, { id: Number( oilId ) } );
-            lyeGrams = this.sapForSoapType( oil ) * grams;
+            lyeGrams = this.sapForSoapType( lye, oil ) * grams;
 
             //factor in superfat discount
             lyeGrams = lyeGrams - _.round( ( this.recipe.superFat / 100 ) * lyeGrams, 3 );
@@ -247,6 +274,16 @@ export default class extends EventEmitter {
         } else {
             return 0;
         }
+    }
+
+    lyeRatioWeightForOilId( lye, weightRatio, oilId ) {
+        let amount;
+        let ratio;
+
+        amount = this.lyeWeightForOilId( lye, weightRatio, oilId );
+        ratio = this.recipe[ 'ratio' + _.capitalize(lye)  ] / 100;
+
+        return ratio * amount;
     }
 
     convertToGrams( weightOrRatio ) {
@@ -353,8 +390,9 @@ export default class extends EventEmitter {
 
     soapTypeToLye() {
         return {
-            noah: 'NaOH',
-            koh: 'KOH'
+            naoh: 'NaOH',
+            koh: 'KOH',
+            mixed: 'NaOH and KOH'
         }[ this.recipe.soapType ];
     }
 

@@ -6,8 +6,6 @@ import authGoogle from 'resources/authGoogle';
 
 import authActions from 'actions/auth';
 
-import Spinner from 'components/spinner';
-
 export default React.createClass( {
 
     getInitialState() {
