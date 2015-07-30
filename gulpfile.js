@@ -94,7 +94,7 @@ gulp.task( 'deploy', [ 'build' ], function ( cb ) {
         init: require( './deploy/shipit' ).init,
         run: 'deploy-local',
         targetEnv: 'production',
-        skipConfirm: true
+        confirm: false
     };
 
     shipitCaptain( require( './deploy/shipit' ).config, options, cb  );
