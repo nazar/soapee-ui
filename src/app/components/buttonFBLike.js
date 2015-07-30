@@ -1,9 +1,13 @@
 /*global FB*/
 
-import React from 'react';
+import React from 'react/addons';
 import loadFBSdk from 'resources/loadFBSdk';
 
 export default React.createClass( {
+
+    mixins: [
+        React.addons.PureRenderMixin
+    ],
 
     getDefaultProps() {
         return {
@@ -23,7 +27,7 @@ export default React.createClass( {
         return (
             <div className="button-fb-like">
                 <div className="fb-like"
-                     data-href={ this.props.url || window.location }
+                     data-href={ this.props.url }
                      data-layout={ this.props.layout }
                      data-action="like"
                      data-show-faces="true"

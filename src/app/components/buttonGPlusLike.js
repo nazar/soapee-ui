@@ -1,9 +1,13 @@
 /*global gapi*/
 
-import React from 'react';
+import React from 'react/addons';
 import loadPlatformSDK from 'resources/loadPlatformSDK';
 
 export default React.createClass( {
+
+    mixins: [
+        React.addons.PureRenderMixin
+    ],
 
     getDefaultProps() {
         return {
@@ -24,7 +28,7 @@ export default React.createClass( {
         return (
             <div className="button-gplus-like">
                 <div className="g-plusone"
-                     data-href={ this.props.url || window.location }
+                     data-href={ this.props.url }
                      data-size={ this.props.layout }
                     >
                 </div>

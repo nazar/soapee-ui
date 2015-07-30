@@ -1,12 +1,16 @@
 /*global gapi*/
 
-import React from 'react';
+import React from 'react/addons';
 import when from 'when';
 import load from 'load-script';
 
 let plusOne;
 
 export default React.createClass( {
+
+    mixins: [
+        React.addons.PureRenderMixin
+    ],
 
     componentDidMount() {
         this.width = $( 'body .container' ).width();
@@ -44,7 +48,7 @@ export default React.createClass( {
         $( this.getDOMNode() ).find( '#google-comments-widget' ).empty();
 
         gapi.comments.render( 'google-comments-widget', {
-            href: window.location,
+            href: this.props.url,
             width: this.width,
             first_party_property: 'BLOGGER',
             view_type: 'FILTERED_POSTMOD'

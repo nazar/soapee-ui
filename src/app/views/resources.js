@@ -62,10 +62,14 @@ export default React.createClass( {
                         </ul>
                         <div className="tab-content">
                             <div role="tabpanel" className="tab-pane active" id="facebook">
-                                <FacebookComments />
+                                <FacebookComments
+                                    url={ window.location }
+                                    />
                             </div>
                             <div role="tabpanel" className="tab-pane" id="google">
-                                <GoogleComments />
+                                <GoogleComments
+                                    url={ window.location }
+                                    />
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ export default React.createClass( {
             fullscreen: {
                 enable: false
             },
+            resize: 'both',
             hiddenButtons: [ 'cmdCode' ],
 
             onPreview: this.preview

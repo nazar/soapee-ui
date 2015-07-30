@@ -36,6 +36,22 @@ export function getRecipeById( id ) {
     );
 }
 
+export function getRecipeComments( recipe ) {
+    return when(
+        get( baseUrl( `recipes/${recipe.id}/comments` ) )
+    );
+}
+
+export function addCommentToRecipe( comment, recipe ) {
+    return when(
+        post( baseUrl( `recipes/${recipe.id}/comments` ), {
+            params: {
+                comment
+            }
+        } )
+    );
+}
+
 ///////////////
 /// private
 
