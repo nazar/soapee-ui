@@ -32,8 +32,8 @@ export default React.createClass( {
 
                 <section id="about">
                     <div className="col-ld-12 text-center">
-                        <h3>Soapee is a Saponification Calculator and a Soap Recipe Database.</h3>
-                        <p className="lead"><Link to="signup">Register</Link> today to start creating, saving and sharing all your soap recipes.</p>
+                        <h3>Soapee is a Saponification Calculator and a Soap Recipe Database</h3>
+                        <p className="lead"><Link to="signup">Register</Link> today to start creating, saving and sharing your soap recipes</p>
                     </div>
                 </section>
 
@@ -100,7 +100,11 @@ export default React.createClass( {
                 <section id="info">
                     <div className="jumbotron">
                         <p className="lead">Soapee is a community driven resource. Find us on <strong><a href="https://www.reddit.com/r/soapee" target="_blank">Reddit</a></strong> and <strong><a href="https://www.facebook.com/soapeepage" target="_blank">Facebook</a></strong> to add your ideas, suggestions and feedback.</p>
-                        <p className="lead">All application source code is released to the public domain. The UI and API source code can be found <strong>here</strong> and <strong>here</strong>.</p>
+                        <p className="lead">
+                            All Soapee source code is released to the public domain. The UI and API source
+                            code can be found <strong><a href="https://github.com/nazar/soapee-ui" target="_blank">here</a></strong> and&nbsp;
+                            <strong><a href="https://github.com/nazar/soapee-api" target="_blank">here</a></strong>.
+                        </p>
                     </div>
                 </section>
             </div>
