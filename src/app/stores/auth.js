@@ -64,7 +64,7 @@ function doTrigger() {
 }
 
 function swallowIfNotAuthorised( e ) {
-    if ( e.status !== 401 ) {
+    if ( e.status !== 403 ) {
         throw e;
     }
 }

@@ -1,9 +1,13 @@
 /*global FB*/
 
-import React from 'react';
+import React from 'react/addons';
 import loadFBSdk from 'resources/loadFBSdk';
 
 export default React.createClass( {
+
+    mixins: [
+        React.addons.PureRenderMixin
+    ],
 
     componentDidMount() {
         loadFBSdk()
@@ -19,7 +23,7 @@ export default React.createClass( {
         return (
             <div className="facebook-comments">
                 <div className="fb-comments"
-                     data-href={window.location}
+                     data-href={ this.props.url }
                      data-width="100%">
                 </div>
             </div>

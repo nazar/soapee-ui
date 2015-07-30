@@ -9,12 +9,14 @@ import oilActions from 'actions/oil';
 import oilStore from 'stores/oil';
 import oilsStore from 'stores/oils';
 import calculatorStore from 'stores/calculator';
+import oilComments from 'stores/oilComments';
 
 import Spinner from 'components/spinner';
 import FacebookComments from 'components/facebookComments';
 import GoogleComments from 'components/googleComments';
 import ButtonFBLike from 'components/buttonFBLike';
 import ButtonGPlusLike from 'components/buttonGPlusLike';
+import Commentable from 'components/commentable';
 
 export default React.createClass( {
 
@@ -26,7 +28,8 @@ export default React.createClass( {
 
     mixins: [
         State,
-        Reflux.connect( oilStore, 'oil' )
+        Reflux.connect( oilStore, 'oil' ),
+        Reflux.connect( oilComments, 'comments' )
     ],
 
     render() {
@@ -88,8 +91,12 @@ export default React.createClass( {
 
                         <div className="col-sm-1 col-xs-6 text-center hidden-xs">
                             <div className="social">
-                                <ButtonFBLike />
-                                <ButtonGPlusLike />
+                                <ButtonFBLike
+                                    url={ window.location }
+                                    />
+                                <ButtonGPlusLike
+                                    url={ window.location }
+                                    />
                             </div>
                         </div>
 
@@ -99,6 +106,7 @@ export default React.createClass( {
                         <div className="col-md-12">
                             <ul className="nav nav-tabs" role="tablist">
                                 <li role="presentation" className="active"><a href="#in-recipes" aria-controls="in-recipes" role="tab" data-toggle="tab">Used in Recipes</a></li>
+                                <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">User Comments {this.countComments()}</a></li>
                                 <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
                                 <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
                             </ul>
@@ -106,11 +114,20 @@ export default React.createClass( {
                                 <div role="tabpanel" className="tab-pane active" id="in-recipes">
                                     { this.renderInRecipes() }
                                 </div>
+                                <div role="tabpanel" className="tab-pane" id="comments">
+                                    <Commentable
+                                        store={ oilComments }
+                                        />
+                                </div>
                                 <div role="tabpanel" className="tab-pane" id="facebook">
-                                    <FacebookComments />
+                                    <FacebookComments
+                                        url={ window.location }
+                                        />
                                 </div>
                                 <div role="tabpanel" className="tab-pane" id="google">
-                                    <GoogleComments />
+                                    <GoogleComments
+                                        url={ window.location }
+                                        />
                                 </div>
                             </div>
                         </div>
@@ -250,6 +267,14 @@ export default React.createClass( {
             );
         }
 
+    },
+
+    countComments() {
+        let count = oilComments.count();
+
+        if ( count ) {
+            return <span>({ count })</span>;
+        }
     },
 
     renderLoading() {
