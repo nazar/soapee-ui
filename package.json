@@ -58,7 +58,7 @@
         "gulp-webpack": "1.5.0",
         "react-hot-loader": "1.2.8",
         "run-sequence": "1.1.1",
-        "shipit-captain": "https://github.com/nazar/shipit-captain/archive/0.4.0.2.tar.gz",
+        "shipit-captain": "0.4.2",
         "shipit-deploy": "2.0.0",
         "shipit-utils": "1.3.0",
         "style-loader": "0.12.3",
