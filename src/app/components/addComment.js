@@ -32,7 +32,7 @@ export default React.createClass( {
                 <MarkdownEditor
                     placeholder="Add your comments...."
                     valueLink={ this.linkState( 'comments' ) }
-                    rows="3"
+                    rows={ 3 }
                     />
 
                 { this.state.errors &&
@@ -111,4 +111,4 @@ export default React.createClass( {
         }
     }
 
-} )
+} );

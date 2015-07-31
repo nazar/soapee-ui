@@ -33,6 +33,12 @@ export function getMyFavouriteRecipes() {
     );
 }
 
+export function getComments() {
+    return when(
+        get( baseUrl( 'me/comments' ) )
+    );
+}
+
 export function addRecipeToFavourites( recipe ) {
     return when(
         put( baseUrl( `me/favourite/recipes/${recipe.id}` ) )

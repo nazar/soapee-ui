@@ -8,24 +8,26 @@ import ButtonGPlusLike from 'components/buttonGPlusLike';
 
 export default React.createClass( {
     render() {
+        let url = config.homeUrl;
+
         return (
             <div className="share-this">
                 <div className="t-cell">
                     <TwitterButton
                         className="btn btn-primary btn-xs hidden-sm"
-                        url={ config.homeUrl }>
-                        <i className="fa fa-twitter"> &nbsp;&nbsp;<TwitterCount /></i>
+                        url={ url }>
+                        <i className="fa fa-twitter"> &nbsp;&nbsp;<TwitterCount url={ url } /></i>
                     </TwitterButton>
                 </div>
                 <div className="t-cell">
                     <ButtonGPlusLike
-                        url={ config.homeUrl }
+                        url={ url }
                         layout="standard"
                         />
                 </div>
                 <div className="t-cell">
                     <ButtonFBLike
-                        url={ config.homeUrl }
+                        url={ url }
                         layout="button_count"
                         />
                 </div>

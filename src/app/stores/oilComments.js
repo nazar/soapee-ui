@@ -33,10 +33,8 @@ export default Reflux.createStore( {
 //// Private
 
 function gotOil( oil ) {
-    if ( _.get( this.oil, 'id' ) !== oil.id ) {
-        this.oil = oil;
-        oilActions.getOilComments( this.oil );
-    }
+    this.oil = oil;
+    oilActions.getOilComments( this.oil );
 }
 
 function gotComments( comments ) {

@@ -48,11 +48,10 @@ export default React.createClass( {
             let klass = cx( 'no-select', {selected: oil.name === this.state.selectedOil} );
 
             return (
-                <tr>
+                <tr key={ `list-oil-${oil.id}` }>
                     <td className={klass}
                         onClick={this.selectOil(oil)}
                         onDoubleClick={this.addOil(oil)}
-                        key={ `list-oil-${oil.id}` }
                         >
                         {oil.name}
                     </td>

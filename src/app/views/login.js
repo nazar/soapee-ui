@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigation } from 'react-router';
+import { Navigation, State } from 'react-router';
 import Reflux from 'reflux';
 
 import MediaSigninButtons from 'components/mediaSigninButtons';
@@ -11,6 +11,7 @@ export default React.createClass( {
 
     mixins: [
         Navigation,
+        State,
         Reflux.connect( authStore, 'auth' )
     ],
 
@@ -21,8 +22,10 @@ export default React.createClass( {
     },
 
     componentWillUpdate() {
+        let path = this.getQuery().nextPath || 'profile';
+
         if ( authStore.isAuthenticated() ) {
-            this.replaceWith( 'profile' );
+            this.replaceWith( path );
         }
     },
 

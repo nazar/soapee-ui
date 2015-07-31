@@ -26,7 +26,7 @@ export default React.createClass( {
 
                 if (  value ) {
                     return (
-                        <tr>
+                        <tr key={ `fatty-acid-prop-${ fattyAcid }` }>
                             <td>{_.capitalize( fattyAcid )}</td>
                             <td>{value}%</td>
                         </tr>

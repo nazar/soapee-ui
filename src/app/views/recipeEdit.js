@@ -35,6 +35,7 @@ export default React.createClass( {
                         <FormSaveRecipe
                             recipe={ this.state.recipe }
                             onSave={ this.saveRecipe }
+                            onSaveAs={ this.saveAsRecipe }
                             onPrint={ this.printRecipe }
                             />
                     </div>
@@ -45,16 +46,21 @@ export default React.createClass( {
     },
 
     saveRecipe() {
-        function toRecipeView( recipe ) {
-            this.transitionTo( 'recipe', { id: recipe.id } );
-        }
-
         recipeActions.updateRecipe( this.state.recipe )
-            .then( toRecipeView.bind( this ) );
+            .then( this.toRecipeView );
+    },
+
+    saveAsRecipe() {
+        recipeActions.createRecipe( this.state.recipe )
+            .then( this.toRecipeView );
     },
 
     printRecipe() {
         this.replaceWith( 'printRecipe', { id: this.state.recipe.getModelValue( 'id' ) } );
+    },
+
+    toRecipeView( recipe ) {
+        this.transitionTo( 'recipe', { id: recipe.id } );
     }
 
 } );

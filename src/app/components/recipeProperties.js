@@ -42,8 +42,9 @@ export default React.createClass( {
             .filter( property => { return !( _.contains( [ 'ins', 'iodine' ], property ) ); } )
             .map( property => {
                 let value = _.round( properties[ property ] );
+
                 return (
-                    <tr>
+                    <tr key={ `recipe-oil-prop-${ property }` }>
                         <td>{_.capitalize( property )}</td>
                         <td>{value}</td>
                         { this.props.withRange && <td style={ {textAlign: 'center'} }>{ this.rangesForProperty( property ) }</td> }
@@ -60,7 +61,7 @@ export default React.createClass( {
             return _.map( [ 'iodine', 'ins' ], property => {
                 let value = _.round( properties[ property ] );
                 return (
-                    <tr>
+                    <tr key={ `non-prop-${ property }` }>
                         <td>{_.capitalize( property )}: </td>
                         <td>{value}</td>
                         { this.props.withRange && <td style={ {textAlign: 'center'} }>{ this.rangesForProperty( property ) }</td> }

@@ -60,10 +60,12 @@ export default React.createClass( {
 
     renderRecipe( recipe ) {
         return (
-            <RecipeListItem
-                recipe={recipe}
-                showUser={ true }
-                />
+            <div key={ `recipe-${ recipe.id }` }>
+                <RecipeListItem
+                    recipe={recipe}
+                    showUser={ true }
+                    />
+            </div>
         );
     }
 

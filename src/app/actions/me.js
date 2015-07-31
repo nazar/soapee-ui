@@ -7,15 +7,19 @@ import {
     getMyRecipes,
     getMyFavouriteRecipes,
 
+    getComments,
+
     addRecipeToFavourites,
     removeRecipeFromFavourites
 } from 'resources/me';
 
 let actions = Reflux.createActions( {
     getMyProfile: { asyncResult: true },
-    updateMyProfile: { asyncResult: true },
     getMyRecipes: { asyncResult: true },
+    getComments: { asyncResult: true },
     getMyFavouriteRecipes: { asyncResult: true },
+
+    updateMyProfile: { asyncResult: true },
     addRecipeToFavourites: { asyncResult: true },
     removeRecipeFromFavourites: { asyncResult: true }
 } );
@@ -23,8 +27,10 @@ let actions = Reflux.createActions( {
 export default actions;
 
 actions.getMyProfile.listenAndPromise( getMyProfile );
-actions.updateMyProfile.listenAndPromise( updateMyProfile );
 actions.getMyRecipes.listenAndPromise( getMyRecipes );
+actions.getComments.listenAndPromise( getComments );
 actions.getMyFavouriteRecipes.listenAndPromise( getMyFavouriteRecipes );
+
+actions.updateMyProfile.listenAndPromise( updateMyProfile );
 actions.addRecipeToFavourites.listenAndPromise( addRecipeToFavourites );
 actions.removeRecipeFromFavourites.listenAndPromise( removeRecipeFromFavourites );

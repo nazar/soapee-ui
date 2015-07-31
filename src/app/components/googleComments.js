@@ -4,6 +4,8 @@ import React from 'react/addons';
 import when from 'when';
 import load from 'load-script';
 
+import Spinner from 'components/spinner';
+
 let plusOne;
 
 export default React.createClass( {
@@ -27,6 +29,7 @@ export default React.createClass( {
     render() {
         return (
             <div id="google-comments-widget" className="google-comments">
+                <Spinner />
             </div>
         );
     },

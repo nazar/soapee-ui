@@ -1,6 +1,8 @@
 import React from 'react';
 import marked from 'marked';
 
+import TextArea from 'react-textarea-autosize';
+
 export default React.createClass( {
 
     componentDidMount() {
@@ -19,7 +21,8 @@ export default React.createClass( {
     render() {
         return (
             <div className="markdown-editor">
-                <textarea
+                <TextArea
+                    useCacheForDOMMeasurements
                     {...this.props}
                     />
             </div>
