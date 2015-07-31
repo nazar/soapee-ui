@@ -23,7 +23,7 @@ export default React.createClass( {
 
         return (
             <div id="my-comments">
-                <legend>My Recipes</legend>
+                <legend>My Comments</legend>
                 { this.renderLoading() }
                 { this.renderComments() }
             </div>
