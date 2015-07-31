@@ -4,6 +4,7 @@ import RecipeBreakdown from 'components/recipeBreakdown';
 import RecipeTotals from 'components/recipeTotals';
 import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
+import MarkedDisplay from 'components/markedDisplay';
 
 export default React.createClass( {
 
@@ -31,7 +32,7 @@ export default React.createClass( {
                         <div className="row">
                             <div className="col-xs-12">
                                 <div className="description">
-                                    { recipeDescription }
+                                    <MarkedDisplay content={ recipeDescription } />
                                 </div>
                             </div>
                         </div>
@@ -73,7 +74,7 @@ export default React.createClass( {
                             <div className="col-xs-12">
                                 <h6>Notes</h6>
                                 <div className="notes">
-                                    <div dangerouslySetInnerHTML={ { __html: recipeNotes } }></div>
+                                    <MarkedDisplay content={ recipeNotes } />
                                 </div>
                             </div>
                         </div>
