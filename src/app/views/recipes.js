@@ -22,7 +22,7 @@ export default React.createClass( {
         return (
             <div id="recipes">
                 <DocMeta tags={ this.tags() } />
-                <h1>Latest Soap Recipes</h1>
+                <h1>Latest Public Soap Recipes</h1>
 
                 { this.renderLoading() }
                 { this.renderRecipes() }
