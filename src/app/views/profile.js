@@ -1,7 +1,6 @@
 import React from 'react/addons';
 import Reflux from 'reflux';
 import cx from 'classnames';
-import TextArea from 'react-textarea-autosize';
 
 import formLinkHandlers from 'mixins/formLinkHandlers';
 import ValidateProfileForm from 'services/validateProfileForm';
@@ -10,6 +9,7 @@ import meStore from 'stores/me';
 import meActions from 'actions/me';
 
 import UserAvatar from 'components/userAvatar';
+import MarkdownEditor from 'components/markdownEditor';
 
 export default React.createClass( {
 
@@ -38,9 +38,7 @@ export default React.createClass( {
 
         return (
             <div id="profile">
-                <div className="jumbotron">
-                    <h1>My Profile</h1>
-                </div>
+                <legend>My Profile</legend>
 
                 <div className="jumbotron clearfix">
                     <form className="form-horizontal" onSubmit={ (e) => e.preventDefault() }>
@@ -69,12 +67,13 @@ export default React.createClass( {
                         <div className="col-sm-12">
                             <div className="form-group">
                                 <legend>About Me</legend>
-                                <TextArea
+                                <MarkdownEditor
                                     className="input-description"
                                     useCacheForDOMMeasurements
                                     valueLink={ this.linkStore( meStore, 'about' ) }
+                                    rows={ 2 }
                                     />
-                                </div>
+                            </div>
                         </div>
 
                         <div className="col-sm-12">

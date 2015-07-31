@@ -3,6 +3,8 @@
 import React from 'react/addons';
 import loadFBSdk from 'resources/loadFBSdk';
 
+import Spinner from 'components/spinner';
+
 export default React.createClass( {
 
     mixins: [
@@ -25,6 +27,7 @@ export default React.createClass( {
                 <div className="fb-comments"
                      data-href={ this.props.url }
                      data-width="100%">
+                    <Spinner />
                 </div>
             </div>
         );

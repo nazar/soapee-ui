@@ -35,7 +35,7 @@ export default React.createClass( {
 
         return _.map( oilRows,  row => {
             return (
-                <tr>
+                <tr key={ `recipe-oil-row-${ row.oil.id }` }>
                     <td>
                         { this.oilCell( row.oil ) }
                     </td>

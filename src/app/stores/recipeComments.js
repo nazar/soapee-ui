@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Reflux from 'reflux';
 
 import recipeStore from 'stores/recipe';
@@ -33,12 +32,8 @@ export default Reflux.createStore( {
 //// Private
 
 function gotRecipe( recipeStore ) {
-    let recipe = recipeStore.recipe;
-
-    if ( _.get( this.recipe, 'id' ) !== recipe.id ) {
-        this.recipe = recipe;
-        recipeActions.getRecipeComments( this.recipe );
-    }
+    this.recipe = recipeStore.recipe;
+    recipeActions.getRecipeComments( this.recipe );
 }
 
 function gotComments( comments ) {

@@ -65,6 +65,7 @@ export default React.createClass( {
                         <ul className="dropdown-menu">
                             <NavLink to="profile">Profile</NavLink>
                             <NavLink to="my-recipes">My Recipes</NavLink>
+                            <NavLink to="my-comments">My Comments</NavLink>
                             <NavLink to="saved-recipes">Saved Recipes</NavLink>
                             <li role="separator" className="divider"></li>
                             <NavLink to="logout">Logout</NavLink>

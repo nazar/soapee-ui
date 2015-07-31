@@ -5,8 +5,8 @@ import meActions from 'actions/me';
 export default Reflux.createStore( {
 
     store: {
-        myRecipes: null,
-        myFavouriteRecipes: null
+        myRecipes: null,          //todo - might want to break this out into its own store
+        myFavouriteRecipes: null  //todo - might want to break this out into its own store
     },
 
     init() {

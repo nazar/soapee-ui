@@ -64,7 +64,6 @@ export default React.createClass( {
                                 className="input-description"
                                 valueLink={ this.linkModel( this.props.recipe, 'description' ) }
                                 placeholder="Add a short description"
-                                rows="10"
                                 />
                         </div>
 
@@ -74,7 +73,6 @@ export default React.createClass( {
                                 className="input-description"
                                 valueLink={ this.linkModel( this.props.recipe, 'notes' ) }
                                 placeholder="Describe how the recipe is prepared; mention anything interesting or relevant to this recipe"
-                                rows="18"
                                 />
                         </div>
 
@@ -93,7 +91,7 @@ export default React.createClass( {
                         <div className="col-sm-12">
                             <div className="btn-toolbar action-buttons">
                                 {this.renderSaveRecipeButton()}
-                                <button className="btn btn-primary" onClick={ this.printRecipe }>Print Recipe</button>
+                                <button className="btn btn-primary" onClick={ this.printRecipe }><i className="fa fa-print"> Print Recipe</i></button>
                             </div>
                         </div>
 
@@ -105,13 +103,21 @@ export default React.createClass( {
 
     renderSaveRecipeButton() {
         let nameMissing = !(this.props.recipe.getModelValue( 'name' ));
+        let buttons = [];
 
         if ( authStore.isAuthenticated() ) {
-            return <button className="btn btn-primary" onClick={ this.saveRecipe } disabled={nameMissing}>Save Recipe</button>;
+            buttons.push( <button className="btn btn-primary" key="btn-save" onClick={ this.saveRecipe } disabled={nameMissing}><i className="fa fa-cloud"> Save Recipe</i></button> );
+
+            if ( this.props.recipe.getModelValue( 'id' )
+                && authStore.isMyId(this.props.recipe.getModelValue( 'user_id' )  ) ) {
+                buttons.push( <button className="btn btn-primary" key="btn-save-as" onClick={ this.saveCopyRecipe } disabled={nameMissing}><i className="fa fa-clone"> Save As Copy</i></button> );
+            }
+
+            return buttons;
         } else {
             return (
                 <BootstrapModalLink
-                    elementToClick={<button className="btn btn-primary" disabled={nameMissing}>Save Recipe</button>}
+                    elementToClick={<button className="btn btn-primary" disabled={nameMissing}><i className="fa fa-cloud"> Save Recipe</i></button>}
                     modal={SignupOrLoginToSaveRecipe}
                     />
             );
@@ -119,21 +125,30 @@ export default React.createClass( {
     },
 
     saveRecipe() {
-
-        function validateForm() {
-            return new ValidateRecipeFormFields( {
-                name: this.props.recipe.getModelValue( 'name' )
-            } )
-                .execute();
-        }
-
         this.setState( {
             errors: {}
         } );
 
-        validateForm.call( this )
+        this.validateForm( this )
             .then( this.props.onSave )
             .catch( setErrors.bind( this ) );
+    },
+
+    saveCopyRecipe() {
+        this.setState( {
+            errors: {}
+        } );
+
+        this.validateForm( this )
+            .then( this.props.onSaveAs )
+            .catch( setErrors.bind( this ) );
+    },
+
+    validateForm() {
+        return new ValidateRecipeFormFields( {
+            name: this.props.recipe.getModelValue( 'name' )
+        } )
+            .execute();
     },
 
     printRecipe() {

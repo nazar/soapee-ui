@@ -15,7 +15,7 @@ export default React.createClass( {
         let recipe = this.props.recipe;
 
         return (
-            <div className='recipe-list-item' key={ `recipe-list-item-${recipe.id}` }>
+            <div className='recipe-list-item'>
                 <table className="table table-striped table-bordered table-condensed">
                     <tr>
                         <td colSpan="3">
@@ -78,7 +78,7 @@ export default React.createClass( {
             .map( property => {
                 let value = _.round( properties[ property ] );
                 return (
-                    <li>
+                    <li key={ `breakdown-for-${ property }` }>
                         <span className="name">{_.capitalize( property )}:</span>
                         <span className="value">{ _.round( value ) }%</span>
                     </li>
@@ -96,7 +96,7 @@ export default React.createClass( {
             .map( fat => {
                 let value = _.round( fats[ fat ] );
                 return (
-                    <li>
+                    <li key={ `fats-${ fat }` }>
                         <span className="name">{_.capitalize( fat )}:</span>
                         <span className="value">{ _.round( value ) }%</span>
                     </li>
@@ -109,7 +109,7 @@ export default React.createClass( {
     renderOils() {
         function renderOil( oil ) {
             return (
-                <li>
+                <li key={ `recipe-oil-${ oil.id }` }>
                     <Link to="oil" params={ { id: oil.id } }>{ oil.name }</Link>
                 </li>
             );

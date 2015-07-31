@@ -72,7 +72,7 @@ export default class extends EventEmitter {
     roundPlaces() {
         return {
             gram: 0,
-            ounce: 1,
+            ounce: 2,
             kilo: 3,
             pound: 3
         }[ this.recipeOilsUom() ];
