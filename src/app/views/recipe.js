@@ -1,6 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 import DocMeta from 'react-doc-meta';
+import cx from 'classnames';
 import { Link, Navigation, State } from 'react-router';
 
 import recipeStore from 'stores/recipe';
@@ -65,10 +66,16 @@ export default React.createClass( {
         let recipeDescription;
         let recipeNotes;
 
+        let notesActive;
+        let commentsActive;
+
         if ( this.pageIsForRequestedRecipe() ) {
             recipeName = this.state.recipe.getModelValue( 'name' );
             recipeDescription = this.state.recipe.getModelValue( 'description' );
             recipeNotes = this.state.recipe.getModelValue( 'notes' );
+
+            notesActive = recipeNotes;
+            commentsActive = !notesActive;
 
             document.title = `Soapee - ${this.state.recipe.getModelValue( 'name' )}`;
 
@@ -157,18 +164,18 @@ export default React.createClass( {
 
                     <div>
                         <ul className="nav nav-tabs" role="tablist">
-                            { recipeNotes && <li role="presentation" className="active"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a></li> }
-                            <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">User Comments {this.countComments()}</a></li>
+                            { recipeNotes && <li role="presentation" className={ cx( { active: notesActive } ) }><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a></li> }
+                            <li role="presentation" className={ cx( { active: commentsActive } ) }><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">User Comments {this.countComments()}</a></li>
                             <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
                             <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
                         </ul>
                         <div className="tab-content">
                             { recipeNotes &&
-                            <div role="tabpanel" className="tab-pane active" id="notes">
-                                <MarkedDisplay content={ recipeNotes } />
-                            </div>
+                                <div role="tabpanel" className={ cx( 'tab-pane', { active: notesActive } )  } id="notes">
+                                    <MarkedDisplay content={ recipeNotes } />
+                                </div>
                             }
-                            <div role="tabpanel" className="tab-pane" id="comments">
+                            <div role="tabpanel" className={ cx( 'tab-pane', { active: commentsActive } )  } id="comments">
                                 <Commentable
                                     store={ recipeComments }
                                     />

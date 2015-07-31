@@ -26,7 +26,7 @@ export default React.createClass( {
                 <AddComment
                     onNewComment={ this.addComment }
                     />
-                { _.get( this.state.comments, 'length' ) && <legend>Comments</legend> }
+                { _.get( this.state.comments, 'length' ) > 0 && <legend>Comments</legend> }
                 { _.map( this.state.comments, this.renderComment, this ) }
             </div>
         );

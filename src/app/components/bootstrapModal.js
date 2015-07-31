@@ -32,7 +32,7 @@ export default React.createClass( {
 
     render() {
         let modalClasses = cx( 'modal animated', {
-            bounceInDown: this.state.entering,
+            fade: this.state.entering,
             bounceOutUp: !this.state.entering
         } );
 
