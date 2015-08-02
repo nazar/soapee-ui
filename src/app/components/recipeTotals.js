@@ -78,12 +78,30 @@ export default React.createClass( {
                         </tr>
                         <tr>
                             <td>
+                                Superfat
+                            </td>
+                            <td>
+                                { this.props.recipe.getModelValue( 'superFat')  }%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 Lye Concentration
                             </td>
                             <td>
                                 { this.roundedValue( 'summary.totals.lyeConcentration', places ) }%
                             </td>
                         </tr>
+                        { this.props.recipe.isMixedRecipe() &&
+                            <tr>
+                                <td>
+                                    NaOH / KOH Ratio
+                                </td>
+                                <td>
+                                    { this.props.recipe.getModelValue( 'ratioNaoh')  }% / { this.props.recipe.getModelValue( 'ratioKoh')  }%
+                                </td>
+                            </tr>
+                        }
                         <tr>
                             <td>
                                 Water <strong>:</strong> Lye Ratio

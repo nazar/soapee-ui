@@ -1,12 +1,10 @@
 /*global FB*/
 
 import when from 'when';
-import loadFBSdk from 'resources/loadFBSdk';
 
 export default function authenticate( doLogin ) {
 
-    return loadFBSdk()
-        .then( authoriseUser )
+    return authoriseUser()
         .then( extractAccessToken );
 
     function authoriseUser() {
@@ -18,7 +16,7 @@ export default function authenticate( doLogin ) {
                 } else if ( doLogin ) {
                     FB.login( response => {
                         if ( response.authResponse ) {
-                            resolve( response);
+                            resolve( response );
                         } else {
                             reject();
                         }

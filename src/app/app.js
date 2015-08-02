@@ -1,3 +1,5 @@
+/*global FB*/
+
 //load CSS assets first
 require( '../assets/main.css' );
 
@@ -17,6 +19,13 @@ let analytics = _.get( config, 'analytics.google' );
 if ( analytics ) {
     ga.initialize( analytics );
 }
+
+FB.init( {
+    appId: config.auth.facebookClientId,
+    cookie: true,
+    version: 'v2.4',
+    xfbml: true
+} );
 
 Router.run( routes, Router.HistoryLocation, function ( Handler, state ) {
     if ( analytics ) {
