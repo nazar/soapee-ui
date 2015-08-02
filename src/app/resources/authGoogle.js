@@ -2,7 +2,6 @@
 
 import when from 'when';
 
-import loadPlatformSDK from 'resources/loadPlatformSDK';
 import config from 'config';
 
 // define googleAuth as a module var as Chrome seems to hang if it is
@@ -17,8 +16,7 @@ let googleAuth;
 
 export default function authenticate( doLogin ) {
 
-    return loadPlatformSDK()
-        .then( loadAuth2Sdk )
+    return loadAuth2Sdk()
         .then( initialiseSdk )
         .then( authoriseUser )
         .then( extractAccessToken );

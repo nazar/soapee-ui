@@ -27,7 +27,7 @@ import SavedRecipes from 'views/savedRecipes';
 let routes = (
     <Route name="home" path="/" handler={Application}>
 
-        <DefaultRoute handler={MainLanding}></DefaultRoute>
+        <DefaultRoute handler={MainLanding} />
 
         <Route name="login" handler={Login} />
         <Route name="signup" handler={Signup} />

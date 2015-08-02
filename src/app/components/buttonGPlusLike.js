@@ -1,7 +1,7 @@
 /*global gapi*/
 
 import React from 'react/addons';
-import loadPlatformSDK from 'resources/loadPlatformSDK';
+import when from 'when';
 
 export default React.createClass( {
 
@@ -45,8 +45,7 @@ export default React.createClass( {
             gapi.plusone.go( this.getDOMNode() );
         }
 
-        loadPlatformSDK()
-            .then( clear.bind( this ) )
+        when.try( clear.bind( this ) )
             .then( initialize.bind( this ) );
     }
 

@@ -1,7 +1,7 @@
 /*global FB*/
 
 import React from 'react/addons';
-import loadFBSdk from 'resources/loadFBSdk';
+import when from 'when';
 
 export default React.createClass( {
 
@@ -21,7 +21,8 @@ export default React.createClass( {
     },
 
     componentDidUpdate() {
-        this.initialiseCommentsWidget();    },
+        this.initialiseCommentsWidget();
+    },
 
     render() {
         return (
@@ -46,8 +47,7 @@ export default React.createClass( {
             FB.XFBML.parse( this.getDOMNode() );
         }
 
-        loadFBSdk()
-            .then( clear.bind( this ) )
+        when.try( clear.bind( this ) )
             .then( initialize.bind( this ) );
     }
 

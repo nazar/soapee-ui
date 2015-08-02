@@ -1,9 +1,6 @@
 /*global FB*/
 
 import React from 'react/addons';
-import loadFBSdk from 'resources/loadFBSdk';
-
-import Spinner from 'components/spinner';
 
 export default React.createClass( {
 
@@ -12,32 +9,28 @@ export default React.createClass( {
     ],
 
     componentDidMount() {
-        loadFBSdk()
-            .then( this.initialiseCommentsWidget );
+        this.initialiseCommentsWidget();
     },
 
     componentDidUpdate() {
-        loadFBSdk()
-            .then( this.initialiseCommentsWidget );
+        this.initialiseCommentsWidget();
     },
 
     render() {
         return (
             <div className="facebook-comments">
                 <div className="fb-comments"
-                     data-href={ this.props.url }
-                     data-width="100%">
-                    <Spinner />
+                     data-href={ this.props.url.href }
+                     data-width="100%"
+                    >
                 </div>
             </div>
         );
     },
 
     initialiseCommentsWidget() {
-        //reparse to load comments for the updated data-href
-        if ( typeof FB !== 'undefined') {
-            FB.XFBML.parse( this.getDOMNode() );
-        }
+        $( this.getDOMNode() ).find( '.fb-comments' ).empty();
+        FB.XFBML.parse( $( this.getDOMNode() ).get( 0 ) );
     }
 
 
