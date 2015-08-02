@@ -71,7 +71,7 @@ export default class extends EventEmitter {
 
     roundPlaces() {
         return {
-            gram: 0,
+            gram: 1,
             ounce: 2,
             kilo: 3,
             pound: 3
