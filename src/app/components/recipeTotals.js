@@ -14,7 +14,7 @@ export default React.createClass( {
                 { this.props.recipe.countWeights() > 0 &&
                     <table className="table table-striped table-hover table-condensed">
                         <tbody>
-                        { this.props.recipe.getModelValue( 'totalsIncludeWater' ) &&
+                        { this.props.recipe.totalsIncludeWater() &&
                             <tr>
                                 <td colSpan="3">
                                     Oil weight accounts for water
@@ -92,6 +92,17 @@ export default React.createClass( {
                             </td>
                             { this.gramsColumn( 'summary.totals.fragranceWeight' ) }
                         </tr>
+                        { this.props.recipe.superfatAfter() &&
+                            <tr>
+                                <td>
+                                    Superfat after cook
+                                </td>
+                                <td>
+                                    { this.roundedValue( 'summary.totals.totalSuperfat', places ) } { uom }
+                                </td>
+                                { this.gramsColumn( 'summary.totals.totalSuperfat' ) }
+                            </tr>
+                        }
                         <tr>
                             <td>
                                 Total Batch Weight
@@ -101,15 +112,17 @@ export default React.createClass( {
                             </td>
                             { this.gramsColumn( 'summary.totals.totalBatchWeight' ) }
                         </tr>
-                        <tr>
-                            <td>
-                                Superfat
-                            </td>
-                            <td>
-                                { this.props.recipe.getModelValue( 'superFat')  }%
-                            </td>
-                            { this.gramsColumn() }
-                        </tr>
+                        { !(this.props.recipe.superfatAfter()) &&
+                            <tr>
+                                <td>
+                                    Superfat
+                                </td>
+                                <td>
+                                    { this.props.recipe.getModelValue( 'superFat')  }%
+                                </td>
+                                { this.gramsColumn() }
+                            </tr>
+                        }
                         <tr>
                             <td>
                                 Lye Concentration
