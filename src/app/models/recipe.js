@@ -27,6 +27,7 @@ export default class extends EventEmitter {
             superFat: 5,
             waterRatio: 38,
             fragrance: 3,
+            totalsIncludeWater: false,
             visibility: 1
         };
     }
@@ -159,12 +160,19 @@ export default class extends EventEmitter {
         }
     }
 
+    totalWeight() {
+        if ( this.recipe.totalsIncludeWater ) {
+            return this.recipe.totalWeight / ( 1 + ( this.recipe.waterRatio / 100 ) );
+        } else {
+            return this.recipe.totalWeight;
+        }
+    }
 
     recipeOilsWeightsRatios() {
         let totalOilWeight;
 
         if ( this.isPercentRecipe() ) {
-            totalOilWeight = this.recipe.totalWeight;
+            totalOilWeight = this.totalWeight();
         } else {
             totalOilWeight = _.get( this.recipe, 'summary.totals.totalOilWeight' );
         }
@@ -226,7 +234,7 @@ export default class extends EventEmitter {
 
         //total weights either % ratios or uoms
         if ( this.isPercentRecipe() ) {
-            totalOilWeight = this.recipe.totalWeight;
+            totalOilWeight = this.totalWeight();
         } else {
             totalOilWeight = this.sumWeights();
         }
@@ -286,7 +294,7 @@ export default class extends EventEmitter {
             let lyeGrams;
 
             if ( this.isPercentRecipe() ) {
-                oilWeight = this.recipe.totalWeight * ( weightRatio / 100 );
+                oilWeight = this.totalWeight() * ( weightRatio / 100 );
             } else {
                 oilWeight = weightRatio;
             }

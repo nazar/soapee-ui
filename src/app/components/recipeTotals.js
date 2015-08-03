@@ -14,6 +14,13 @@ export default React.createClass( {
                 { this.props.recipe.countWeights() > 0 &&
                     <table className="table table-striped table-hover table-condensed">
                         <tbody>
+                        { this.props.recipe.getModelValue( 'totalsIncludeWater' ) &&
+                            <tr>
+                                <td colSpan="3">
+                                    Oil weight accounts for water
+                                </td>
+                            </tr>
+                        }
                         <tr>
                             <td>
                                 Total Water Weight
