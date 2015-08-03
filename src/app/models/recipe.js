@@ -38,11 +38,10 @@ export default class extends EventEmitter {
     }
 
     setModelValue( key, value ) {
+        this.emit( 'changing', key, value );
         _.set( this.recipe, key, value );
-
         this.calculateRecipe();
 
-        this.emit( 'changing', key, value );
         this.emit( 'calculated' );
     }
 

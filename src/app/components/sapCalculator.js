@@ -249,7 +249,7 @@ export default React.createClass( {
                                         />
                                 </div>
                             </div>
-                            <div className="col-sm-4">
+                            <div className="col-sm-5">
                                 <div className="panel panel-success">
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Recipe Totals</h3>
@@ -259,7 +259,7 @@ export default React.createClass( {
                                         />
                                 </div>
                             </div>
-                            <div className="col-sm-4">
+                            <div className="col-sm-3">
                                 <div className="panel panel-success">
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Fatty Acids</h3>
