@@ -342,7 +342,7 @@ export default React.createClass( {
                 <div>
                     <div className="form-inline">
                         <div className="form-group">
-                            <input type="text" className="form-control short-numeric" valueLink={ this.linkModel( this.props.recipe, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
+                            <label>Batch total:</label> <input type="text" className="form-control short-numeric" valueLink={ this.linkModel( this.props.recipe, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
                             <label className="radio-inline">
                                 <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'gram' )} /> Grams
                             </label>
