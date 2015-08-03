@@ -101,9 +101,6 @@ export default React.createClass( {
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div className="row">
 
                     <div className="col-md-6 col-sm-12">
                         <div className="panel panel-primary">
@@ -125,6 +122,10 @@ export default React.createClass( {
                         </div>
                     </div>
 
+                </div>
+
+                <div className="row">
+
                     <div className="col-md-6 col-sm-12">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
@@ -138,7 +139,27 @@ export default React.createClass( {
                                                placeholder="%"
                                                valueLink={ this.linkModel( this.props.recipe, 'superFat' ) }
                                             />
-                                        <span> % of superfat of oils - recommended 5%</span>
+                                        <span> % superfat of oils - recommended 5%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-6 col-sm-12">
+                        <div className="panel panel-primary">
+                            <div className="panel-heading">
+                                <h3 className="panel-title">5 - Fragrances</h3>
+                            </div>
+                            <div className="panel-body">
+                                <div className="form-inline">
+                                    <div className="form-group">
+                                        <input type="text"
+                                               className="form-control short-numeric"
+                                               placeholder="%"
+                                               valueLink={ this.linkModel( this.props.recipe, 'fragrance' ) }
+                                            />
+                                        <span> % oil weight - recommended 3%</span>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +181,7 @@ export default React.createClass( {
                                         title="Select Recipe Oils"
                                         />
                                 </div>
-                                <h3 className="panel-title">5 - Select Oils</h3>
+                                <h3 className="panel-title">6 - Select Oils</h3>
                             </div>
                             <ListOilsSelector
                                 onSelectedOil={this.selectedOil}
