@@ -316,7 +316,7 @@ export default class extends EventEmitter {
 
             //factor in superfat discount
             if ( !(this.recipe.superfatAfter) ) {
-                lyeGrams = lyeGrams - _.round( ( this.recipe.superFat / 100 ) * lyeGrams, 3 );
+                lyeGrams = lyeGrams - ( this.recipe.superFat / 100 ) * lyeGrams;
             }
 
             return this.convertToUom( lyeGrams );

@@ -344,7 +344,7 @@ export default React.createClass( {
                     <div className="form-inline">
                         <div className="form-group">
                             <label>Oils total:</label>&nbsp;
-                            <input type="text" className="form-control short-numeric" valueLink={ this.linkModel( this.props.recipe, 'totalWeight', { round: this.props.recipe.roundPlaces() } ) } />&nbsp;&nbsp;&nbsp;
+                            <input type="text" className="form-control short-numeric" valueLink={ this.linkModel( this.props.recipe, 'totalWeight', { round: this.props.recipe.roundPlaces() + 1 } ) } />&nbsp;&nbsp;&nbsp;
                             <label className="radio-inline">
                                 <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'gram' )} /> Grams
                             </label>
@@ -363,7 +363,7 @@ export default React.createClass( {
                     <div className="form-inline weights-water">
                         <div className="form-group">
                             <label className="radio-inline">
-                                <input type="checkbox" name="totals-include-water"  checkedLink={this.checkboxModel( this.props.recipe, 'totalsIncludeWater', true )} /> Adjust oil weights to includes water
+                                <input type="checkbox" name="totals-include-water"  checkedLink={this.checkboxModel( this.props.recipe, 'totalsIncludeWater', true )} /> Adjust oil weights to include water in Oils total
                             </label>
                         </div>
                     </div>

@@ -61,7 +61,12 @@ export default {
         let value;
 
         if ( options.round ) {
-            value = _.round( model.getModelValue( key ), options.round );
+            //_.round will swallow any decimal points entered so ignore any xyz. numerics
+            value = model.getModelValue( key );
+
+            if ( value && !(value.toString().match(/\.$/)) ) {
+                value = _.round( model.getModelValue( key ), options.round );
+            }
         } else {
             value = model.getModelValue( key );
         }
