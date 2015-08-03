@@ -26,6 +26,7 @@ export default class extends EventEmitter {
             totalUom: 'gram',
             superFat: 5,
             waterRatio: 38,
+            fragrance: 3,
             visibility: 1
         };
     }
@@ -217,6 +218,7 @@ export default class extends EventEmitter {
         let totalBatchWeight;
         let lyeConcentration;
         let waterLyeRatio;
+        let fragranceWeight;
 
         let breakdowns;
         let properties;
@@ -230,6 +232,7 @@ export default class extends EventEmitter {
         }
 
         totalWaterWeight = totalOilWeight * ( this.recipe.waterRatio / 100 );
+        fragranceWeight = totalOilWeight * ( this.recipe.fragrance / 100 );
 
         if ( this.isMixedRecipe() ) {
             totalNaoh = _.sum( this.recipe.weights, ( weightOrRatio, oilId ) => {
@@ -246,7 +249,7 @@ export default class extends EventEmitter {
             } );
         }
 
-        totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye );
+        totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye ) + Number( fragranceWeight );
 
         if ( totalWaterWeight + totalLye ) {
             lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ));
@@ -261,6 +264,7 @@ export default class extends EventEmitter {
             totals: {
                 totalOilWeight,
                 totalWaterWeight,
+                fragranceWeight,
                 totalNaoh,
                 totalKoh,
                 totalLye,

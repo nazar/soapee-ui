@@ -78,6 +78,15 @@ export default React.createClass( {
                         </tr>
                         <tr>
                             <td>
+                                Fragrance Oil Weight
+                            </td>
+                            <td>
+                                { this.roundedValue( 'summary.totals.fragranceWeight', places ) } { uom }
+                            </td>
+                            { this.gramsColumn( 'summary.totals.fragranceWeight' ) }
+                        </tr>
+                        <tr>
+                            <td>
                                 Total Batch Weight
                             </td>
                             <td>
