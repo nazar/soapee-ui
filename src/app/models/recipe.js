@@ -28,6 +28,7 @@ export default class extends EventEmitter {
             waterRatio: 38,
             fragrance: 3,
             totalsIncludeWater: false,
+            superfatAfter: false,
             visibility: 1
         };
     }
@@ -223,6 +224,7 @@ export default class extends EventEmitter {
         let totalLye;
         let totalNaoh;
         let totalKoh;
+        let totalSuperfat;
         let totalBatchWeight;
         let lyeConcentration;
         let waterLyeRatio;
@@ -237,6 +239,12 @@ export default class extends EventEmitter {
             totalOilWeight = this.totalWeight();
         } else {
             totalOilWeight = this.sumWeights();
+        }
+
+        if ( this.superfatAfter() ) {
+            totalSuperfat = totalOilWeight * ( this.recipe.superFat / 100 );
+        } else {
+            totalSuperfat = 0;
         }
 
         totalWaterWeight = totalOilWeight * ( this.recipe.waterRatio / 100 );
@@ -257,7 +265,7 @@ export default class extends EventEmitter {
             } );
         }
 
-        totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye ) + Number( fragranceWeight );
+        totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye ) + Number( fragranceWeight ) + Number( totalSuperfat );
 
         if ( totalWaterWeight + totalLye ) {
             lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ));
@@ -276,6 +284,7 @@ export default class extends EventEmitter {
                 totalNaoh,
                 totalKoh,
                 totalLye,
+                totalSuperfat,
                 totalBatchWeight,
                 lyeConcentration,
                 waterLyeRatio
@@ -304,7 +313,9 @@ export default class extends EventEmitter {
             lyeGrams = this.sapForSoapType( lye, oil ) * grams;
 
             //factor in superfat discount
-            lyeGrams = lyeGrams - _.round( ( this.recipe.superFat / 100 ) * lyeGrams, 3 );
+            if ( !(this.recipe.superfatAfter) ) {
+                lyeGrams = lyeGrams - _.round( ( this.recipe.superFat / 100 ) * lyeGrams, 3 );
+            }
 
             return this.convertToUom( lyeGrams );
         } else {
@@ -434,6 +445,14 @@ export default class extends EventEmitter {
 
     convertWeightToGrams( weight ) {
         return weight / this.conversions()[ this.recipeOilsUom() ];
+    }
+
+    totalsIncludeWater() {
+        return this.recipe.totalsIncludeWater;
+    }
+
+    superfatAfter() {
+        return this.recipe.superfatAfter;
     }
 
 }

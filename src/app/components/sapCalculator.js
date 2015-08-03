@@ -142,6 +142,13 @@ export default React.createClass( {
                                         <span> % superfat of oils - recommended 5%</span>
                                     </div>
                                 </div>
+                                <div className="form-inline superfat-after">
+                                    <div className="form-group">
+                                        <label className="radio-inline">
+                                            <input type="checkbox" name="superfar-after"  checkedLink={this.checkboxModel( this.props.recipe, 'superfatAfter', true )} /> Superfat after cook
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -354,7 +361,7 @@ export default React.createClass( {
                     <div className="form-inline weights-water">
                         <div className="form-group">
                             <label className="radio-inline">
-                                <input type="checkbox" name="total-uom"  value="ounce" checkedLink={this.checkboxModel( this.props.recipe, 'totalsIncludeWater', true )} /> Adjust oil weights to includes water
+                                <input type="checkbox" name="totals-include-water"  checkedLink={this.checkboxModel( this.props.recipe, 'totalsIncludeWater', true )} /> Adjust oil weights to includes water
                             </label>
                         </div>
                     </div>
