@@ -2,6 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 import { Link } from 'react-router';
 
+import roundFormatted from 'utils/roundFormated';
+
 export default React.createClass( {
 
     render() {
@@ -16,6 +18,7 @@ export default React.createClass( {
                             <th>Oil</th>
                             <th>%</th>
                             <th>{uom}</th>
+                            { this.showGrams() && <th>Grams</th> }
                         </tr>
                         </thead>
                         <tbody>
@@ -43,8 +46,9 @@ export default React.createClass( {
                         { _.round( row.ratio * 100 ) }
                     </td>
                     <td>
-                        { _.round( row.weight, places ) }
+                        { roundFormatted( row.weight, places ) }
                     </td>
+                    { this.showInGrams( row.weight ) }
                 </tr>
             );
         } );
@@ -72,13 +76,31 @@ export default React.createClass( {
                 <td>
                 </td>
                 <td>
-                    <strong>{ _.round( totals.ratio ) }</strong>
+                    <strong>{ _.round( totals.ratio, 1 ) }</strong>
                 </td>
                 <td>
-                    <strong>{ _.round( totals.weight, places ) }</strong>
+                    <strong>{ roundFormatted( totals.weight, places ) }</strong>
                 </td>
+                { this.showInGrams( totals.weight ) }
             </tr>
         );
+    },
+
+    showGrams() {
+        return !(this.props.recipe.isUomGrams());
+    },
+
+    showInGrams( weight ) {
+        let placesGrams = this.props.recipe.roundPlacesForUom( 'gram' );
+        let converted = this.props.recipe.convertWeightToGrams( weight );
+
+        if ( this.showGrams() ) {
+            return (
+                <td>
+                    { roundFormatted( converted, placesGrams ) }
+                </td>
+            );
+        }
     }
 
 } );
