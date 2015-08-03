@@ -63,6 +63,10 @@ export default class extends EventEmitter {
         return this.recipe.soapType === 'mixed';
     }
 
+    isUomGrams() {
+        return this.uomToUse() === 'gram';
+    }
+
     isPrivate() {
         return Number( this.recipe.visibility ) === 0;
     }
@@ -72,12 +76,16 @@ export default class extends EventEmitter {
     }
 
     roundPlaces() {
+        return this.roundPlacesForUom( this.recipeOilsUom() );
+    }
+
+    roundPlacesForUom( uom ) {
         return {
             gram: 1,
             ounce: 2,
             kilo: 3,
             pound: 3
-        }[ this.recipeOilsUom() ];
+        }[ uom ];
     }
 
     sapForSoapType( lye, oil ) {
@@ -410,6 +418,10 @@ export default class extends EventEmitter {
             koh: 'KOH',
             mixed: 'NaOH and KOH'
         }[ this.recipe.soapType ];
+    }
+
+    convertWeightToGrams( weight ) {
+        return weight / this.conversions()[ this.recipeOilsUom() ];
     }
 
 }

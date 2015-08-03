@@ -60,7 +60,7 @@ export default React.createClass( {
                 <td></td>
                 <td>
                     <strong>
-                        { this.props.recipe.sumWeights() }
+                        { parseFloat( this.props.recipe.sumWeights() ).toLocaleString() }&nbsp;
                         { this.getPlaceholder() }
                     </strong>
                 </td>
@@ -98,7 +98,7 @@ export default React.createClass( {
             percent: '%',
             gram: 'g',
             kilo: 'kg',
-            pound: 'p',
+            pound: 'lb',
             ounce: 'oz'
         }[ this.props.recipe.getModelValue( 'uom' ) ];
     },
