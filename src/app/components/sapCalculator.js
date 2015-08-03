@@ -332,21 +332,31 @@ export default React.createClass( {
     renderTotalSoapWeight() {
         if ( this.percentMode() ) {
             return (
-                <div className="form-inline">
-                    <div className="form-group">
-                        <input type="text" className="form-control short-numeric" valueLink={ this.linkModel( this.props.recipe, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
-                        <label className="radio-inline">
-                            <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'gram' )} /> Grams
-                        </label>
-                        <label className="radio-inline">
-                            <input type="radio" name="total-uom"  value="kilo" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'kilo' )} /> Kilograms
-                        </label>
-                        <label className="radio-inline">
-                            <input type="radio" name="total-uom"  value="pound" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'pound' )} /> Pounds
-                        </label>
-                        <label className="radio-inline">
-                            <input type="radio" name="total-uom"  value="ounce" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'ounce' )} /> Ounces
-                        </label>
+                <div>
+                    <div className="form-inline">
+                        <div className="form-group">
+                            <input type="text" className="form-control short-numeric" valueLink={ this.linkModel( this.props.recipe, 'totalWeight' ) } />&nbsp;&nbsp;&nbsp;
+                            <label className="radio-inline">
+                                <input type="radio" name="total-uom"  value="gram" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'gram' )} /> Grams
+                            </label>
+                            <label className="radio-inline">
+                                <input type="radio" name="total-uom"  value="kilo" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'kilo' )} /> Kilograms
+                            </label>
+                            <label className="radio-inline">
+                                <input type="radio" name="total-uom"  value="pound" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'pound' )} /> Pounds
+                            </label>
+                            <label className="radio-inline">
+                                <input type="radio" name="total-uom"  value="ounce" checkedLink={this.radioModel( this.props.recipe, 'totalUom', 'ounce' )} /> Ounces
+                            </label>
+                        </div>
+
+                    </div>
+                    <div className="form-inline weights-water">
+                        <div className="form-group">
+                            <label className="radio-inline">
+                                <input type="checkbox" name="total-uom"  value="ounce" checkedLink={this.checkboxModel( this.props.recipe, 'totalsIncludeWater', true )} /> Adjust oil weights to includes water
+                            </label>
+                        </div>
                     </div>
                 </div>
             );

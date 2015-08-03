@@ -37,6 +37,15 @@ export default {
         };
     },
 
+    checkboxModel( model, key, checkedValue ) {
+        return {
+            value: model.getModelValue( key ) === checkedValue,
+            requestChange: checked => {
+                model.setModelValue( key, checked );
+            }
+        };
+    },
+
     linkStore( store, key ) {
         return {
             value: store.getStoreValue( key ),
