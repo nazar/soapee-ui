@@ -1,8 +1,10 @@
+import _ from 'lodash';
+
 export default {
 
     radioState( key, checkedValue ) {
         return {
-            value: this.state[key] === checkedValue,
+            value: this.state[ key ] === checkedValue,
             requestChange: checked => {
                 let newState = {
                     [key]: checkedValue
@@ -55,9 +57,17 @@ export default {
         };
     },
 
-    linkModel( model, key ) {
+    linkModel( model, key, options = {} ) {
+        let value;
+
+        if ( options.round ) {
+            value = _.round( model.getModelValue( key ), options.round );
+        } else {
+            value = model.getModelValue( key );
+        }
+
         return {
-            value: model.getModelValue( key ),
+            value,
             requestChange: v => {
                 model.setModelValue( key, v );
             }

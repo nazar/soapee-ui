@@ -31,6 +31,9 @@ export default class extends EventEmitter {
             superfatAfter: false,
             visibility: 1
         };
+
+        this.on( 'changing', this.adjustHybridLyeFields );
+        this.on( 'changing', this.convertUnitesOnPercentageUomChanges );
     }
 
     setRecipe( recipe ) {
@@ -327,7 +330,7 @@ export default class extends EventEmitter {
         let ratio;
 
         amount = this.lyeWeightForOilId( lye, weightRatio, oilId );
-        ratio = this.recipe[ 'ratio' + _.capitalize(lye)  ] / 100;
+        ratio = this.recipe[ 'ratio' + _.capitalize( lye ) ] / 100;
 
         return ratio * amount;
     }
@@ -452,6 +455,27 @@ export default class extends EventEmitter {
 
     superfatAfter() {
         return this.recipe.superfatAfter;
+    }
+
+    adjustHybridLyeFields( key, value ) {
+
+        if ( key === 'ratioNaoh' ) {
+            this.recipe.ratioKoh = 100 - value;
+        } else if ( key === 'ratioKoh' ) {
+            this.recipe.ratioNaoh = 100 - value;
+        }
+
+    }
+
+    convertUnitesOnPercentageUomChanges( key, value ) {
+        let weightInGrams;
+
+        if ( this.isPercentRecipe() ) {
+            if ( key === 'totalUom' ) {
+                weightInGrams = this.recipe.totalWeight / this.conversions()[ this.recipe.totalUom ];
+                this.recipe.totalWeight = weightInGrams * this.conversions()[ value ];
+            }
+        }
     }
 
 }
