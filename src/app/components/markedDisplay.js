@@ -18,6 +18,7 @@ export default React.createClass( {
 
     unsafeContent() {
         return marked( this.props.content, {
+            breaks: true,
             sanitize: true,
             smartypants: true
         } );

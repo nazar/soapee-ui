@@ -40,7 +40,7 @@ export default React.createClass( {
                     <div className="col-md-6 col-sm-12">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title"><strong>Liquid</strong> or <strong>Solid</strong> soap recipe?</h3>
+                                <h3 className="panel-title"><strong>1 - Liquid</strong> or <strong>Solid</strong> soap recipe?</h3>
                             </div>
                             <div className="panel-body">
                                 <div className="form-group">
@@ -74,51 +74,7 @@ export default React.createClass( {
                     <div className="col-md-6 col-sm-12">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title">Amount of water in recipe</h3>
-                            </div>
-                            <div className="panel-body">
-                                <div className="form-inline">
-                                    <div className="form-group">
-                                        <input type="text"
-                                               className="form-control short-numeric"
-                                               placeholder="%"
-                                               valueLink={ this.linkModel( this.props.recipe, 'waterRatio' ) }
-                                            />
-                                        <span> % water as a percent of oils - recommended 33%-38% for solid soaps</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-md-6 col-sm-12">
-                        <div className="panel panel-primary">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">Fragrances</h3>
-                            </div>
-                            <div className="panel-body">
-                                <div className="form-inline">
-                                    <div className="form-group">
-                                        <input type="text"
-                                               className="form-control short-numeric"
-                                               placeholder="%"
-                                               valueLink={ this.linkModel( this.props.recipe, 'fragrance' ) }
-                                            />
-                                        <span> % oil weight - recommended 3%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="row">
-
-                    <div className="col-md-6 col-sm-12">
-                        <div className="panel panel-primary">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">Select recipe units of measure</h3>
+                                <h3 className="panel-title">2 - Select recipe units of measure</h3>
                             </div>
                             <div className="panel-body">
                                 <div className="form-group">
@@ -146,10 +102,34 @@ export default React.createClass( {
                         </div>
                     </div>
 
+                </div>
+
+                <div className="row">
+
                     <div className="col-md-6 col-sm-12">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title">Oil superfat</h3>
+                                <h3 className="panel-title">3 - Amount of water in recipe</h3>
+                            </div>
+                            <div className="panel-body">
+                                <div className="form-inline">
+                                    <div className="form-group">
+                                        <input type="text"
+                                               className="form-control short-numeric"
+                                               placeholder="%"
+                                               valueLink={ this.linkModel( this.props.recipe, 'waterRatio' ) }
+                                            />
+                                        <span> % water as a percent of oils - recommended 33%-38% for solid soaps</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-md-6 col-sm-12">
+                        <div className="panel panel-primary">
+                            <div className="panel-heading">
+                                <h3 className="panel-title">4 - Oil superfat</h3>
                             </div>
                             <div className="panel-body">
                                 <div className="form-inline">
@@ -173,6 +153,26 @@ export default React.createClass( {
                         </div>
                     </div>
 
+                    <div className="col-md-6 col-sm-12">
+                        <div className="panel panel-primary">
+                            <div className="panel-heading">
+                                <h3 className="panel-title">5 - Fragrances</h3>
+                            </div>
+                            <div className="panel-body">
+                                <div className="form-inline">
+                                    <div className="form-group">
+                                        <input type="text"
+                                               className="form-control short-numeric"
+                                               placeholder="%"
+                                               valueLink={ this.linkModel( this.props.recipe, 'fragrance' ) }
+                                            />
+                                        <span> % oil weight - recommended 3%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
 
@@ -189,7 +189,7 @@ export default React.createClass( {
                                         title="Select Recipe Oils"
                                         />
                                 </div>
-                                <h3 className="panel-title">Select Oils</h3>
+                                <h3 className="panel-title">6 - Select Oils</h3>
                             </div>
                             <ListOilsSelector
                                 onSelectedOil={this.selectedOil}
