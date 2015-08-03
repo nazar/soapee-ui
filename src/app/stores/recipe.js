@@ -3,8 +3,6 @@ import Reflux from 'reflux';
 import recipeActions from 'actions/recipe';
 import RecipeModel from 'models/recipe';
 
-import adjustHybridLyeFields from 'utils/adjustHybridLyeFields';
-
 export default Reflux.createStore( {
 
     store: null,
@@ -13,7 +11,6 @@ export default Reflux.createStore( {
         this.store = new RecipeModel();
 
         this.store.on( 'calculated', doTrigger.bind( this ) );
-        this.store.on( 'changing', adjustHybridLyeFields.bind( this ) );
 
         this.listenTo( recipeActions.getRecipeById.completed, gotRecipe.bind( this ) );
         this.listenTo( recipeActions.getRecipeById.failed, setError.bind( this ) );
