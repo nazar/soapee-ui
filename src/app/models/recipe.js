@@ -21,7 +21,7 @@ export default class extends EventEmitter {
             ratioNaoh: 50,
             ratioKoh: 50,
             kohPurity: 90,
-            uom: 'gram',
+            uom: 'percent',
             totalWeight: 500,
             totalUom: 'gram',
             superFat: 5,
