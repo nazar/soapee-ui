@@ -104,9 +104,11 @@ export default React.createClass( {
                         </div>
 
                         <div className="col-sm-1 text-center hidden-xs">
-                            <UserAvatar
-                                user={ this.state.recipe.getModelValue( 'user' ) }
-                                />
+                            <Link to="userProfile" params={ { id: this.state.recipe.getModelValue( 'user_id' ) } }>
+                                <UserAvatar
+                                    user={ this.state.recipe.getModelValue( 'user' ) }
+                                    />
+                            </Link>
                             { this.state.recipe.isPrivate() &&
                                 <div className="private">
                                     <i className="fa fa-lock"></i>
