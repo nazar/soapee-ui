@@ -20,9 +20,11 @@ export default React.createClass( {
                     <tr>
                         <td colSpan="3">
                             { this.props.showUser &&
-                                <UserAvatar
-                                    user={ recipe.user }
-                                    />
+                                <Link to="userProfile" params={ { id: recipe.user.id } }>
+                                    <UserAvatar
+                                        user={ recipe.user }
+                                        />
+                                </Link>
                             }
                             <Link className="recipe-name" to="recipe" params={{id: recipe.id}}>{ recipe.name }</Link>
                         </td>

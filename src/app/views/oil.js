@@ -17,6 +17,7 @@ import GoogleComments from 'components/googleComments';
 import ButtonFBLike from 'components/buttonFBLike';
 import ButtonGPlusLike from 'components/buttonGPlusLike';
 import Commentable from 'components/commentable';
+import RecipesLinkTable from 'components/recipesLinkTable';
 
 export default React.createClass( {
 
@@ -238,28 +239,11 @@ export default React.createClass( {
     renderInRecipes() {
         let oil = this.state.oil;
 
-        function recipeRow( recipe ) {
-            return (
-                <tr>
-                    <td><Link to="recipe" params={ { id: recipe.id } }>{ recipe.name }</Link></td>
-                </tr>
-            );
-        }
-
         if ( oil.recipes && oil.recipes.length ) {
             return (
-                <div className="properties-container">
-                    <table className="table table-striped table-condensed table-super-condensed table-bordered">
-                        <thead>
-                        <th>
-                            Recipe Name
-                        </th>
-                        </thead>
-                        <tbody>
-                        { _.map( oil.recipes, recipeRow, this ) }
-                        </tbody>
-                    </table>
-                </div>
+                <RecipesLinkTable
+                    recipes={ oil.recipes }
+                    />
             );
         } else {
             return (
