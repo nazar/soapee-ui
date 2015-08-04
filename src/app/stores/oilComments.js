@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Reflux from 'reflux';
 
 import oilStore from 'stores/oil';

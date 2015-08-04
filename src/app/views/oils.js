@@ -1,7 +1,7 @@
 import React from 'react';
 import DocMeta from 'react-doc-meta';
 
-import GridOils from 'components/gridOil';
+import GridOil from 'components/gridOil';
 
 export default React.createClass( {
 
@@ -11,7 +11,7 @@ export default React.createClass( {
         return (
             <div id="oils">
                 <DocMeta tags={ this.tags() } />
-                <GridOils />
+                <GridOil />
             </div>
         );
     },

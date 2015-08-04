@@ -66,11 +66,13 @@ export default React.createClass( {
         let fattyClass    = cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'fats-common' } );
         let fattyAllClass = cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'fats-all' } );
         let propClass     =  cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'properties' } );
+        let saturationClass     =  cx( 'btn btn-default btn-sm', { active: this.state.gridColumns === 'saturation' } );
 
         return (
             <div className="toolbar">
                 <div className="text-right">
                     <button className={propClass} onClick={this.switchViewTo('properties')} ><i className="fa fa-bullseye"></i>Properties</button>
+                    <button className={saturationClass} onClick={this.switchViewTo('saturation')}><i className="fa fa-tint"></i>Saturates</button>
                     <button className={fattyClass} onClick={this.switchViewTo('fats-common')}><i className="fa fa-bars"></i>Fatty Acids - Common</button>
                     <button className={fattyAllClass} onClick={this.switchViewTo('fats-all')}><i className="fa fa-bars"></i>Fatty Acids - All</button>
                 </div>
@@ -97,6 +99,18 @@ export default React.createClass( {
             {
                 columnName: 'name',
                 customComponent: oilLinkColumn
+            },
+            {
+                columnName: 'monoSaturated',
+                displayName: 'mono-saturated %'
+            },
+            {
+                columnName: 'polySaturated',
+                displayName: 'poly-saturated %'
+            },
+            {
+                columnName: 'saturationRatio',
+                displayName: 'saturated ratio %'
             }
         ];
     }
