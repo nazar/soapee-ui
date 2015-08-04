@@ -35,6 +35,7 @@ export default React.createClass( {
                             recipe={ this.state.recipe }
                             onSave={ this.saveRecipe }
                             onPrint={ this.printRecipe }
+                            buttonPrint={ true }
                             />
                     </div>
                 }

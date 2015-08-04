@@ -91,7 +91,9 @@ export default React.createClass( {
                         <div className="col-sm-12">
                             <div className="btn-toolbar action-buttons">
                                 {this.renderSaveRecipeButton()}
-                                <button className="btn btn-primary" onClick={ this.printRecipe }><i className="fa fa-print"> Print Recipe</i></button>
+                                { this.props.buttonPrint && <button className="btn btn-primary" onClick={ this.printRecipe }><i className="fa fa-print"> Print Recipe</i></button> }
+                                { this.props.buttonCancel && <button className="btn btn-primary" onClick={ this.cancelEditing }><i className="fa fa-ban"> Cancel Editing</i></button> }
+
                             </div>
                         </div>
 
@@ -155,6 +157,10 @@ export default React.createClass( {
         setTimeout( () => {
             this.props.onPrint();
         } );
+    },
+
+    cancelEditing() {
+        this.props.onCancel();
     }
 
 } );

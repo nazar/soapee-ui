@@ -34,9 +34,10 @@ export default React.createClass( {
                     <div className="row">
                         <FormSaveRecipe
                             recipe={ this.state.recipe }
+                            buttonCancel={ true }
                             onSave={ this.saveRecipe }
                             onSaveAs={ this.saveAsRecipe }
-                            onPrint={ this.printRecipe }
+                            onCancel={ this.goBackToView }
                             />
                     </div>
                 }
@@ -57,6 +58,10 @@ export default React.createClass( {
 
     printRecipe() {
         this.replaceWith( 'printRecipe', { id: this.state.recipe.getModelValue( 'id' ) } );
+    },
+
+    goBackToView() {
+        this.toRecipeView( this.state.recipe.recipe );
     },
 
     toRecipeView( recipe ) {
