@@ -27,6 +27,14 @@ export default Reflux.createStore( {
 
     getFlatOilProperties() {
         return _.map( this.store, oil => {
+            let saturationRatio;
+
+            if ( oil.saturation.monoSaturated + oil.saturation.polySaturated ) {
+                saturationRatio = oil.saturation.saturated / ( oil.saturation.monoSaturated + oil.saturation.polySaturated );
+            } else {
+                saturationRatio = oil.saturation.saturated;
+            }
+
             return {
                 id: oil.id,
                 name: oil.name,
@@ -53,7 +61,12 @@ export default Reflux.createStore( {
                 oleic: oil.breakdown.oleic || 0,
                 palmitic: oil.breakdown.palmitic || 0,
                 ricinoleic: oil.breakdown.ricinoleic || 0,
-                stearic: oil.breakdown.stearic || 0
+                stearic: oil.breakdown.stearic || 0,
+
+                saturated: oil.saturation.saturated,
+                monoSaturated: oil.saturation.monoSaturated,
+                polySaturated: oil.saturation.polySaturated,
+                saturationRatio: _.round( saturationRatio, 3 )
             };
         } );
     },
@@ -62,7 +75,8 @@ export default Reflux.createStore( {
         return {
             'fats-common': [ 'name', 'sap', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic'  ],
             'fats-all':    [ 'name', 'sap', 'capric', 'caprylic', 'docosadienoic', 'docosenoid', 'eicosenoic', 'erucic', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic' ],
-            properties:    [ 'name', 'sap', 'bubbly', 'cleansing', 'condition', 'hardness', 'stability' ]
+            properties:    [ 'name', 'sap', 'bubbly', 'cleansing', 'condition', 'hardness', 'stability' ],
+            saturation:    [ 'name', 'sap',  'saturated', 'monoSaturated', 'polySaturated', 'saturationRatio' ]
         };
 
     },
