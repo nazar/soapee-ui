@@ -250,22 +250,12 @@ export default React.createClass( {
                                         />
                                 </div>
                             </div>
-                            <div className="col-sm-5">
+                            <div className="col-sm-6">
                                 <div className="panel panel-success">
                                     <div className="panel-heading">
                                         <h3 className="panel-title">Recipe Totals</h3>
                                     </div>
                                     <RecipeTotals
-                                        recipe={ this.props.recipe }
-                                        />
-                                </div>
-                            </div>
-                            <div className="col-sm-3">
-                                <div className="panel panel-success">
-                                    <div className="panel-heading">
-                                        <h3 className="panel-title">Fatty Acids</h3>
-                                    </div>
-                                    <RecipeFattyAcids
                                         recipe={ this.props.recipe }
                                         />
                                 </div>
@@ -278,6 +268,16 @@ export default React.createClass( {
                                     <RecipeProperties
                                         recipe={ this.props.recipe }
                                         withRange={true}
+                                        />
+                                </div>
+                            </div>
+                            <div className="col-sm-2">
+                                <div className="panel panel-success">
+                                    <div className="panel-heading">
+                                        <h3 className="panel-title">Fatty Acids</h3>
+                                    </div>
+                                    <RecipeFattyAcids
+                                        recipe={ this.props.recipe }
                                         />
                                 </div>
                             </div>

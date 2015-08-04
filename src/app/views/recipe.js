@@ -126,7 +126,7 @@ export default React.createClass( {
                             </div>
                         </div>
 
-                        <div className="col-sm-4">
+                        <div className="col-sm-6">
                             <div className="panel panel-primary">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Total Weights</h3>
@@ -139,21 +139,21 @@ export default React.createClass( {
                         <div className="col-sm-4">
                             <div className="panel panel-primary">
                                 <div className="panel-heading">
-                                    <h3 className="panel-title">Fatty Acids</h3>
-                                </div>
-                                <RecipeFattyAcids
-                                    recipe={ this.state.recipe }
-                                    />
-                            </div>
-                        </div>
-                        <div className="col-sm-4">
-                            <div className="panel panel-primary">
-                                <div className="panel-heading">
                                     <h3 className="panel-title">Recipe Properties</h3>
                                 </div>
                                 <RecipeProperties
                                     recipe={ this.state.recipe }
                                     withRange={true}
+                                    />
+                            </div>
+                        </div>
+                        <div className="col-sm-2">
+                            <div className="panel panel-primary">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">Fatty Acids</h3>
+                                </div>
+                                <RecipeFattyAcids
+                                    recipe={ this.state.recipe }
                                     />
                             </div>
                         </div>
