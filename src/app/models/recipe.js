@@ -76,6 +76,10 @@ export default class extends EventEmitter {
         return Number( this.recipe.visibility ) === 0;
     }
 
+    isPrivateFriends() {
+        return Number( this.recipe.visibility ) === 2;
+    }
+
     mixedTotalRatios() {
         return Number( this.recipe.ratioNaoh ) + Number( this.recipe.ratioKoh );
     }

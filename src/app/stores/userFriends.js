@@ -1,6 +1,9 @@
+import _ from 'lodash';
 import Reflux from 'reflux';
 
 import userProfileStore from 'stores/userProfile';
+import authStore from 'stores/auth';
+
 import userActions from 'actions/user';
 
 export default Reflux.createStore( {
@@ -9,11 +12,15 @@ export default Reflux.createStore( {
 
     init() {
         this.listenTo( userProfileStore, gotUserProfile.bind( this ) );
-        this.listenTo( userActions.getRecipes.completed, gotRecipes.bind( this ) );
+        this.listenTo( userActions.getFriends.completed, gotFriends.bind( this ) );
     },
 
     getInitialState() {
         return this.store;
+    },
+
+    iAmNotFriendOfUser() {
+        return _.filter( this.store, { id: authStore.userId() } ).length === 0;
     }
 
 } );
@@ -22,11 +29,11 @@ export default Reflux.createStore( {
 ////
 
 function gotUserProfile( user ) {
-    userActions.getRecipes( user );
+    userActions.getFriends( user );
 }
 
-function gotRecipes( recipes ) {
-    this.store = recipes;
+function gotFriends( users ) {
+    this.store = users;
     doTrigger.call( this );
 }
 

@@ -15,3 +15,9 @@ export function getRecipes( user ) {
         get( baseUrl( `users/${user.id}/recipes` ) )
     );
 }
+
+export function getFriends( user ) {
+    return when(
+        get( baseUrl( `users/${user.id}/friends` ) )
+    );
+}

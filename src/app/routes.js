@@ -19,7 +19,7 @@ import Recipes from 'views/recipes';
 import Resources from 'views/resources';
 import UserProfile from 'views/userProfile';
 
-import Profile from 'views/profile';
+import MyProfile from 'views/myProfile';
 import MyComments from 'views/myComments';
 import MyRecipes from 'views/myRecipes';
 import SavedRecipes from 'views/savedRecipes';
@@ -51,7 +51,7 @@ let routes = (
         <Route name="userProfile" path="users/:id" handler={UserProfile} />
 
         <Route name="account" path="/my" handler={Account}>
-            <Route name="profile" handler={Profile} />
+            <Route name="profile" handler={MyProfile} />
             <Route name="my-recipes" handler={MyRecipes} />
             <Route name="saved-recipes" handler={SavedRecipes} />
             <Route name="my-comments" handler={MyComments} />

@@ -85,6 +85,9 @@ export default React.createClass( {
                                 <label className="radio-inline">
                                     <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 0 )} /> Private - only visible to the Author
                                 </label>
+                                <label className="radio-inline">
+                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 2 )} /> Friends - only visible to my friends
+                                </label>
                             </div>
                         </div>
 
