@@ -27,9 +27,11 @@ export default class extends EventEmitter {
             superFat: 5,
             waterRatio: 38,
             fragrance: 3,
+            recipeLyeConcentration: 30,
             totalsIncludeWater: false,
             superfatAfter: false,
-            visibility: 1
+            lyeCalcType: 'ratio',
+            visibility: 0
         };
 
         this.on( 'changing', this.adjustHybridLyeFields );
@@ -240,6 +242,8 @@ export default class extends EventEmitter {
         let properties;
         let saturations;
 
+        let recipeLyeConcentration;
+
         //total weights either % ratios or uoms
         if ( this.isPercentRecipe() ) {
             totalOilWeight = this.totalWeight();
@@ -252,9 +256,6 @@ export default class extends EventEmitter {
         } else {
             totalSuperfat = 0;
         }
-
-        totalWaterWeight = totalOilWeight * ( this.recipe.waterRatio / 100 );
-        fragranceWeight = totalOilWeight * ( this.recipe.fragrance / 100 );
 
         if ( this.isMixedRecipe() ) {
             totalNaoh = _.sum( this.recipe.weights, ( weightOrRatio, oilId ) => {
@@ -271,10 +272,18 @@ export default class extends EventEmitter {
             } );
         }
 
+        recipeLyeConcentration = ( (this.recipe.recipeLyeConcentration || 100) / 100 );
+        fragranceWeight = totalOilWeight * ( this.recipe.fragrance / 100 );
         totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye ) + Number( fragranceWeight ) + Number( totalSuperfat );
 
+        if ( this.isLyeConentration() ) {
+            totalWaterWeight = ( totalLye / recipeLyeConcentration ) - totalLye;
+        } else {
+            totalWaterWeight = totalOilWeight * ( this.recipe.waterRatio / 100 );
+        }
+
         if ( totalWaterWeight + totalLye ) {
-            lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ));
+            lyeConcentration = this.isLyeConentration() ? 100 * recipeLyeConcentration : 100 * (totalLye / ( totalWaterWeight + totalLye ));
             waterLyeRatio = totalWaterWeight / totalLye;
 
             breakdowns = this.recipeOilFatBreakdowns();
@@ -459,6 +468,10 @@ export default class extends EventEmitter {
 
     superfatAfter() {
         return this.recipe.superfatAfter;
+    }
+
+    isLyeConentration() {
+        return this.recipe.lyeCalcType === 'concentration'
     }
 
     adjustHybridLyeFields( key, value ) {

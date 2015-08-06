@@ -67,7 +67,8 @@ gulp.task( 'build:image:min', function () {
 gulp.task( 'build:cp:index', function () {
     return gulp.src( [
         './src/index.html',
-        './src/favicon.png'
+        './src/favicon.png',
+        './src/assets/img/logo.jpg'
     ] )
         .pipe( gulp.dest( 'build/' ) );
 } );

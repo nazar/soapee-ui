@@ -80,13 +80,13 @@ export default React.createClass( {
                             <div className="form-group">
                                 <legend>Recipe Visibility</legend>
                                 <label className="radio-inline">
-                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 1 )} /> Public - visible to Everyone
+                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 0 )} /> Private - only visible to you
                                 </label>
                                 <label className="radio-inline">
-                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 0 )} /> Private - only visible to the Author
+                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 2 )} /> Friends - also visible to your friends
                                 </label>
                                 <label className="radio-inline">
-                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 2 )} /> Friends - only visible to my friends
+                                    <input type="radio" name="uom" value="percent" checkedLink={this.radioModel( this.props.recipe, 'visibility', 1 )} /> Public - visible to everyone
                                 </label>
                             </div>
                         </div>

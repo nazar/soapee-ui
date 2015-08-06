@@ -114,12 +114,24 @@ export default React.createClass( {
                             <div className="panel-body">
                                 <div className="form-inline">
                                     <div className="form-group">
-                                        <input type="text"
-                                               className="form-control short-numeric"
-                                               placeholder="%"
-                                               valueLink={ this.linkModel( this.props.recipe, 'waterRatio' ) }
-                                            />
-                                        <span> % water as a percent of oils - recommended 33%-38% for solid soaps</span>
+                                        <label className="radio">
+                                            <input type="radio" name="lyeCalcType" value="ratio" checkedLink={this.radioModel( this.props.recipe, 'lyeCalcType', 'ratio' )} />
+                                            <input type="text"
+                                                   className="form-control short-numeric"
+                                                   placeholder="%"
+                                                   valueLink={ this.linkModel( this.props.recipe, 'waterRatio' ) }
+                                                />
+                                            <span> % Water as a percent of oils - recommended 33%-38%</span>
+                                        </label>
+                                        <label className="radio">
+                                            <input type="radio" name="lyeCalcType" value="concentration" checkedLink={this.radioModel( this.props.recipe, 'lyeCalcType', 'concentration' )} />
+                                            <input type="text"
+                                                   className="form-control short-numeric"
+                                                   placeholder="%"
+                                                   valueLink={ this.linkModel( this.props.recipe, 'recipeLyeConcentration' ) }
+                                                />
+                                            <span> % Lye Concentration</span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
