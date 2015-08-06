@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 export default React.createClass( {
 
@@ -9,20 +10,13 @@ export default React.createClass( {
         };
     },
 
-    componentDidMount() {
-        this.initToolTip();
-    },
-
-    componentDidUpdate() {
-        this.initToolTip();
-    },
-
     render() {
         return (
             <div className="user-avatar">
                 <div className="avatar-border">
-                    { this.renderLocal() }
-                    { this.renderImageUrl() }
+                    <OverlayTrigger placement={ this.props.tipPlacement } overlay={ this.tooltip() }>
+                        { this.renderLocal() || this.renderImageUrl() }
+                    </OverlayTrigger>
                 </div>
             </div>
         );
@@ -33,11 +27,7 @@ export default React.createClass( {
 
         if ( !( _.get( user, 'image_url' ) ) ) {
             return (
-                <i className="fa fa-user"
-                   data-toggle="tooltip"
-                   data-placement={ this.props.tipPlacement }
-                   title={ _.get( user, 'name' ) }
-                    ></i>
+                <i className="fa fa-user"></i>
             );
         }
     },
@@ -47,13 +37,13 @@ export default React.createClass( {
 
         if ( _.get( user, 'image_url' ) ) {
             return (
-                <img src={ user.image_url }
-                     data-toggle="tooltip"
-                     data-placement={ this.props.tipPlacement }
-                     title={ _.get( user, 'name' ) }
-                    />
+                <img src={ user.image_url }/>
             );
         }
+    },
+
+    tooltip() {
+        return <Tooltip>{ _.get( this.props.user, 'name' ) }</Tooltip>;
     },
 
     initToolTip() {

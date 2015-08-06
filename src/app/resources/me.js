@@ -50,3 +50,32 @@ export function removeRecipeFromFavourites( recipe ) {
         del( baseUrl( `me/favourite/recipes/${recipe.id}` ) )
     );
 }
+
+export function getMyUserNotifications() {
+    return when(
+        get( baseUrl( 'me/notifications' ) )
+    );
+}
+
+export function dismissNotification( notification ) {
+    return when(
+        put( baseUrl( `me/notifications/${notification.id}` ), {
+                params: {
+                    read: true
+                }
+            }
+        )
+    );
+}
+
+export function getMyFriends() {
+    return when(
+        get( baseUrl( `me/friends` ) )
+    );
+}
+
+export function addFriend( targetUser ) {
+    return when(
+        post( baseUrl( `me/friends/${targetUser.id}` ) )
+    );
+}

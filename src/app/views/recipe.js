@@ -115,6 +115,12 @@ export default React.createClass( {
                                     <div>Private <br/>Recipe</div>
                                 </div>
                             }
+                            { this.state.recipe.isPrivateFriends() &&
+                                <div className="private-friends">
+                                    <i className="fa fa-lock"></i>
+                                    <div>Private<br/>Friends<br/>Recipe</div>
+                                </div>
+                            }
                         </div>
 
                         <div className="col-sm-1 text-center hidden-xs">

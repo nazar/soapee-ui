@@ -161,11 +161,11 @@ let SelectOilsModal =  React.createClass( {
             },
             {
                 columnName: 'monoSaturated',
-                displayName: 'mono-saturated %'
+                displayName: 'mono-unsaturated %'
             },
             {
                 columnName: 'polySaturated',
-                displayName: 'poly-saturated %'
+                displayName: 'poly-unsaturated %'
             },
             {
                 columnName: 'saturationRatio',

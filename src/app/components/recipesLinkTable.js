@@ -23,7 +23,7 @@ export default React.createClass( {
 
     renderRow( recipe ) {
         return (
-            <tr>
+            <tr key={ `recipe-table-${recipe.id}` }>
                 <td><Link to="recipe" params={ { id: recipe.id } }>{ recipe.name }</Link></td>
             </tr>
         );

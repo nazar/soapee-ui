@@ -4,6 +4,7 @@ import cx from 'classnames';
 import {Link, State} from 'react-router';
 
 import NavLink from 'components/navLink';
+import ButtonUserNotifications from 'components/buttonUserNotifications';
 
 import authStore from 'stores/auth';
 
@@ -57,20 +58,19 @@ export default React.createClass( {
         return (
             <ul className="nav navbar-nav navbar-right">
                 <li className="dropdown">
-                    <div className="btn-group">
-                        <button type="button" className="btn btn-profile navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span className="caption"><img className="user-avatar" src={authStore.avatarUrl()} /> {authStore.userName()}  </span>
-                            <span className="caret"></span>
-                        </button>
-                        <ul className="dropdown-menu">
-                            <NavLink to="profile">Profile</NavLink>
-                            <NavLink to="my-recipes">My Recipes</NavLink>
-                            <NavLink to="my-comments">My Comments</NavLink>
-                            <NavLink to="saved-recipes">Saved Recipes</NavLink>
-                            <li role="separator" className="divider"></li>
-                            <NavLink to="logout">Logout</NavLink>
-                        </ul>
-                    </div>
+                    <ButtonUserNotifications />
+                    <button type="button" className="btn btn-profile navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span className="caption"><img className="user-avatar" src={authStore.avatarUrl()} /> {authStore.userName()}  </span>
+                        <span className="caret"></span>
+                    </button>
+                    <ul className="dropdown-menu">
+                        <NavLink to="profile">Profile</NavLink>
+                        <NavLink to="my-recipes">My Recipes</NavLink>
+                        <NavLink to="my-comments">My Comments</NavLink>
+                        <NavLink to="saved-recipes">Saved Recipes</NavLink>
+                        <li role="separator" className="divider"></li>
+                        <NavLink to="logout">Logout</NavLink>
+                    </ul>
                 </li>
             </ul>
         );

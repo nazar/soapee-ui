@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react/addons';
 import Reflux from 'reflux';
 import cx from 'classnames';
@@ -6,6 +7,9 @@ import formLinkHandlers from 'mixins/formLinkHandlers';
 import ValidateProfileForm from 'services/validateProfileForm';
 
 import meStore from 'stores/me';
+import authStore from 'stores/auth';
+import myFriendsStore from 'stores/myFriends';
+
 import meActions from 'actions/me';
 
 import UserAvatar from 'components/userAvatar';
@@ -15,6 +19,7 @@ export default React.createClass( {
 
     mixins: [
         Reflux.connect( meStore, 'profile' ),
+        Reflux.connect( myFriendsStore, 'friends' ),
         React.addons.LinkedStateMixin,
         formLinkHandlers
     ],
@@ -57,11 +62,9 @@ export default React.createClass( {
                         </div>
 
                         <div className="col-sm-1">
-                            <div className="thumbnail">
-                                <UserAvatar
-                                    user={ this.state.profile }
-                                    />
-                            </div>
+                            <UserAvatar
+                                user={ this.state.profile }
+                                />
                         </div>
 
                         <div className="col-sm-12">
@@ -80,15 +83,37 @@ export default React.createClass( {
                             <div className="form-group">
                                 <div className="btn-toolbar action-buttons">
                                     <button className="btn btn-primary" onClick={ this.updateProfile }>Update Profile</button>
+                                    <a href={ this.mailToLink() } className="btn btn-primary">Invite a friend to Soapee</a>
                                 </div>
                             </div>
                         </div>
                     </form>
-
                 </div>
 
+                { this.renderMyFriends() }
             </div>
         );
+    },
+
+    renderMyFriends() {
+        function renderFriend( user ) {
+            return (
+                <a href={ `/users/${user.id}` }>
+                    <UserAvatar
+                        user={ user }
+                        />
+                </a>
+            );
+        }
+
+        if ( this.state.friends.length ) {
+            return (
+                <div className="friends">
+                    <legend>My Friends</legend>
+                    { _.map( this.state.friends, renderFriend, this ) }
+                </div>
+            );
+        }
     },
 
     updateProfile() {
@@ -126,6 +151,25 @@ export default React.createClass( {
             .then( save.bind( this ) )
             .then( successNotification )
             .catch( setErrors.bind( this ) );
+    },
+
+    mailToLink() {
+        let subject;
+        let body;
+
+        subject = `Check out the Soapee calculator and soap recipes`;
+        body = `You can register on Soapee here: http://soapee.com/signup
+
+        Once you've registered, check out my Soapee profile here: http://soapee.com/users/${authStore.userId()} and press the "Add Friend" button to connect with me.
+
+        You'll be able to see my soap recipes once you've connected.
+
+        ${authStore.userName()}
+        `;
+
+        body = encodeURIComponent(body);
+
+        return `mailto:?subject=${subject}&body=${body}`;
     }
 
 } );
