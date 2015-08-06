@@ -274,13 +274,14 @@ export default class extends EventEmitter {
 
         recipeLyeConcentration = ( (this.recipe.recipeLyeConcentration || 100) / 100 );
         fragranceWeight = totalOilWeight * ( this.recipe.fragrance / 100 );
-        totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye ) + Number( fragranceWeight ) + Number( totalSuperfat );
 
         if ( this.isLyeConentration() ) {
             totalWaterWeight = ( totalLye / recipeLyeConcentration ) - totalLye;
         } else {
             totalWaterWeight = totalOilWeight * ( this.recipe.waterRatio / 100 );
         }
+
+        totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye ) + Number( fragranceWeight ) + Number( totalSuperfat );
 
         if ( totalWaterWeight + totalLye ) {
             lyeConcentration = this.isLyeConentration() ? 100 * recipeLyeConcentration : 100 * (totalLye / ( totalWaterWeight + totalLye ));

@@ -123,6 +123,10 @@ export default React.createClass( {
                                                 />
                                             <span> % Water as a percent of oils - recommended 33%-38%</span>
                                         </label>
+                                    </div>
+                                </div>
+                                <div className="form-inline">
+                                    <div className="form-group">
                                         <label className="radio">
                                             <input type="radio" name="lyeCalcType" value="concentration" checkedLink={this.radioModel( this.props.recipe, 'lyeCalcType', 'concentration' )} />
                                             <input type="text"
