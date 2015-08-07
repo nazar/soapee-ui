@@ -62,7 +62,7 @@ export default React.createClass( {
         }
 
         return (
-            <div className="message">
+            <div className="message clearfix">
                 { message }
             </div>
         );

@@ -49,6 +49,7 @@ export default React.createClass( {
                     <form className="form-horizontal" onSubmit={ (e) => e.preventDefault() }>
                         <div className="col-sm-11">
                             <div className={nameClasses}  >
+                                { this.renderUsername() }
                                 <legend>My Name</legend>
                                 <input type="text"
                                        className="form-control"
@@ -113,6 +114,19 @@ export default React.createClass( {
                     { _.map( this.state.friends, renderFriend, this ) }
                 </div>
             );
+        }
+    },
+
+    renderUsername() {
+        let profile = this.state.profile;
+
+        if ( profile.verifications && profile.verifications.length === 1 ) {
+            return (
+                <div className="username">
+                    <legend>My Username</legend>
+                    <strong>{ profile.verifications[0].provider_id }</strong>
+                </div>
+            )
         }
     },
 
