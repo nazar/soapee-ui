@@ -17,6 +17,14 @@ export default React.createClass( {
                     <p>These are some resources from around the net that helped in my soap making journey. Please add any additional suggestions for this page in the comments box bellow.</p>
                 </div>
 
+                <h2>Websites</h2>
+                <ul className="list-unstyled">
+                    <li><a href="https://www.reddit.com/r/soapmaking/" target="_blank">Soap Making on Reddit</a></li>
+                    <li><a href="https://www.facebook.com/groups/howtomakesoap/" target="_blank">Soap Making group on Facebook</a></li>
+                    <li><a href="http://www.soapmakingforum.com/" target="_blank">Soap Making Forum</a></li>
+                    <li><a href="http://www.modernsoapmaking.com/" target="_blank">Modern Soap Making Blog</a></li>
+                </ul>
+
                 <h2>Videos</h2>
 
                 <div className="row">
