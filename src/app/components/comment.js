@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
+import { Link } from 'react-router';
 
 import MarkedDisplay from 'components/markedDisplay';
 import UserAvatar from 'components/userAvatar';
@@ -20,7 +21,7 @@ export default React.createClass( {
                 <div className="media-body">
                     <div className="about">
                         <span className="user">
-                            { comment.user.name }
+                            <Link to="userProfile" params={ { id: comment.user_id } }>{ comment.user.name }</Link>
                         </span>
                         <span className="time"
                               title={ moment( comment.created_at ).format( 'LLLL' ) }
