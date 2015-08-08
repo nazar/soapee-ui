@@ -31,6 +31,7 @@ export default React.createClass( {
                 <LocalAuthenticationForm
                     buttonCaption={ this.props.buttonCaption || 'Log In' }
                     errors={ this.state.errors }
+                    hidePassword={ true }
                     onButtonClick={this.login}
                     />
 

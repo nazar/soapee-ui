@@ -17,6 +17,7 @@ export default React.createClass( {
     render() {
         let usernameCx;
         let passwordCx;
+        let passwordFieldType;
 
         usernameCx = cx( 'form-group', {
             'has-error': this.props.errors.username,
@@ -26,6 +27,8 @@ export default React.createClass( {
             'has-error': this.props.errors.password,
             'has-success': this.state.password && !(this.props.errors.password)
         } );
+
+        passwordFieldType = this.props.hidePassword ? 'password' : 'text';
 
         return (
             <div className="local-signin-form">
@@ -42,7 +45,7 @@ export default React.createClass( {
                             }
                         </div>
                         <div className={passwordCx}>
-                            <input type="text"
+                            <input type={ passwordFieldType }
                                    className="form-control"
                                    placeholder="Your Password"
                                    valueLink={this.linkState( 'password' )}
