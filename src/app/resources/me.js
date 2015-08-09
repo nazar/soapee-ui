@@ -74,6 +74,12 @@ export function getMyFriends() {
     );
 }
 
+export function getMyFriendsRecipes() {
+    return when(
+        get( baseUrl( `me/friends/recipes` ) )
+    );
+}
+
 export function addFriend( targetUser ) {
     return when(
         post( baseUrl( `me/friends/${targetUser.id}` ) )

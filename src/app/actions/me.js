@@ -16,6 +16,7 @@ import {
     dismissNotification,
 
     getMyFriends,
+    getMyFriendsRecipes,
     addFriend
 } from 'resources/me';
 
@@ -33,6 +34,7 @@ let actions = Reflux.createActions( {
     dismissNotification: { asyncResult: true },
 
     getMyFriends: { asyncResult: true },
+    getMyFriendsRecipes: { asyncResult: true },
     addFriend: { asyncResult: true }
 } );
 
@@ -51,4 +53,5 @@ actions.dismissNotification.listenAndPromise( dismissNotification );
 actions.getMyUserNotifications.listenAndPromise( getMyUserNotifications );
 
 actions.getMyFriends.listenAndPromise( getMyFriends );
+actions.getMyFriendsRecipes.listenAndPromise( getMyFriendsRecipes );
 actions.addFriend.listenAndPromise( addFriend );
