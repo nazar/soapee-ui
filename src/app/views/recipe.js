@@ -31,7 +31,8 @@ export default React.createClass( {
 
     statics: {
         willTransitionTo: function ( transition, params ) {
-            recipeActions.getRecipeById( params.id );
+            recipeActions.getRecipeById( params.id )
+                .then( recipeActions.getRecipeComments )
         }
     },
 
