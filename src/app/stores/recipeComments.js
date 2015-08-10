@@ -1,6 +1,5 @@
 import Reflux from 'reflux';
 
-import recipeStore from 'stores/recipe';
 import recipeActions from 'actions/recipe';
 
 export default Reflux.createStore( {
@@ -9,7 +8,6 @@ export default Reflux.createStore( {
     comments: [],
 
     init() {
-        this.listenTo( recipeStore, gotRecipe.bind( this ) );
         this.listenTo( recipeActions.getRecipeComments.completed, gotComments.bind( this ) );
     },
 
@@ -30,11 +28,6 @@ export default Reflux.createStore( {
 
 //////////////////////////
 //// Private
-
-function gotRecipe( recipeStore ) {
-    this.recipe = recipeStore.recipe;
-    recipeActions.getRecipeComments( this.recipe );
-}
 
 function gotComments( comments ) {
     this.comments = comments;
