@@ -10,6 +10,9 @@ import {
 } from 'resources/recipes';
 
 let actions = Reflux.createActions( {
+    //ui actions
+    resetRecipe: {},
+
     //async action
     createRecipe: { asyncResult: true },
     updateRecipe: { asyncResult: true },

@@ -3,36 +3,38 @@ import { EventEmitter } from 'events';
 
 import oilsStore from 'stores/oils';
 
+let defaults = {
+    name: '',
+    description: '',
+    notes: '',
+
+    oils: [],
+    weights: {},
+    recipe: {},
+
+    soapType: 'naoh',
+    ratioNaoh: 50,
+    ratioKoh: 50,
+    kohPurity: 90,
+    uom: 'percent',
+    totalWeight: 500,
+    totalUom: 'gram',
+    superFat: 5,
+    waterRatio: 38,
+    fragrance: 3,
+    recipeLyeConcentration: 30,
+    totalsIncludeWater: false,
+    superfatAfter: false,
+    lyeCalcType: 'ratio',
+    visibility: 0
+};
+
 export default class extends EventEmitter {
 
     constructor() {
         super();
 
-        this.recipe = {
-            name: '',
-            description: '',
-            notes: '',
-
-            oils: [],
-            weights: {},
-            recipe: {},
-
-            soapType: 'naoh',
-            ratioNaoh: 50,
-            ratioKoh: 50,
-            kohPurity: 90,
-            uom: 'percent',
-            totalWeight: 500,
-            totalUom: 'gram',
-            superFat: 5,
-            waterRatio: 38,
-            fragrance: 3,
-            recipeLyeConcentration: 30,
-            totalsIncludeWater: false,
-            superfatAfter: false,
-            lyeCalcType: 'ratio',
-            visibility: 0
-        };
+        this.setDefaults();
 
         this.on( 'changing', this.adjustHybridLyeFields );
         this.on( 'changing', this.convertUnitesOnPercentageUomChanges );
@@ -49,6 +51,25 @@ export default class extends EventEmitter {
         _.set( this.recipe, key, value );
         this.calculateRecipe();
 
+        this.emit( 'calculated' );
+    }
+
+    setDefaults() {
+        this.recipe = _.extend( {}, defaults );
+
+        this.recipe.oils = null;
+        this.recipe.weights = null;
+        this.recipe.recipe = null;
+
+        this.recipe.oils = [];
+        this.recipe.weights = {};
+        this.recipe.recipe = {};
+    }
+
+    reset() {
+        this.setDefaults();
+
+        this.calculateRecipe();
         this.emit( 'calculated' );
     }
 
