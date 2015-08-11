@@ -111,18 +111,18 @@ export default React.createClass( {
                                     />
                             </Link>
                             { this.state.recipe.isPrivate() &&
-                            <div className="private">
-                                <i className="fa fa-lock"></i>
+                                <div className="private">
+                                    <i className="fa fa-lock"></i>
 
-                                <div>Private <br/>Recipe</div>
-                            </div>
+                                    <div>Private <br/>Recipe</div>
+                                </div>
                             }
                             { this.state.recipe.isPrivateFriends() &&
-                            <div className="private-friends">
-                                <i className="fa fa-lock"></i>
+                                <div className="private-friends">
+                                    <i className="fa fa-lock"></i>
 
-                                <div>Private<br/>Friends<br/>Recipe</div>
-                            </div>
+                                    <div>Private<br/>Friends<br/>Recipe</div>
+                                </div>
                             }
                         </div>
 
@@ -176,8 +176,11 @@ export default React.createClass( {
                     <div>
                         <ul className="nav nav-tabs" role="tablist">
                             { recipeNotes &&
-                            <li role="presentation" className={ cx( { active: notesActive } ) }><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a>
-                            </li> }
+                                <li role="presentation"
+                                    className={ cx( { active: notesActive } ) }>
+                                    <a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a>
+                                </li>
+                            }
                             <li role="presentation" className={ cx( { active: commentsActive } ) }><a href="#comments" aria-controls="comments" role="tab"
                                                                                                       data-toggle="tab">User Comments {this.countComments()}</a></li>
                             <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
@@ -185,9 +188,9 @@ export default React.createClass( {
                         </ul>
                         <div className="tab-content">
                             { recipeNotes &&
-                            <div role="tabpanel" className={ cx( 'tab-pane', { active: notesActive } )  } id="notes">
-                                <MarkedDisplay content={ recipeNotes }/>
-                            </div>
+                                <div role="tabpanel" className={ cx( 'tab-pane', { active: notesActive } )  } id="notes">
+                                    <MarkedDisplay content={ recipeNotes }/>
+                                </div>
                             }
                             <div role="tabpanel" className={ cx( 'tab-pane', { active: commentsActive } )  } id="comments">
                                 <Commentable
