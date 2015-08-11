@@ -30,7 +30,7 @@ export default React.createClass( {
                         </td>
                     </tr>
                     <tr>
-                        <td>{recipe.soapType}</td>
+                        <td>{recipe.settings.soapType}</td>
                         <td>
                             <span className="iodine">Iodine: { _.round( recipe.summary.properties.iodine ) }</span>
                             <span className="ins">INS: { _.round( recipe.summary.properties.ins ) }</span>
@@ -75,7 +75,7 @@ export default React.createClass( {
 
         return _( properties )
             .keys()
-            .filter( property => { return !( _.contains( [ 'ins', 'iodine' ], property ) ); } )
+            .filter( property => !( _.contains( [ 'ins', 'iodine' ], property ) ) )
             .sort()
             .map( property => {
                 let value = _.round( properties[ property ] );
@@ -96,11 +96,11 @@ export default React.createClass( {
             .keys()
             .sort()
             .map( fat => {
-                let value = _.round( fats[ fat ] );
+                let value = _.round( fats[ fat ], 1 );
                 return (
                     <li key={ `fats-${ fat }` }>
                         <span className="name">{_.capitalize( fat )}:</span>
-                        <span className="value">{ _.round( value ) }%</span>
+                        <span className="value">{ value }%</span>
                     </li>
                 );
             } )

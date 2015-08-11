@@ -39,7 +39,9 @@ export default class extends EventEmitter {
     }
 
     setRecipe( recipe ) {
-        this.recipe = _.extend( {}, this.recipe, recipe );
+        let summary = _.omit( recipe, 'settings' );
+
+        this.recipe = _.extend( {}, this.recipe, summary, recipe.settings );
     }
 
     setModelValue( key, value ) {

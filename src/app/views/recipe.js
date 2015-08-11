@@ -54,7 +54,7 @@ export default React.createClass( {
         } else {
             return (
                 <div id="recipe">
-                    <DocMeta tags={ this.tags() } />
+                    <DocMeta tags={ this.tags() }/>
                     { this.renderLoading() }
                     { this.renderRecipe() }
                 </div>
@@ -89,7 +89,7 @@ export default React.createClass( {
                     </ol>
 
                     <legend><h1>{recipeName}</h1></legend>
-                    { recipeDescription && <div className="description"><MarkedDisplay content={ recipeDescription } /></div> }
+                    { recipeDescription && <div className="description"><MarkedDisplay content={ recipeDescription }/></div> }
 
                     <div className="row">
                         <div className="col-sm-10">
@@ -111,16 +111,18 @@ export default React.createClass( {
                                     />
                             </Link>
                             { this.state.recipe.isPrivate() &&
-                                <div className="private">
-                                    <i className="fa fa-lock"></i>
-                                    <div>Private <br/>Recipe</div>
-                                </div>
+                            <div className="private">
+                                <i className="fa fa-lock"></i>
+
+                                <div>Private <br/>Recipe</div>
+                            </div>
                             }
                             { this.state.recipe.isPrivateFriends() &&
-                                <div className="private-friends">
-                                    <i className="fa fa-lock"></i>
-                                    <div>Private<br/>Friends<br/>Recipe</div>
-                                </div>
+                            <div className="private-friends">
+                                <i className="fa fa-lock"></i>
+
+                                <div>Private<br/>Friends<br/>Recipe</div>
+                            </div>
                             }
                         </div>
 
@@ -173,16 +175,19 @@ export default React.createClass( {
 
                     <div>
                         <ul className="nav nav-tabs" role="tablist">
-                            { recipeNotes && <li role="presentation" className={ cx( { active: notesActive } ) }><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a></li> }
-                            <li role="presentation" className={ cx( { active: commentsActive } ) }><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">User Comments {this.countComments()}</a></li>
+                            { recipeNotes &&
+                            <li role="presentation" className={ cx( { active: notesActive } ) }><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a>
+                            </li> }
+                            <li role="presentation" className={ cx( { active: commentsActive } ) }><a href="#comments" aria-controls="comments" role="tab"
+                                                                                                      data-toggle="tab">User Comments {this.countComments()}</a></li>
                             <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
                             <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
                         </ul>
                         <div className="tab-content">
                             { recipeNotes &&
-                                <div role="tabpanel" className={ cx( 'tab-pane', { active: notesActive } )  } id="notes">
-                                    <MarkedDisplay content={ recipeNotes } />
-                                </div>
+                            <div role="tabpanel" className={ cx( 'tab-pane', { active: notesActive } )  } id="notes">
+                                <MarkedDisplay content={ recipeNotes }/>
+                            </div>
                             }
                             <div role="tabpanel" className={ cx( 'tab-pane', { active: commentsActive } )  } id="comments">
                                 <Commentable
@@ -278,7 +283,9 @@ export default React.createClass( {
             message = (
                 <div className="error">
                     <h2>Private Recipe</h2>
+
                     <p>This recipe has been marked as private and can only be viewed by the owner.</p>
+
                     <p>Please <Link to="login">login</Link> to view this recipe if your are its author.</p>
                 </div>
             );
@@ -286,7 +293,9 @@ export default React.createClass( {
             message = (
                 <div className="error">
                     <h2>Unexpected Error</h2>
+
                     <p>Oh dear! Not sure what happened there.</p>
+
                     <p>
                         I would be most grateful if you would report this error to either the
                         <a href="https://www.reddit.com/r/soapee/" target="_blank">Reddit</a> support group or to our
@@ -303,10 +312,10 @@ export default React.createClass( {
         let description = `Soapee Recipe - ${this.state.recipe.getModelValue( 'name' )}`;
 
         return [
-            {name: 'description', content: description},
-            {name: 'twitter:card', content: description},
-            {name: 'twitter:title', content: description},
-            {property: 'og:title', content: description}
+            { name: 'description', content: description },
+            { name: 'twitter:card', content: description },
+            { name: 'twitter:title', content: description },
+            { property: 'og:title', content: description }
         ];
     }
 
