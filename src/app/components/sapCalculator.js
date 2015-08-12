@@ -138,6 +138,25 @@ export default React.createClass( {
                                         </label>
                                     </div>
                                 </div>
+                                <div className="form-inline">
+                                    <div className="form-group">
+                                        <label className="radio">
+                                            <input type="radio" name="lyeCalcType" value="concentration" checkedLink={this.radioModel( this.props.recipe, 'lyeCalcType', 'lyewater' )} />
+                                            <input type="text"
+                                                   className="form-control short-numeric"
+                                                   placeholder="water"
+                                                   valueLink={ this.linkModel( this.props.recipe, 'lyeWaterWaterRatio' ) }
+                                                />
+                                            &nbsp;<strong> : </strong>&nbsp;
+                                            <input type="text"
+                                                   className="form-control short-numeric"
+                                                   placeholder="lye"
+                                                   valueLink={ this.linkModel( this.props.recipe, 'lyeWaterLyeRatio' ) }
+                                                />
+                                            <span> Water : Lye Ratio</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

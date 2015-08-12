@@ -26,6 +26,8 @@ let defaults = {
     totalsIncludeWater: false,
     superfatAfter: false,
     lyeCalcType: 'ratio',
+    lyeWaterLyeRatio: 1,
+    lyeWaterWaterRatio: 3,
     visibility: 0
 };
 
@@ -295,19 +297,23 @@ export default class extends EventEmitter {
             } );
         }
 
-        recipeLyeConcentration = ( (this.recipe.recipeLyeConcentration || 100) / 100 );
         fragranceWeight = totalOilWeight * ( this.recipe.fragrance / 100 );
 
         if ( this.isLyeConentration() ) {
+            recipeLyeConcentration = (this.recipe.recipeLyeConcentration || 100) / 100;
             totalWaterWeight = ( totalLye / recipeLyeConcentration ) - totalLye;
+            lyeConcentration = 100 * recipeLyeConcentration;
+        } else if ( this.isLyeWaterRatio() ) {
+            totalWaterWeight = totalLye * this.recipe.lyeWaterWaterRatio;
+            lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ))
         } else {
             totalWaterWeight = totalOilWeight * ( this.recipe.waterRatio / 100 );
+            lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ));
         }
 
         totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye ) + Number( fragranceWeight ) + Number( totalSuperfat );
 
         if ( totalWaterWeight + totalLye ) {
-            lyeConcentration = this.isLyeConentration() ? 100 * recipeLyeConcentration : 100 * (totalLye / ( totalWaterWeight + totalLye ));
             waterLyeRatio = totalWaterWeight / totalLye;
 
             breakdowns = this.recipeOilFatBreakdowns();
@@ -477,6 +483,10 @@ export default class extends EventEmitter {
 
     isLyeConentration() {
         return this.recipe.lyeCalcType === 'concentration'
+    }
+
+    isLyeWaterRatio() {
+        return this.recipe.lyeCalcType === 'lyewater'
     }
 
     adjustHybridLyeFields( key, value ) {
