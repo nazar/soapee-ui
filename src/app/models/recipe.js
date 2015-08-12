@@ -28,6 +28,7 @@ let defaults = {
     lyeCalcType: 'ratio',
     lyeWaterLyeRatio: 1,
     lyeWaterWaterRatio: 3,
+    waterDiscount: 0,
     visibility: 0
 };
 
@@ -311,6 +312,8 @@ export default class extends EventEmitter {
             lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ));
         }
 
+        totalWaterWeight = totalWaterWeight - ( ((this.recipe.waterDiscount || 0) / 100) * totalWaterWeight );
+
         totalBatchWeight = Number( totalOilWeight ) + Number( totalWaterWeight ) + Number( totalLye ) + Number( fragranceWeight ) + Number( totalSuperfat );
 
         if ( totalWaterWeight + totalLye ) {
@@ -452,8 +455,8 @@ export default class extends EventEmitter {
         return _.tap( {}, result => {
             this.oilsToRatioIterator( ( oil, ratio ) => {
                 let saturated = _( oil.breakdown )
-                    .filter( ( percent, type ) => _.contains( [ 'caprylic', 'capric', 'lauric', 'myristic', 'palmitic', 'stearic' ], type ) )
-                    .sum() * ratio;
+                        .filter( ( percent, type ) => _.contains( [ 'caprylic', 'capric', 'lauric', 'myristic', 'palmitic', 'stearic' ], type ) )
+                        .sum() * ratio;
 
                 result.saturated = ( result.saturated || 0 ) + saturated;
             } );
@@ -479,6 +482,10 @@ export default class extends EventEmitter {
 
     superfatAfter() {
         return this.recipe.superfatAfter;
+    }
+
+    waterDiscount() {
+        return this.recipe.waterDiscount;
     }
 
     isLyeConentration() {

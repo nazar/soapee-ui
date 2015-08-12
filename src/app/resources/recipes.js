@@ -77,7 +77,8 @@ function recipeModelToPacket( recipeModel ) {
             recipeLyeConcentration: recipe.recipeLyeConcentration,
             lyeCalcType: recipe.lyeCalcType,
             lyeWaterLyeRatio: recipe.lyeWaterLyeRatio,
-            lyeWaterWaterRatio: recipe.lyeWaterWaterRatio
+            lyeWaterWaterRatio: recipe.lyeWaterWaterRatio,
+            waterDiscount: recipe.waterDiscount
         },
 
         oils: _.pluck( recipe.oils, 'id' ),

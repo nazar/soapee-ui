@@ -157,6 +157,19 @@ export default React.createClass( {
                                         </label>
                                     </div>
                                 </div>
+                                <br/>
+                                <div className="form-inline">
+                                    <div className="form-group">
+                                        <label className="radio">
+                                            <input type="text"
+                                                   className="form-control short-numeric"
+                                                   placeholder="%"
+                                                   valueLink={ this.linkModel( this.props.recipe, 'waterDiscount' ) }
+                                                />
+                                            <span> % Water Discount</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

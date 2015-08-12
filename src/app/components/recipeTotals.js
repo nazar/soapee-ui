@@ -8,6 +8,7 @@ export default React.createClass( {
     render() {
         let uom = this.props.recipe.recipeOilsUom() + 's';
         let places = this.props.recipe.roundPlaces();
+        let discount = this.props.recipe.waterDiscount() ? `(${this.props.recipe.waterDiscount()}% less)` : '';
 
         return (
             <div className="recipe-totals">
@@ -26,7 +27,7 @@ export default React.createClass( {
                                 Total Water Weight
                             </td>
                             <td>
-                                { this.roundedValue( 'summary.totals.totalWaterWeight', places ) } { uom }
+                                { this.roundedValue( 'summary.totals.totalWaterWeight', places ) } { uom } { discount }
                             </td>
                             { this.gramsColumn( 'summary.totals.totalWaterWeight' ) }
                         </tr>

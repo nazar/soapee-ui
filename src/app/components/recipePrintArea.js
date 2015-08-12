@@ -56,15 +56,15 @@ export default React.createClass( {
                     <h6>Summaries</h6>
                     <div className="col-xs-12 summary">
                         <div className="col-xs-6">
-                            <h6>Fatty Acids</h6>
-                            <RecipeFattyAcids
-                                recipe={ this.props.recipe }
-                                />
-                        </div>
-                        <div className="col-xs-6">
                             <RecipeProperties
                                 recipe={ this.props.recipe }
                                 withRange={true}
+                                />
+                        </div>
+                        <div className="col-xs-6">
+                            <h6>Fatty Acids</h6>
+                            <RecipeFattyAcids
+                                recipe={ this.props.recipe }
                                 />
                         </div>
                     </div>
