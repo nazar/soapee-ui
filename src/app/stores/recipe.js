@@ -1,7 +1,10 @@
+import _ from 'lodash';
 import Reflux from 'reflux';
 
 import recipeActions from 'actions/recipe';
+
 import RecipeModel from 'models/recipe';
+import OilModel from 'models/oil';
 
 export default Reflux.createStore( {
 
@@ -18,9 +21,13 @@ export default Reflux.createStore( {
 
     getInitialState() {
         return this.store;
-    }
+    },
 
     ///public methods
+
+    calculate() {
+        this.store.calculateRecipe();
+    }
 
 } );
 
@@ -28,6 +35,9 @@ export default Reflux.createStore( {
 //// Private
 
 function gotRecipe( recipe ) {
+    //a recipe has also oils, which needs to be extended
+    recipe.oils = _.map( recipe.oils, oil => ( new OilModel( oil ).getExtendedOil() ) );
+
     this.store.setRecipe( recipe );
 
     doTrigger.call( this );

@@ -77,6 +77,7 @@ export default React.createClass( {
             cleansing: '12 - 22',
             condition: '44 - 69',
             hardness: '29 - 54',
+            longevity: '25 - 50',
             stable: '16 - 48',
             iodine: '41 - 70',
             ins: '136 - 165'

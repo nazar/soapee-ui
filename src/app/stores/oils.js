@@ -2,6 +2,7 @@ import _ from 'lodash';
 import Reflux from 'reflux';
 
 import { getOils } from 'resources/oils';
+import Oil from 'models/oil';
 
 export default Reflux.createStore( {
 
@@ -27,14 +28,6 @@ export default Reflux.createStore( {
 
     getFlatOilProperties() {
         return _.map( this.store, oil => {
-            let saturationRatio;
-
-            if ( oil.saturation.monoSaturated + oil.saturation.polySaturated ) {
-                saturationRatio = oil.saturation.saturated / ( oil.saturation.monoSaturated + oil.saturation.polySaturated );
-            } else {
-                saturationRatio = oil.saturation.saturated;
-            }
-
             return {
                 id: oil.id,
                 name: oil.name,
@@ -46,6 +39,7 @@ export default Reflux.createStore( {
                 cleansing: oil.properties.cleansing,
                 condition: oil.properties.condition,
                 hardness: oil.properties.hardness,
+                longevity: oil.properties.longevity,
                 stability: oil.properties.stable,
 
                 capric: oil.breakdown.capric || 0,
@@ -66,25 +60,26 @@ export default Reflux.createStore( {
                 saturated: oil.saturation.saturated,
                 monoSaturated: oil.saturation.monoSaturated,
                 polySaturated: oil.saturation.polySaturated,
-                saturationRatio: _.round( saturationRatio, 3 )
+                saturationRatio: _.round( oil.saturation.saturationRatio, 3 )
             };
         } );
     },
 
     oilPropertyGroupings() {
         return {
-            'fats-common': [ 'name', 'sap', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic'  ],
+            'fats-common': [ 'name', 'sap', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic' ],
             'fats-all':    [ 'name', 'sap', 'capric', 'caprylic', 'docosadienoic', 'docosenoid', 'eicosenoic', 'erucic', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic' ],
-            properties:    [ 'name', 'sap', 'bubbly', 'cleansing', 'condition', 'hardness', 'stability' ],
-            saturation:    [ 'name', 'sap',  'saturated', 'monoSaturated', 'polySaturated', 'saturationRatio' ]
+            properties:    [ 'name', 'sap', 'bubbly', 'cleansing', 'condition', 'hardness', 'longevity', 'stability' ],
+            saturation:    [ 'name', 'sap', 'saturated', 'monoSaturated', 'polySaturated', 'saturationRatio' ]
         };
 
     },
 
     loadOils() {
         function assignToStore( data ) {
-            this.store = data;
+            this.store = _.map( data, oil => (new Oil( oil )).getExtendedOil() );
         }
+
         function doTrigger() {
             this.trigger( this.store );
         }

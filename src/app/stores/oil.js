@@ -1,6 +1,8 @@
 import Reflux from 'reflux';
 import oilActions from 'actions/oil';
 
+import OilModel from 'models/oil';
+
 export default Reflux.createStore( {
 
     store: null,
@@ -19,7 +21,7 @@ export default Reflux.createStore( {
 ////
 
 function gotOil( oil ) {
-    this.store = oil;
+    this.store = new OilModel( oil ).getExtendedOil();
 
     doTrigger.call( this );
 }

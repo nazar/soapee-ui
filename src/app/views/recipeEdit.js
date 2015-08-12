@@ -47,6 +47,8 @@ export default React.createClass( {
     },
 
     saveRecipe() {
+        recipeStore.calculate();
+
         recipeActions.updateRecipe( this.state.recipe )
             .then( this.toRecipeView );
     },
