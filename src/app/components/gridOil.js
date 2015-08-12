@@ -32,9 +32,11 @@ export default React.createClass( {
     },
 
     render() {
-        let data = oilsStore.getFlatOilProperties();
+        let data;
 
-        if ( data.length ) {
+        if ( this.state.oils.length > 0 ) {
+            data = oilsStore.getFlatOilProperties();
+
             return (
                 <div className="grid-oil">
                     {this.renderColumnButtons()}

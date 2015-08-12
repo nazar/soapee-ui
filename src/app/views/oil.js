@@ -162,6 +162,11 @@ export default React.createClass( {
 
     renderFattyAcids() {
         let oil = this.state.oil;
+        let labels = {
+            saturated: 'Saturated',
+            monoSaturated: 'Mono-unsaturated',
+            polySaturated: 'Poly-unsaturated'
+        };
         let breakdowns = _.transform( oilsStore.getAllFats(), ( output, fat ) => {
             let breakdown = oil.breakdown[ fat ];
 
@@ -174,18 +179,22 @@ export default React.createClass( {
                 );
             }
         }, [] );
-        let saturations =  _.map( oil.saturations, ( satType, saturation ) => {
-            return (
-                <tr>
-                    <td>{_.capitalize(saturation)}:</td>
-                    <td>{satType}%</td>
-                </tr>
-            );
-        } );
-        let ratios = `${oil.saturations.saturated} : ${ oil.saturations.monoSaturated + oil.saturations.polySaturated }`;
+        let saturations =  _( oil.saturation )
+            .pick( 'saturated', 'monoSaturated', 'polySaturated' )
+            .map( ( satType, saturation ) => {
+                return (
+                    <tr>
+                        <td>{ labels[ saturation ] }:</td>
+                        <td>{ satType }%</td>
+                    </tr>
+                );
+            } )
+            .value();
+
+        let ratios = `${oil.saturation.saturated} : ${ 100 - oil.saturation.saturated }`;
         let ratiosRow = (
             <tr>
-                <td>Saturation Ratios</td>
+                <td>Saturation Ratio</td>
                 <td>{ ratios }</td>
             </tr>
         );

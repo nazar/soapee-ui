@@ -73,7 +73,6 @@ module.exports = function ( options ) {
                 components: pathAppTo( 'components' ),
                 lib: pathAppTo( 'lib' ),
                 mixins: pathAppTo( 'mixins' ),
-                mocks: pathAppTo( 'mocks' ),
                 modals: pathAppTo( 'modals' ),
                 models: pathAppTo( 'models' ),
                 resources: pathAppTo( 'resources' ),

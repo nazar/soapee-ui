@@ -402,14 +402,14 @@ export default class extends EventEmitter {
 
         total = this.sumWeights();
 
-        _.each( this.recipe.weights, ( weightOrRation, oilId ) => {
+        _.each( this.recipe.weights, ( weightOrRatio, oilId ) => {
             let oil;
             let ratio;
 
             if ( this.isPercentRecipe() ) {
-                ratio = weightOrRation / 100;
+                ratio = weightOrRatio / 100;
             } else {
-                ratio = weightOrRation / total;
+                ratio = weightOrRatio / total;
             }
 
             oil = _.find( this.recipe.oils, { id: Number( oilId ) } );
@@ -445,33 +445,14 @@ export default class extends EventEmitter {
     recipeOilSaturations() {
         return _.tap( {}, result => {
             this.oilsToRatioIterator( ( oil, ratio ) => {
-                _.each( oil.breakdown, ( acidRatio, fattyAcid ) => {
-                    let classification = this.classifyFattyType( fattyAcid );
-                    result[ classification ] = ( result[ classification ] || 0 ) + acidRatio * ratio;
-                } );
+                let saturated = _( oil.breakdown )
+                    .filter( ( percent, type ) => _.contains( [ 'caprylic', 'capric', 'lauric', 'myristic', 'palmitic', 'stearic' ], type ) )
+                    .sum() * ratio;
+
+                result.saturated = ( result.saturated || 0 ) + saturated;
             } );
+            result.unsaturated = 100 - result.saturated;
         } );
-    }
-
-    classifyFattyType( fattyAcid ) {
-        let types = {
-            caprylic: 'saturated',
-            capric: 'saturated',
-            lauric: 'saturated',
-            myristic: 'saturated',
-            palmitic: 'saturated',
-            stearic: 'saturated',
-            ricinoleic: 'unsaturated',
-            oleic: 'unsaturated',
-            linoleic: 'unsaturated',
-            linolenic: 'unsaturated',
-            eicosenoic: 'unsaturated',
-            docosenoid: 'unsaturated',
-            erucic: 'unsaturated',
-            docosadienoic: 'unsaturated'
-        };
-
-        return types[ fattyAcid ];
     }
 
     soapTypeToLye() {
