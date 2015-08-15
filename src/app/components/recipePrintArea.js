@@ -62,7 +62,7 @@ export default React.createClass( {
                                 />
                         </div>
                         <div className="col-xs-6">
-                            <h6>Fatty Acids</h6>
+                            <h6>Fatty Acids %</h6>
                             <RecipeFattyAcids
                                 recipe={ this.props.recipe }
                                 />

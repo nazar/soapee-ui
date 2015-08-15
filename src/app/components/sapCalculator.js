@@ -322,7 +322,7 @@ export default React.createClass( {
                             <div className="col-sm-2">
                                 <div className="panel panel-success">
                                     <div className="panel-heading">
-                                        <h3 className="panel-title">Fatty Acids</h3>
+                                        <h3 className="panel-title">Fatty Acids %</h3>
                                     </div>
                                     <RecipeFattyAcids
                                         recipe={ this.props.recipe }
