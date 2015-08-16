@@ -29,6 +29,8 @@ let defaults = {
     lyeWaterLyeRatio: 1,
     lyeWaterWaterRatio: 3,
     waterDiscount: 0,
+    fragranceType: 'ratio',
+    fragrancePpo: 30,
     visibility: 0
 };
 
@@ -41,6 +43,7 @@ export default class extends EventEmitter {
 
         this.on( 'changing', this.adjustHybridLyeFields );
         this.on( 'changing', this.convertUnitesOnPercentageUomChanges );
+        this.on( 'changing', this.convertPpoUnitesOnPercentageUomChanges );
     }
 
     setRecipe( recipe ) {
@@ -113,7 +116,7 @@ export default class extends EventEmitter {
     }
 
     roundPlaces() {
-        return this.roundPlacesForUom( this.recipeOilsUom() );
+        return this.roundPlacesForUom( this.uomToUse() );
     }
 
     roundPlacesForUom( uom ) {
@@ -187,7 +190,7 @@ export default class extends EventEmitter {
         }
     }
 
-    recipeOilsUom() {
+    uomToUse() {
         if ( this.isPercentRecipe() ) {
             return this.recipe.totalUom;
         } else {
@@ -298,7 +301,15 @@ export default class extends EventEmitter {
             } );
         }
 
-        fragranceWeight = totalOilWeight * ( this.recipe.fragrance / 100 );
+        if ( this.recipe.fragranceType === 'ratio' ) {
+            fragranceWeight = totalOilWeight * ( this.recipe.fragrance / 100 );
+        } else {
+            if ( _.contains( [ 'kilo', 'gram' ], this.uomToUse() ) ) {
+                fragranceWeight = totalOilWeight * ( this.recipe.fragrancePpo / 1000 );
+            } else {
+                fragranceWeight = totalOilWeight * ( this.recipe.fragrancePpo / 16 );
+            }
+        }
 
         if ( this.isLyeConentration() ) {
             recipeLyeConcentration = (this.recipe.recipeLyeConcentration || 100) / 100;
@@ -389,14 +400,6 @@ export default class extends EventEmitter {
         return grams / this.conversions()[ this.uomToUse() ];
     }
 
-    uomToUse() {
-        if ( this.isPercentRecipe() ) {
-            return this.recipe.totalUom;
-        } else {
-            return this.recipe.uom;
-        }
-    }
-
     conversions() {
         return {
             gram: 1,
@@ -473,7 +476,7 @@ export default class extends EventEmitter {
     }
 
     convertWeightToGrams( weight ) {
-        return weight / this.conversions()[ this.recipeOilsUom() ];
+        return weight / this.conversions()[ this.uomToUse() ];
     }
 
     totalsIncludeWater() {
@@ -513,6 +516,24 @@ export default class extends EventEmitter {
             if ( key === 'totalUom' ) {
                 weightInGrams = this.recipe.totalWeight / this.conversions()[ this.recipe.totalUom ];
                 this.recipe.totalWeight = weightInGrams * this.conversions()[ value ];
+            }
+        }
+    }
+
+    convertPpoUnitesOnPercentageUomChanges( key, value ) {
+        let uomKey;
+
+        if ( this.isPercentRecipe() ) {
+            uomKey = 'totalUom';
+        } else {
+            uomKey = 'uom';
+        }
+
+        if ( key === uomKey ) {
+            if ( _.contains( [ 'gram', 'kilo' ], this.recipe[ uomKey ] ) && _.contains( [ 'ounce', 'pound' ], value ) ) {
+                this.recipe.fragrancePpo = (this.recipe.fragrancePpo / 1000) / (1 / 16);
+            } else if ( _.contains( [ 'ounce', 'pound' ], this.recipe[ uomKey ] ) && _.contains( [ 'gram', 'kilo' ], value ) ) {
+                this.recipe.fragrancePpo = (this.recipe.fragrancePpo / 16) / (1 / 1000);
             }
         }
     }

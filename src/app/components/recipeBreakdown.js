@@ -7,7 +7,7 @@ import roundFormatted from 'utils/roundFormated';
 export default React.createClass( {
 
     render() {
-        let uom = _.capitalize( this.props.recipe.recipeOilsUom() ) + 's';
+        let uom = _.capitalize( this.props.recipe.uomToUse() ) + 's';
 
         return (
             <div className="recipe-breakdown">

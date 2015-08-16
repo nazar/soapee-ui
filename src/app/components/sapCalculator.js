@@ -117,7 +117,7 @@ export default React.createClass( {
                                         <label className="radio">
                                             <input type="radio" name="lyeCalcType" value="ratio" checkedLink={this.radioModel( this.props.recipe, 'lyeCalcType', 'ratio' )} />
                                             <input type="text"
-                                                   className="form-control short-numeric"
+                                                   className="form-control compact-numeric"
                                                    placeholder="%"
                                                    valueLink={ this.linkModel( this.props.recipe, 'waterRatio' ) }
                                                 />
@@ -130,7 +130,7 @@ export default React.createClass( {
                                         <label className="radio">
                                             <input type="radio" name="lyeCalcType" value="concentration" checkedLink={this.radioModel( this.props.recipe, 'lyeCalcType', 'concentration' )} />
                                             <input type="text"
-                                                   className="form-control short-numeric"
+                                                   className="form-control compact-numeric"
                                                    placeholder="%"
                                                    valueLink={ this.linkModel( this.props.recipe, 'recipeLyeConcentration' ) }
                                                 />
@@ -143,13 +143,13 @@ export default React.createClass( {
                                         <label className="radio">
                                             <input type="radio" name="lyeCalcType" value="concentration" checkedLink={this.radioModel( this.props.recipe, 'lyeCalcType', 'lyewater' )} />
                                             <input type="text"
-                                                   className="form-control short-numeric"
+                                                   className="form-control super-short-numeric"
                                                    placeholder="water"
                                                    valueLink={ this.linkModel( this.props.recipe, 'lyeWaterWaterRatio' ) }
                                                 />
                                             &nbsp;<strong> : </strong>&nbsp;
                                             <input type="text"
-                                                   className="form-control short-numeric"
+                                                   className="form-control super-short-numeric"
                                                    placeholder="lye"
                                                    valueLink={ this.linkModel( this.props.recipe, 'lyeWaterLyeRatio' ) }
                                                 />
@@ -162,7 +162,7 @@ export default React.createClass( {
                                     <div className="form-group">
                                         <label className="radio">
                                             <input type="text"
-                                                   className="form-control short-numeric"
+                                                   className="form-control compact-numeric"
                                                    placeholder="%"
                                                    valueLink={ this.linkModel( this.props.recipe, 'waterDiscount' ) }
                                                 />
@@ -183,7 +183,7 @@ export default React.createClass( {
                                 <div className="form-inline">
                                     <div className="form-group">
                                         <input type="text"
-                                               className="form-control short-numeric"
+                                               className="form-control compact-numeric"
                                                placeholder="%"
                                                valueLink={ this.linkModel( this.props.recipe, 'superFat' ) }
                                             />
@@ -209,14 +209,31 @@ export default React.createClass( {
                             <div className="panel-body">
                                 <div className="form-inline">
                                     <div className="form-group">
-                                        <input type="text"
-                                               className="form-control short-numeric"
-                                               placeholder="%"
-                                               valueLink={ this.linkModel( this.props.recipe, 'fragrance' ) }
-                                            />
-                                        <span> % oil weight - recommended 3%</span>
+                                        <label className="radio">
+                                            <input type="radio" name="fragranceType" value="ratio" checkedLink={this.radioModel( this.props.recipe, 'fragranceType', 'ratio' )} />
+                                            <input type="text"
+                                                   className="form-control compact-numeric"
+                                                   placeholder="%"
+                                                   valueLink={ this.linkModel( this.props.recipe, 'fragrance' ) }
+                                                />
+                                            <span> % oil weight - recommended 3%</span>
+                                        </label>
                                     </div>
                                 </div>
+                                <div className="form-inline">
+                                    <div className="form-group">
+                                        <label className="radio">
+                                            <input type="radio" name="fragranceType" value="ppo" checkedLink={this.radioModel( this.props.recipe, 'fragranceType', 'ppo' )} />
+                                            <input type="text"
+                                                   className="form-control compact-numeric"
+                                                   placeholder={ this.smallUomFragrance() }
+                                                   valueLink={ this.linkModel( this.props.recipe, 'fragrancePpo', { round: 2 } ) }
+                                                />
+                                            <span> { this.smallUomFragrance() }/{ this.largeUomFragrance() } </span>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -446,6 +463,24 @@ export default React.createClass( {
 
     isMixed() {
         return this.props.recipe.isMixedRecipe();
+    },
+
+    smallUomFragrance() {
+        return {
+            gram: 'g',
+            kilo: 'g',
+            pound: 'oz',
+            ounce: 'oz'
+        }[ this.props.recipe.uomToUse() ]
+    },
+
+    largeUomFragrance() {
+        return {
+            gram: 'kg',
+            kilo: 'kg',
+            pound: 'lb',
+            ounce: 'lb'
+        }[ this.props.recipe.uomToUse() ]
     }
 
 } );

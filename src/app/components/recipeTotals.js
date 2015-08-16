@@ -6,7 +6,7 @@ import roundFormatted from 'utils/roundFormated';
 export default React.createClass( {
 
     render() {
-        let uom = this.props.recipe.recipeOilsUom() + 's';
+        let uom = this.props.recipe.uomToUse() + 's';
         let places = this.props.recipe.roundPlaces();
         let discount = this.props.recipe.waterDiscount() ? `(${this.props.recipe.waterDiscount()}% less)` : '';
 
