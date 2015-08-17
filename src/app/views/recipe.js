@@ -231,11 +231,13 @@ export default React.createClass( {
 
     renderActionButtons() {
         let printButton;
+        let previewButton;
         let editButton;
         let addToFavouritesButton;
         let deleteButton;
 
         printButton = <Link to="printRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-print"></i> Print Recipe</Link>;
+        previewButton = <Link to="printRecipe" params={ { id: this.getParams().id } } query={ { preview: true } } className="btn btn-primary"><i className="fa fa-desktop"></i> Print Preview</Link>;
         editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Edit Recipe</Link>;
 
         if ( authStore.isAuthenticated() ) {
@@ -259,6 +261,7 @@ export default React.createClass( {
         return (
             <div className="btn-toolbar">
                 { printButton }
+                { previewButton }
                 { editButton }
                 { addToFavouritesButton }
                 { deleteButton }

@@ -22,6 +22,16 @@ export default React.createClass( {
         formLinkHandlers
     ],
 
+    getDefaultProps() {
+        return {
+            onSave: () => {},
+            onSaveAs: () => {},
+            onPrint: () => {},
+            onPrintPreview: () => {},
+            onCancel: () => {}
+        };
+    },
+
     getInitialState() {
         return {
             name: '',
@@ -95,6 +105,7 @@ export default React.createClass( {
                             <div className="btn-toolbar action-buttons">
                                 {this.renderSaveRecipeButton()}
                                 { this.props.buttonPrint && <button className="btn btn-primary" onClick={ this.printRecipe }><i className="fa fa-print"> Print Recipe</i></button> }
+                                { this.props.buttonPrint && <button className="btn btn-primary" onClick={ this.printPreviewRecipe }><i className="fa fa-desktop"> Print Preview Recipe</i></button> }
                                 { this.props.buttonCancel && <button className="btn btn-primary" onClick={ this.cancelEditing }><i className="fa fa-ban"> Cancel Editing</i></button> }
                                 { this.props.buttonReset && <button className="btn btn-primary" onClick={ this.resetRecipe }><i className="fa fa-file-o"> Reset Recipe</i></button> }
                             </div>
@@ -159,6 +170,12 @@ export default React.createClass( {
     printRecipe() {
         setTimeout( () => {
             this.props.onPrint();
+        } );
+    },
+
+    printPreviewRecipe() {
+        setTimeout( () => {
+            this.props.onPrintPreview();
         } );
     },
 
