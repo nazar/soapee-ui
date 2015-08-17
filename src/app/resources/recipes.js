@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import when from 'when';
 
-import { get, post, put } from 'utils/http';
+import { get, post, put, del } from 'utils/http';
 import baseUrl from 'utils/baseUrl';
 
 export function createRecipe( recipeModel ) {
@@ -21,6 +21,12 @@ export function updateRecipe( recipeModel ) {
         put( baseUrl( `recipes/${ recipeModel.getModelValue( 'id' ) }` ), {
             params: packet
         } )
+    );
+}
+
+export function deleteRecipe( recipeModel ) {
+    return when(
+        del( baseUrl( `recipes/${ recipeModel.getModelValue( 'id' ) }` ) )
     );
 }
 
