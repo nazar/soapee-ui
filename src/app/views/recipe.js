@@ -233,6 +233,7 @@ export default React.createClass( {
         let printButton;
         let editButton;
         let addToFavouritesButton;
+        let deleteButton;
 
         printButton = <Link to="printRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-print"></i> Print Recipe</Link>;
         editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Edit Recipe</Link>;
@@ -241,6 +242,8 @@ export default React.createClass( {
             if ( !(authStore.isMyId( this.state.recipe.getModelValue( 'user_id' ) ) ) ) {
                 addToFavouritesButton = <button className="btn btn-primary" onClick={ this.addToFavourites }><i className="fa fa-star"></i> Add to Favourites</button>;
                 editButton = <Link to="editRecipe" params={ { id: this.getParams().id } } className="btn btn-primary"><i className="fa fa-pencil-square-o"></i> Copy and Edit Recipe</Link>;
+            } else {
+                deleteButton = <button className="btn btn-warning" onClick={ this.deleteRecipe }><i className="fa fa-times"></i> Delete Recipe</button>;
             }
         } else {
             addToFavouritesButton = (
@@ -258,6 +261,7 @@ export default React.createClass( {
                 { printButton }
                 { editButton }
                 { addToFavouritesButton }
+                { deleteButton }
             </div>
         );
     },
@@ -269,6 +273,13 @@ export default React.createClass( {
 
         meActions.addRecipeToFavourites( this.state.recipe.recipe )
             .then( success );
+    },
+
+    deleteRecipe() {
+        if ( confirm( 'Delete this recipe?' ) ) {
+            recipeActions.deleteRecipe( this.state.recipe )
+                .then( () => this.transitionTo( 'my-recipes' ) );
+        }
     },
 
     pageIsForRequestedRecipe() {
