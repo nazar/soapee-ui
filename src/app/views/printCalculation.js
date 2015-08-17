@@ -1,6 +1,6 @@
 import React from 'react';
 import Reflux from 'reflux';
-import { Navigation } from 'react-router';
+import { Navigation, State } from 'react-router';
 
 import calculatorStore from 'stores/calculator';
 
@@ -10,12 +10,15 @@ export default React.createClass( {
 
     mixins: [
         Navigation,
+        State,
         Reflux.connect( calculatorStore, 'recipe' )
     ],
 
     componentDidMount() {
-        window.print();
-        this.replaceWith( 'calculator' );
+        if ( this.getQuery().preview !== 'true' ) {
+            window.print();
+            this.replaceWith( 'calculator' );
+        }
     },
 
     render() {

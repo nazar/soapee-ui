@@ -35,6 +35,7 @@ export default React.createClass( {
                             recipe={ this.state.recipe }
                             onSave={ this.saveRecipe }
                             onPrint={ this.printRecipe }
+                            onPrintPreview={ this.printPreviewRecipe }
                             onReset={ this.resetRecipe }
                             buttonPrint={ true }
                             buttonReset={ true }
@@ -57,6 +58,10 @@ export default React.createClass( {
 
     printRecipe() {
         this.replaceWith( 'print' );
+    },
+
+    printPreviewRecipe() {
+        this.transitionTo( 'print', null, { preview: true } );
     },
 
     resetRecipe() {

@@ -16,6 +16,7 @@ export default React.createClass( {
     ],
 
     componentDidMount() {
+        let recipe;
 
         function print() {
             return window.print();
@@ -25,9 +26,13 @@ export default React.createClass( {
             this.replaceWith( 'recipe', { id: this.getParams().id } );
         }
 
-        recipeActions.getRecipeById( this.getParams().id )
-            .then( print )
-            .then( redirectBack.bind( this ) );
+        recipe = recipeActions.getRecipeById( this.getParams().id );
+
+        if ( this.getQuery().preview !== 'true' ) {
+            recipe
+                .then( print.bind( this ) )
+                .then( redirectBack.bind( this ) );
+        }
     },
 
     render() {
