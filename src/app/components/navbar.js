@@ -31,6 +31,7 @@ export default React.createClass( {
                     <div className="navbar-collapse collapse">
                         <ul className="nav navbar-nav navbar-left">
                             <NavLink to="calculator">Calculator</NavLink>
+                            <NavLink to="feed">Feed</NavLink>
                             <NavLink to="recipes">Recipes</NavLink>
                             <NavLink to="oils">Oils</NavLink>
                             <NavLink to="resources">Resources</NavLink>

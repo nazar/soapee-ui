@@ -8,6 +8,7 @@ import Account from 'views/account';
 import Application from 'views/application';
 import Calculator from 'views/calculator';
 import Logout from 'views/logout';
+import Feed from 'views/feed';
 import MainLanding from 'views/mainLanding';
 import Oil from 'views/oil';
 import Oils from 'views/oils';
@@ -36,6 +37,8 @@ let routes = (
         <Route name="logout" handler={Logout} />
 
         <Route name="calculator" handler={Calculator} />
+
+        <Route name="feed" handler={Feed} />
 
         <Route name="recipes" handler={Recipes} />
         <Route name="recipe" path="recipes/:id" handler={Recipe} />
