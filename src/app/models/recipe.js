@@ -521,21 +521,30 @@ export default class extends EventEmitter {
     }
 
     convertPpoUnitesOnPercentageUomChanges( key, value ) {
-        let uomKey;
+        let from;
+        let to;
 
-        if ( this.isPercentRecipe() ) {
-            uomKey = 'totalUom';
-        } else {
-            uomKey = 'uom';
-        }
+        if ( _.contains( ['uom', 'totalUom'], key ) ) {
 
-        if ( key === uomKey ) {
-            if ( _.contains( [ 'gram', 'kilo' ], this.recipe[ uomKey ] ) && _.contains( [ 'ounce', 'pound' ], value ) ) {
+            if ( this.recipe.uom === 'percent' ) {
+                from = this.recipe.totalUom;
+                to = value;
+            } else if ( value === 'percent' ) {
+                from = this.recipe.uom;
+                to = this.recipe.totalUom;
+            } else {
+                from = this.recipe[ key ];
+                to = value;
+            }
+
+            if ( _.contains( [ 'gram', 'kilo' ], from ) && _.contains( [ 'ounce', 'pound' ], to ) ) {
                 this.recipe.fragrancePpo = (this.recipe.fragrancePpo / 1000) / (1 / 16);
-            } else if ( _.contains( [ 'ounce', 'pound' ], this.recipe[ uomKey ] ) && _.contains( [ 'gram', 'kilo' ], value ) ) {
+            } else if ( _.contains( [ 'ounce', 'pound' ], from ) && _.contains( [ 'gram', 'kilo' ], to ) ) {
                 this.recipe.fragrancePpo = (this.recipe.fragrancePpo / 16) / (1 / 1000);
             }
+
         }
+
     }
 
 }
