@@ -306,6 +306,14 @@ export default React.createClass( {
                     <p>Please <Link to="login">login</Link> to view this recipe if your are its author.</p>
                 </div>
             );
+        } else if ( error.errorType === 'RecordNotFound' ) {
+            message = (
+                <div className="error">
+                    <h2>Recipe not Found</h2>
+
+                    <p>Could not find this recipe. It might have been deleted by its owner.</p>
+                </div>
+            );
         } else {
             message = (
                 <div className="error">

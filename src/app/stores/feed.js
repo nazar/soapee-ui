@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Reflux from 'reflux';
 
-import recipeActions from 'actions/recipe';
+import feedActions from 'actions/feed';
 
 export default Reflux.createStore( {
 
@@ -9,18 +9,20 @@ export default Reflux.createStore( {
     count: 0,
 
     init() {
-        this.listenTo( recipeActions.getRecipes, reset.bind( this ) );
-        this.listenTo( recipeActions.getRecipes.completed, gotRecipes.bind( this ) );
+        this.listenTo( feedActions.getFeed, reset.bind( this ) );
+        this.listenTo( feedActions.getFeed.completed, gotFeed.bind( this ) );
     },
 
     getInitialState() {
         return this.store;
     },
 
-    ///public methods
-
     totalPages() {
-        return _.ceil( this.count / 10 );
+        return _.ceil( this.count / 20 );
+    },
+
+    pagerVisible() {
+        return this.count > 20;
     }
 
 } );
@@ -30,13 +32,12 @@ export default Reflux.createStore( {
 
 function reset() {
     this.store = [];
-
     doTrigger.call( this );
 }
 
-function gotRecipes( data ) {
-    this.store = data.recipes;
-    this.count = Number( data.count );
+function gotFeed( feed ) {
+    this.store = feed.feed;
+    this.count = Number( feed.count );
 
     doTrigger.call( this );
 }

@@ -30,9 +30,13 @@ export function deleteRecipe( recipeModel ) {
     );
 }
 
-export function getRecipes() {
+export function getRecipes( options = {} ) {
     return when(
-        get( baseUrl( 'recipes' ) )
+        get( baseUrl( 'recipes' ), {
+            params: {
+                page: options.page
+            }
+        } )
     );
 }
 

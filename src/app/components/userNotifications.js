@@ -56,6 +56,12 @@ export default React.createClass( {
                         { notification.userNotifiable.user.name } commented on your <a href={ `/recipes/${message.recipe.id}` }>{ message.recipe.name }</a> recipe
                     </span>
                 );
+            } else if ( message.commentable === 'status_updates' ) {
+                message = (
+                    <span>
+                        { notification.userNotifiable.user.name } commented on your <a href={ `/recipes/${message.statusUpdate.id}` }>status update</a>
+                    </span>
+                );
             } else {
                 throw new Error( `Comment commentable type ${message.commentable} is not recognised` );
             }

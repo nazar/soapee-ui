@@ -2,7 +2,9 @@ import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
 import DocMeta from 'react-doc-meta';
+import Pager from 'react-pager';
 
+import recipeActions from 'actions/recipe';
 import recipesStore from 'stores/recipes';
 
 import RecipeListItem from 'components/recipeListItem';
@@ -14,8 +16,15 @@ export default React.createClass( {
         Reflux.connect( recipesStore, 'recipes' )
     ],
 
+    getInitialState() {
+        return {
+            activePage: 0
+        }
+    },
+
     componentDidMount() {
         document.title = 'Soapee - Recipes';
+        recipeActions.getRecipes();
     },
 
     render() {
@@ -26,6 +35,8 @@ export default React.createClass( {
 
                 { this.renderLoading() }
                 { this.renderRecipes() }
+
+                { this.paginator() }
             </div>
         );
     },
@@ -44,6 +55,29 @@ export default React.createClass( {
                 .map( this.renderRecipe )
                 .value();
         }
+    },
+
+    paginator() {
+        if ( this.state.recipes.length > 0 ) {
+            return (
+                <Pager
+                    total={ recipesStore.totalPages() }
+                    current={this.state.activePage}
+                    visiblePages={5}
+                    onPageChanged={this.onPageChanged}
+                    />
+            );
+        }
+    },
+
+    onPageChanged: function( page ) {
+        this.setState( {
+            activePage: page
+        } );
+
+        recipeActions.getRecipes( {
+            page
+        } );
     },
 
     renderRecipe( recipe ) {

@@ -85,3 +85,21 @@ export function addFriend( targetUser ) {
         post( baseUrl( `me/friends/${targetUser.id}` ) )
     );
 }
+
+export function getMyStatusUpdates() {
+    return when(
+        get( baseUrl( 'me/status-updates' ) )
+    );
+}
+
+export function addStatusUpdate( update ) {
+    let params = {
+        update
+    };
+
+    return when(
+        post( baseUrl( 'me/status-updates' ), {
+            params
+        } )
+    );
+}

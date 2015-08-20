@@ -31,6 +31,7 @@ export default React.createClass( {
                     <div className="navbar-collapse collapse">
                         <ul className="nav navbar-nav navbar-left">
                             <NavLink to="calculator">Calculator</NavLink>
+                            <NavLink to="feed">Feed</NavLink>
                             <NavLink to="recipes">Recipes</NavLink>
                             <NavLink to="oils">Oils</NavLink>
                             <NavLink to="resources">Resources</NavLink>
@@ -68,6 +69,7 @@ export default React.createClass( {
                         <NavLink to="my-recipes">My Recipes</NavLink>
                         <NavLink to="my-friend-recipes">My Friend's Recipes</NavLink>
                         <NavLink to="my-comments">My Comments</NavLink>
+                        <NavLink to="my-status-updates">My Status Updates</NavLink>
                         <NavLink to="saved-recipes">Saved Recipes</NavLink>
                         <li role="separator" className="divider"></li>
                         <NavLink to="logout">Logout</NavLink>

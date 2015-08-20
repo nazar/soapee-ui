@@ -1,6 +1,7 @@
 import Reflux from 'reflux';
 
 import {
+    getRecipes,
     createRecipe,
     getRecipeById,
     updateRecipe,
@@ -15,6 +16,7 @@ let actions = Reflux.createActions( {
     resetRecipe: {},
 
     //async action
+    getRecipes: { asyncResult: true },
     createRecipe: { asyncResult: true },
     updateRecipe: { asyncResult: true },
     deleteRecipe: { asyncResult: true },
@@ -27,6 +29,7 @@ let actions = Reflux.createActions( {
 
 export default actions;
 
+actions.getRecipes.listenAndPromise( getRecipes );
 actions.createRecipe.listenAndPromise( createRecipe );
 actions.updateRecipe.listenAndPromise( updateRecipe );
 actions.deleteRecipe.listenAndPromise( deleteRecipe );

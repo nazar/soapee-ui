@@ -8,6 +8,7 @@ import Account from 'views/account';
 import Application from 'views/application';
 import Calculator from 'views/calculator';
 import Logout from 'views/logout';
+import Feed from 'views/feed';
 import MainLanding from 'views/mainLanding';
 import Oil from 'views/oil';
 import Oils from 'views/oils';
@@ -17,7 +18,9 @@ import RecipeEdit from 'views/recipeEdit';
 import RecipePrint from 'views/recipePrint';
 import Recipes from 'views/recipes';
 import MyFriendsRecipes from 'views/myFriendsRecipes';
+import MyStatusUpdates from 'views/myStatusUpdates';
 import Resources from 'views/resources';
+import StatusUpdate from 'views/statusUpdate';
 import UserProfile from 'views/userProfile';
 
 import MyProfile from 'views/myProfile';
@@ -36,6 +39,9 @@ let routes = (
         <Route name="logout" handler={Logout} />
 
         <Route name="calculator" handler={Calculator} />
+
+        <Route name="feed" handler={Feed} />
+        <Route name="status-update" path="status-update/:id"  handler={StatusUpdate} />
 
         <Route name="recipes" handler={Recipes} />
         <Route name="recipe" path="recipes/:id" handler={Recipe} />
@@ -57,6 +63,7 @@ let routes = (
             <Route name="my-friend-recipes" handler={MyFriendsRecipes} />
             <Route name="saved-recipes" handler={SavedRecipes} />
             <Route name="my-comments" handler={MyComments} />
+            <Route name="my-status-updates" handler={MyStatusUpdates} />
         </Route>
 
     </Route>

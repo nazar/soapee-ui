@@ -53,7 +53,8 @@ export default React.createClass( {
         }
 
         recipeActions.createRecipe( this.state.recipe )
-            .then( toRecipeView.bind( this ) );
+            .then( toRecipeView.bind( this ) )
+            .then( this.resetRecipe )
     },
 
     printRecipe() {
