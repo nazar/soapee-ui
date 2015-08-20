@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Reflux from 'reflux';
 
 import recipeActions from 'actions/recipe';
@@ -18,8 +19,8 @@ export default Reflux.createStore( {
 
     ///public methods
 
-    totalRecipes() {
-        return this.count;
+    totalPages() {
+        return _.ceil( this.count / 10 );
     }
 
 } );

@@ -1,11 +1,15 @@
 import when from 'when';
-import { get, post, put } from 'utils/http';
+import { get } from 'utils/http';
 
 import baseUrl from 'utils/baseUrl';
 
 
-export function getFeed() {
+export function getFeed( options = {} ) {
     return when(
-        get( baseUrl( 'feedables' ) )
+        get( baseUrl( 'feedables' ), {
+            params: {
+                page: options.page
+            }
+        } )
     );
 }

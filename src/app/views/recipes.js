@@ -61,7 +61,7 @@ export default React.createClass( {
         if ( this.state.recipes.length > 0 ) {
             return (
                 <Pager
-                    total={_.round(recipesStore.totalRecipes() / 10)}
+                    total={ recipesStore.totalPages() }
                     current={this.state.activePage}
                     visiblePages={5}
                     onPageChanged={this.onPageChanged}
@@ -76,7 +76,7 @@ export default React.createClass( {
         } );
 
         recipeActions.getRecipes( {
-            page: page
+            page
         } );
     },
 

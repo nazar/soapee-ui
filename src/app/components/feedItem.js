@@ -11,7 +11,6 @@ export default React.createClass( {
         let { feedItem } = this.props;
         let { user } = feedItem.feedable_meta;
 
-        console.log('feedItem', feedItem );
         return (
             <div className="feed-item media">
                 <div className="media-left">
@@ -48,7 +47,7 @@ export default React.createClass( {
             status_updates: statusUpdate,
             comments: comment,
             recipes: recipes,
-            users: () => <span> joined </span>
+            users: () => <span> joined</span>
         }[ this.props.feedItem.feedable_type ];
 
         return action();
@@ -56,7 +55,7 @@ export default React.createClass( {
 
         function statusUpdate() {
             return (
-                <span> posted a <strong>status update</strong></span>
+                <span> posted a <Link to="status-update" params={ { id: feedable_meta.target.id } }><strong>status update</strong></Link></span>
             )
         }
 
@@ -73,7 +72,7 @@ export default React.createClass( {
         function recipes() {
             return (
                 <span> {feedable_meta.target.actionType}
-                    <Link to="recipes" params={ { id: feedable_meta.target.id } }>
+                    <Link to="recipe" params={ { id: feedable_meta.target.id } }>
                         &nbsp;<strong>{feedable_meta.target.name}</strong>
                     </Link>
                 </span>

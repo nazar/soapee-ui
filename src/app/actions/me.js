@@ -17,7 +17,10 @@ import {
 
     getMyFriends,
     getMyFriendsRecipes,
-    addFriend
+    addFriend,
+
+    getMyStatusUpdates,
+    addStatusUpdate
 } from 'resources/me';
 
 let actions = Reflux.createActions( {
@@ -35,7 +38,10 @@ let actions = Reflux.createActions( {
 
     getMyFriends: { asyncResult: true },
     getMyFriendsRecipes: { asyncResult: true },
-    addFriend: { asyncResult: true }
+    addFriend: { asyncResult: true },
+
+    getMyStatusUpdates: { asyncResult: true },
+    addStatusUpdate: { asyncResult: true }
 } );
 
 export default actions;
@@ -55,3 +61,6 @@ actions.getMyUserNotifications.listenAndPromise( getMyUserNotifications );
 actions.getMyFriends.listenAndPromise( getMyFriends );
 actions.getMyFriendsRecipes.listenAndPromise( getMyFriendsRecipes );
 actions.addFriend.listenAndPromise( addFriend );
+
+actions.getMyStatusUpdates.listenAndPromise( getMyStatusUpdates );
+actions.addStatusUpdate.listenAndPromise( addStatusUpdate );

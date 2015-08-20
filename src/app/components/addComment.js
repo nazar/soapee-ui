@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import Reflux from 'reflux';
 
 import authStore from 'stores/auth';
 import ValidateComment from 'services/validateComment';
@@ -11,7 +12,8 @@ import SignupOrLoginToSaveRecipe from 'modals/signupOrLoginToSaveRecipe';
 export default React.createClass( {
 
     mixins: [
-        React.addons.LinkedStateMixin
+        React.addons.LinkedStateMixin,
+        Reflux.connect( authStore, 'auth' )
     ],
 
     getDefaultProps() {
