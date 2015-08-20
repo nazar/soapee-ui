@@ -1,13 +1,15 @@
 import Reflux from 'reflux';
 
-import { getRecipes } from 'resources/recipes';
+import recipeActions from 'actions/recipe';
 
 export default Reflux.createStore( {
 
-    store: {},
+    store: [],
+    count: 0,
 
     init() {
-        this.loadRecipes();
+        this.listenTo( recipeActions.getRecipes, reset.bind( this ) );
+        this.listenTo( recipeActions.getRecipes.completed, gotRecipes.bind( this ) );
     },
 
     getInitialState() {
@@ -16,21 +18,28 @@ export default Reflux.createStore( {
 
     ///public methods
 
-    loadRecipes() {
-        function assignToStore( data ) {
-            this.store = data;
-        }
-        function doTrigger() {
-            this.trigger( this.store );
-        }
-
-        getRecipes()
-            .then( assignToStore.bind( this ) )
-            .then( doTrigger.bind( this ) );
+    totalRecipes() {
+        return this.count;
     }
-
 
 } );
 
 //////////////////////////
 //// Private
+
+function reset() {
+    this.store = [];
+
+    doTrigger.call( this );
+}
+
+function gotRecipes( data ) {
+    this.store = data.recipes;
+    this.count = Number( data.count );
+
+    doTrigger.call( this );
+}
+
+function doTrigger() {
+    this.trigger( this.store );
+}
