@@ -122,7 +122,14 @@ export default React.createClass( {
         let buttons = [];
 
         if ( authStore.isAuthenticated() ) {
-            buttons.push( <button className="btn btn-primary" key="btn-save" onClick={ this.saveRecipe } disabled={nameMissing}><i className="fa fa-cloud"> Save Recipe</i></button> );
+            buttons.push(
+                <button
+                    className="btn btn-primary"
+                    key="btn-save"
+                    onClick={ this.saveRecipe }
+                    disabled={nameMissing || this.props.buttonDisabledSave }>
+                    <i className="fa fa-cloud"> {this.props.buttonCaptionSave || 'Save Recipe'}</i>
+                </button> );
 
             if ( this.props.recipe.getModelValue( 'id' )
                 && authStore.isMyId(this.props.recipe.getModelValue( 'user_id' )  ) ) {

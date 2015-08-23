@@ -7,8 +7,9 @@ import { Navigation } from 'react-router';
 import calculatorStore from 'stores/calculator';
 import recipeActions from 'actions/recipe';
 
-import SapCalculator from 'components/sapCalculator';
 import FormSaveRecipe from 'components/formSaveRecipe';
+import Imageable from 'components/imageable';
+import SapCalculator from 'components/sapCalculator';
 
 export default React.createClass( {
 
@@ -16,6 +17,12 @@ export default React.createClass( {
         Navigation,
         Reflux.connect( calculatorStore, 'recipe' )
     ],
+
+    getInitialState() {
+        return {
+            saving: false
+        }
+    },
 
     componentDidMount() {
         document.title = 'Soapee - Lye Calculator';
@@ -30,15 +37,28 @@ export default React.createClass( {
                     />
 
                 { this.state.recipe.countWeights() > 0 &&
+                    <div>
+                        <legend>Recipe Images</legend>
+                        <Imageable
+                            imageableType='recipes'
+                            startImageUpload={ this.startImageUploadHookFn }
+                            OnUploadedCompleted={ this.showRecipe }
+                            />
+                    </div>
+                }
+
+                { this.state.recipe.countWeights() > 0 &&
                     <div className="row">
                         <FormSaveRecipe
                             recipe={ this.state.recipe }
+                            buttonPrint={ true }
+                            buttonReset={ true }
+                            buttonCaptionSave={ this.saveCaption() }
+                            buttonDisabledSave={ this.state.saving }
                             onSave={ this.saveRecipe }
                             onPrint={ this.printRecipe }
                             onPrintPreview={ this.printPreviewRecipe }
                             onReset={ this.resetRecipe }
-                            buttonPrint={ true }
-                            buttonReset={ true }
                             />
                     </div>
                 }
@@ -47,14 +67,31 @@ export default React.createClass( {
         );
     },
 
+    startImageUploadHookFn( fnToStartUploads ) {
+        this.startUploads = fnToStartUploads;
+    },
+
+    saveCaption() {
+        return this.state.saving ? 'Saving Recipe' : 'Save Recipe'
+    },
+
     saveRecipe() {
-        function toRecipeView( recipe ) {
-            this.transitionTo( 'recipe', { id: recipe.id } );
+        function uploadImages() {
+            this.startUploads( this.newRecipe.id );
         }
 
+        this.setState( {
+            saving: true
+        } );
+
         recipeActions.createRecipe( this.state.recipe )
-            .then( toRecipeView.bind( this ) )
-            .then( this.resetRecipe )
+            .then( recipe => this.newRecipe = recipe )
+            .then( uploadImages.bind( this ) )
+    },
+
+    showRecipe() {
+        this.resetRecipe();
+        this.transitionTo( 'recipe', { id: this.newRecipe.id } );
     },
 
     printRecipe() {
