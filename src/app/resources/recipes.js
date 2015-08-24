@@ -5,7 +5,7 @@ import { get, post, put, del } from 'utils/http';
 import baseUrl from 'utils/baseUrl';
 
 export function createRecipe( recipeModel ) {
-    let packet  = recipeModelToPacket( recipeModel );
+    let packet = recipeModelToPacket( recipeModel );
 
     return when(
         post( baseUrl( 'recipes' ), {
@@ -15,7 +15,7 @@ export function createRecipe( recipeModel ) {
 }
 
 export function updateRecipe( recipeModel ) {
-    let packet  = recipeModelToPacket( recipeModel );
+    let packet = recipeModelToPacket( recipeModel );
 
     return when(
         put( baseUrl( `recipes/${ recipeModel.getModelValue( 'id' ) }` ), {
@@ -95,6 +95,10 @@ function recipeModelToPacket( recipeModel ) {
 
         oils: _.pluck( recipe.oils, 'id' ),
         weights: recipe.weights,
-        summary: recipe.summary
+        summary: recipe.summary,
+
+        deleting: {
+            imageables: _( recipe.images ).filter( { deleting: true } ).pluck( 'id' ).value()
+        }
     };
 }

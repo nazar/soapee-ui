@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
 import { Navigation } from 'react-router';
@@ -7,6 +8,8 @@ import recipeStore from 'stores/recipe';
 
 import SapCalculator from 'components/sapCalculator';
 import FormSaveRecipe from 'components/formSaveRecipe';
+import Imageable from 'components/imageable';
+import ImageableEdit from 'components/imageableEdit';
 
 export default React.createClass( {
 
@@ -30,11 +33,36 @@ export default React.createClass( {
                     recipe={ this.state.recipe }
                     />
 
+                { _.get(this.state, 'recipe.recipe.images.length' ) > 0  &&
+                    <div className="row">
+                        <div className="col-md-12">
+                            <legend>Delete Photos?</legend>
+                            <ImageableEdit
+                                images={ this.state.recipe.recipe.images }
+                                />
+                        </div>
+                    </div>
+                }
+
+                { this.state.recipe.countWeights() > 0 &&
+                    <div>
+                        <legend>Add Photos</legend>
+                        <Imageable
+                            imageableType='recipes'
+                            startImageUpload={ this.startImageUploadHookFn }
+                            OnUploadedCompleted={ this.toRecipeView }
+                            />
+                    </div>
+                }
+
+
                 { this.state.recipe.countWeights() > 0 &&
                     <div className="row">
                         <FormSaveRecipe
                             recipe={ this.state.recipe }
                             buttonCancel={ true }
+                            buttonCaptionSave={ this.saveCaption() }
+                            buttonDisabledSave={ this.state.saving }
                             onSave={ this.saveRecipe }
                             onSaveAs={ this.saveAsRecipe }
                             onCancel={ this.goBackToView }
@@ -46,16 +74,35 @@ export default React.createClass( {
         );
     },
 
-    saveRecipe() {
-        recipeStore.calculate();
+    startImageUploadHookFn( fnToStartUploads ) {
+        this.startUploads = fnToStartUploads;
+    },
 
-        recipeActions.updateRecipe( this.state.recipe )
-            .then( this.toRecipeView );
+    saveCaption() {
+        return this.state.saving ? 'Saving Recipe' : 'Save Recipe'
+    },
+
+    saveRecipe() {
+        this.doSaveAction( recipeActions.updateRecipe );
     },
 
     saveAsRecipe() {
-        recipeActions.createRecipe( this.state.recipe )
-            .then( this.toRecipeView );
+        this.doSaveAction( recipeActions.createRecipe );
+    },
+
+    doSaveAction( action ) {
+        this.setState( {
+            saving: true
+        } );
+
+        recipeStore.calculate();
+
+        action( this.state.recipe )
+            .then( uploadImages.bind( this ) );
+
+        function uploadImages() {
+            this.startUploads( this.state.recipe.getModelValue( 'id' ) );
+        }
     },
 
     printRecipe() {
@@ -66,8 +113,8 @@ export default React.createClass( {
         this.toRecipeView( this.state.recipe.recipe );
     },
 
-    toRecipeView( recipe ) {
-        this.transitionTo( 'recipe', { id: recipe.id } );
+    toRecipeView() {
+        this.transitionTo( 'recipe', { id: this.state.recipe.getModelValue( 'id' ) } );
     }
 
 } );

@@ -24,6 +24,7 @@ import ButtonFBLike from 'components/buttonFBLike';
 import ButtonGPlusLike from 'components/buttonGPlusLike';
 import MarkedDisplay from 'components/markedDisplay';
 import Commentable from 'components/commentable';
+import ImageableCarousel from 'components/imageableCarousel'
 
 import SignupOrLoginToSaveRecipe from 'modals/signupOrLoginToSaveRecipe';
 
@@ -169,6 +170,19 @@ export default React.createClass( {
                             </div>
                         </div>
                     </div>
+
+                    { this.state.recipe.recipe.images.length > 0 &&
+                        <div className="col-md-12">
+                            <div className="row">
+                                <legend>Photos</legend>
+                                <div className="col-md-10 col-md-offset-1">
+                                    <ImageableCarousel
+                                        images={ this.state.recipe.recipe.images }
+                                        />
+                                </div>
+                            </div>
+                        </div>
+                    }
 
                     <legend></legend>
                     { this.renderActionButtons() }
