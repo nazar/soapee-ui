@@ -109,6 +109,7 @@ export default React.createClass( {
                             <Link to="userProfile" params={ { id: this.state.recipe.getModelValue( 'user_id' ) } }>
                                 <UserAvatar
                                     user={ this.state.recipe.getModelValue( 'user' ) }
+                                    showTooltip={ true }
                                     />
                             </Link>
                             { this.state.recipe.isPrivate() &&

@@ -14,9 +14,13 @@ export default React.createClass( {
         return (
             <div className="user-avatar">
                 <div className="avatar-border">
-                    <OverlayTrigger placement={ this.props.tipPlacement } overlay={ this.tooltip() }>
-                        { this.renderLocal() || this.renderImageUrl() }
-                    </OverlayTrigger>
+                    { this.props.showTooltip &&
+                        <OverlayTrigger placement={ this.props.tipPlacement } overlay={ this.tooltip() }>
+                            { this.renderLocal() || this.renderImageUrl() }
+                        </OverlayTrigger>
+                    }
+
+                    { !(this.props.showTooltip) && (this.renderLocal() || this.renderImageUrl()) }
                 </div>
             </div>
         );

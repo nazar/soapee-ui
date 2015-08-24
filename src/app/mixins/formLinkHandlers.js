@@ -57,6 +57,16 @@ export default {
         };
     },
 
+    linkComponentState( component, key ) {
+        return {
+            value: _.get( component.state, key ),
+            requestChange: value => {
+                _.set( component.state, key, value );
+                component.setState( component.state );
+            }
+        };
+    },
+
     linkModel( model, key, options = {} ) {
         let value;
 

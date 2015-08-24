@@ -21,6 +21,7 @@ import MyFriendsRecipes from 'views/myFriendsRecipes';
 import MyStatusUpdates from 'views/myStatusUpdates';
 import Resources from 'views/resources';
 import StatusUpdate from 'views/statusUpdate';
+import StatusUpdateEdit from 'views/statusUpdateEdit';
 import UserProfile from 'views/userProfile';
 
 import MyProfile from 'views/myProfile';
@@ -42,6 +43,7 @@ let routes = (
 
         <Route name="feed" handler={Feed} />
         <Route name="status-update" path="status-update/:id"  handler={StatusUpdate} />
+        <Route name="status-update-edit" path="status-update/:id/edit"  handler={StatusUpdateEdit} />
 
         <Route name="recipes" handler={Recipes} />
         <Route name="recipe" path="recipes/:id" handler={Recipe} />
