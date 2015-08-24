@@ -33,7 +33,7 @@ export default React.createClass( {
                     recipe={ this.state.recipe }
                     />
 
-                { _.get(this.state, 'recipe.recipe.images.length' )  &&
+                { _.get(this.state, 'recipe.recipe.images.length' ) > 0  &&
                     <div className="row">
                         <div className="col-md-12">
                             <legend>Delete Photos?</legend>

@@ -171,7 +171,7 @@ export default React.createClass( {
                         </div>
                     </div>
 
-                    { this.state.recipe.recipe.images.length &&
+                    { this.state.recipe.recipe.images.length > 0 &&
                         <div className="col-md-12">
                             <div className="row">
                                 <legend>Photos</legend>

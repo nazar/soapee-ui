@@ -29,6 +29,7 @@ export default React.createClass( {
         let eventHandlers = {
             sending: this.sending,
             drop: () => {},
+            complete: this.removeFile,
             queuecomplete: this.queuecomplete
         };
 
@@ -61,7 +62,12 @@ export default React.createClass( {
         params.append( 'imageable_type', this.props.imageableType );
     },
 
+    removeFile( file ) {
+        this.refs.images.dropzone.removeFile( file );
+    },
+
     queuecomplete() {
+        this.refs.images.dropzone.options.autoProcessQueue = false;
         this.props.OnUploadedCompleted();
     }
 

@@ -10,6 +10,8 @@ import myStatusUpdatesStore from 'stores/myStatusUpdates';
 
 import ValidateComment from 'services/validateComment';
 
+import Imageable from 'components/imageable';
+import ImageableThumbnails from 'components/imageableThumbnails';
 import MarkdownEditor from 'components/markdownEditor';
 import MarkedDisplay from 'components/markedDisplay';
 
@@ -43,7 +45,19 @@ export default React.createClass( {
                         valueLink={ this.linkState( 'statusUpdate' ) }
                         rows={ 4 }
                         />
-                    <button className="btn btn-primary" onClick={ this.addStatusUpdate }><i className="fa fa-plus"> Add a Status Update</i></button>
+
+                    <legend>Add Photos</legend>
+                    <Imageable
+                        imageableType='status_updates'
+                        startImageUpload={ this.startImageUploadHookFn }
+                        OnUploadedCompleted={ this.clearAndReload }
+                        />
+                    <button className="btn btn-primary"
+                            onClick={ this.addStatusUpdate }
+                            disabled={ this.state.saving }
+                        >
+                        <i className="fa fa-plus"> Add a Status Update</i>
+                    </button>
                 </div>
 
                 { this.state.errors &&
@@ -79,6 +93,10 @@ export default React.createClass( {
                     content={statusUpdate.update}
                     />
 
+                <ImageableThumbnails
+                    images={ statusUpdate.images }
+                    />
+
                 <div className="actions">
                     <span>
                         <Link to="status-update" params={ { id: statusUpdate.id } }><i className="fa fa-eye"> View</i></Link>
@@ -88,33 +106,52 @@ export default React.createClass( {
         );
     },
 
+    startImageUploadHookFn( fnToStartUploads ) {
+        this.startUploads = fnToStartUploads;
+    },
+
+    saveCaption() {
+        return this.state.saving ? 'Saving Recipe' : 'Save Recipe'
+    },
+
     addStatusUpdate() {
+        let newUpdate;
+
+        this.setState( {
+            errors: null,
+            saving: true
+        } );
 
         validate.call( this )
             .then( createStatusUpdate.bind( this ) )
-            .then( clear.bind( this ) )
+            .then( data => newUpdate = data )
+            .then( uploadImages.bind( this ) )
             .catch( this.showError );
+
 
         function validate() {
             return new ValidateComment( {
                 comment: this.state.statusUpdate
-            } )
-                .execute();
+            } ).execute();
         }
 
         function createStatusUpdate() {
             return meActions.addStatusUpdate( this.state.statusUpdate );
         }
 
-        function clear() {
-            this.setState( { statusUpdate: '' } );
+        function uploadImages() {
+            console.log('newUpdate', newUpdate );
+            this.startUploads( newUpdate.id );
         }
+    },
 
-
+    clearAndReload() {
         this.setState( {
-            errors: null
+            statusUpdate: '',
+            saving: false
         } );
 
+        meActions.getMyStatusUpdates();
     },
 
     showError( e ) {

@@ -9,6 +9,7 @@ import statusUpdateStore from 'stores/statusUpdate';
 import statusUpdateCommentStore from 'stores/statusUpdateComments';
 
 import Commentable from 'components/commentable';
+import ImageableCarousel from 'components/imageableCarousel';
 import MarkedDisplay from 'components/markedDisplay';
 import Spinner from 'components/spinner';
 import UserAvatar from 'components/userAvatar';
@@ -80,6 +81,18 @@ export default React.createClass( {
                             />
                     </div>
 
+                    { statusUpdate.images.length > 0 &&
+                        <div className="col-md-12">
+                            <div className="row">
+                                <legend>Photos</legend>
+                                <div className="col-md-10 col-md-offset-1">
+                                    <ImageableCarousel
+                                        images={ statusUpdate.images}
+                                        />
+                                </div>
+                            </div>
+                        </div>
+                    }
 
                     <Commentable
                         store={statusUpdateCommentStore}
