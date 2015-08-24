@@ -17,7 +17,7 @@ export default React.createClass( {
 
     renderImage( image ) {
         return (
-            <div className="edit col-md-2 col-xs-4">
+            <div key={image.id} className="edit col-md-2 col-xs-4">
                 <Thumbnail src={ imageableThumbUrl( image ) } className={ cx( { deleting: this.deleting( image ) } ) }>
                     <p>
                         <Button bsStyle='warning'

@@ -1,12 +1,13 @@
 import moment from 'moment';
 import React from 'react';
 import Reflux from 'reflux';
-import { Link, State } from 'react-router';
+import { Link, State, Navigation } from 'react-router';
 
 import statusUpdateActions from 'actions/statusUpdate';
 
 import statusUpdateStore from 'stores/statusUpdate';
 import statusUpdateCommentStore from 'stores/statusUpdateComments';
+import authStore from 'stores/auth';
 
 import Commentable from 'components/commentable';
 import ImageableCarousel from 'components/imageableCarousel';
@@ -17,6 +18,7 @@ import UserAvatar from 'components/userAvatar';
 export default React.createClass( {
 
     mixins: [
+        Navigation,
         State,
         Reflux.connect( statusUpdateStore, 'statusUpdate' )
     ],
@@ -94,6 +96,14 @@ export default React.createClass( {
                         </div>
                     }
 
+                    { authStore.isMyId( statusUpdate.user_id ) &&
+                        <div className="btn-toolbar actions">
+                            <button className="btn btn-primary" onClick={this.editStatusUpdate}><i className="fa fa-pencil-square-o"> Edit Status Update</i></button>
+                        </div>
+                    }
+
+                    <legend>Comments</legend>
+
                     <Commentable
                         store={statusUpdateCommentStore}
                         />
@@ -101,6 +111,10 @@ export default React.createClass( {
 
             )
         }
+    },
+
+    editStatusUpdate() {
+        this.transitionTo( 'status-update-edit', { id: this.state.statusUpdate.id } );
     }
 
 } );

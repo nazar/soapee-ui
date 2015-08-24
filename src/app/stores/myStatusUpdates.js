@@ -1,6 +1,7 @@
 import Reflux from 'reflux';
 
 import meActions from 'actions/me';
+import statusUpdateActions from 'actions/statusUpdate';
 
 export default Reflux.createStore( {
 
@@ -8,7 +9,7 @@ export default Reflux.createStore( {
 
     init() {
         this.listenTo( meActions.getMyStatusUpdates.completed, gotStatusUpdates.bind( this ) );
-        this.listenTo( meActions.addStatusUpdate.completed, gotNewStatusUpdate.bind( this ) );
+        this.listenTo( statusUpdateActions.addStatusUpdate.completed, gotNewStatusUpdate.bind( this ) );
     },
 
     getInitialState() {

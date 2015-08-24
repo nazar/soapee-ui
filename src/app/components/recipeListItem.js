@@ -23,6 +23,7 @@ export default React.createClass( {
                                 <Link to="userProfile" params={ { id: recipe.user.id } }>
                                     <UserAvatar
                                         user={ recipe.user }
+                                        showTooltip={ true }
                                         />
                                 </Link>
                             }

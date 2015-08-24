@@ -5,6 +5,7 @@ import Reflux from 'reflux';
 import { Link } from 'react-router';
 
 import meActions from 'actions/me';
+import statusUpdateActions from 'actions/statusUpdate';
 
 import myStatusUpdatesStore from 'stores/myStatusUpdates';
 
@@ -101,6 +102,9 @@ export default React.createClass( {
                     <span>
                         <Link to="status-update" params={ { id: statusUpdate.id } }><i className="fa fa-eye"> View</i></Link>
                     </span>
+                    <span>
+                        <Link to="status-update-edit" params={ { id: statusUpdate.id } }><i className="fa fa-pencil-square-o"> Edit</i></Link>
+                    </span>
                 </div>
             </div>
         );
@@ -136,7 +140,7 @@ export default React.createClass( {
         }
 
         function createStatusUpdate() {
-            return meActions.addStatusUpdate( this.state.statusUpdate );
+            return statusUpdateActions.addStatusUpdate( this.state.statusUpdate );
         }
 
         function uploadImages() {
