@@ -7,12 +7,14 @@ import { Link, Navigation, State } from 'react-router';
 import recipeStore from 'stores/recipe';
 import authStore from 'stores/auth';
 import recipeComments from 'stores/recipeComments';
+import recipeJournals from 'stores/recipeJournals';
 
 import recipeActions from 'actions/recipe';
 import meActions from 'actions/me';
 
 import Spinner from 'components/spinner';
 import RecipeBreakdown from 'components/recipeBreakdown';
+import RecipeJournals from 'components/recipeJournals';
 import RecipeTotals from 'components/recipeTotals';
 import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
@@ -24,7 +26,7 @@ import ButtonFBLike from 'components/buttonFBLike';
 import ButtonGPlusLike from 'components/buttonGPlusLike';
 import MarkedDisplay from 'components/markedDisplay';
 import Commentable from 'components/commentable';
-import ImageableCarousel from 'components/imageableCarousel'
+import ImageableCarousel from 'components/imageableCarousel';
 
 import SignupOrLoginToSaveRecipe from 'modals/signupOrLoginToSaveRecipe';
 
@@ -33,7 +35,8 @@ export default React.createClass( {
     statics: {
         willTransitionTo: function ( transition, params ) {
             recipeActions.getRecipeById( params.id )
-                .then( recipeActions.getRecipeComments )
+                .tap( recipeActions.getRecipeComments )
+                .tap( recipeActions.getRecipeJournals );
         }
     },
 
@@ -42,7 +45,8 @@ export default React.createClass( {
         Navigation,
         Reflux.connect( recipeStore, 'recipe' ),
         Reflux.connect( authStore, 'auth' ),
-        Reflux.connect( recipeComments, 'comments' )
+        Reflux.connect( recipeComments, 'comments' ),
+        Reflux.connect( recipeJournals, 'journals' )
     ],
 
     render() {
@@ -200,6 +204,7 @@ export default React.createClass( {
                                                                                                       data-toggle="tab">User Comments {this.countComments()}</a></li>
                             <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
                             <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
+                            <li role="presentation"><a href="#journal" aria-controls="journal" role="tab" data-toggle="tab">Recipe Journals {this.countJournals()}</a></li>
                         </ul>
                         <div className="tab-content">
                             { recipeNotes &&
@@ -222,6 +227,11 @@ export default React.createClass( {
                                     url={ window.location }
                                     />
                             </div>
+                            <div role="tabpanel" className="tab-pane" id="journal">
+                                <RecipeJournals
+                                    recipe={ this.state.recipe.recipe }
+                                    />
+                            </div>
                         </div>
                     </div>
 
@@ -232,6 +242,14 @@ export default React.createClass( {
 
     countComments() {
         let count = recipeComments.count();
+
+        if ( count ) {
+            return <span>({ count })</span>;
+        }
+    },
+
+    countJournals() {
+        let count = recipeJournals.count;
 
         if ( count ) {
             return <span>({ count })</span>;

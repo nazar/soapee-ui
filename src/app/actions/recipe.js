@@ -8,7 +8,15 @@ import {
     deleteRecipe,
 
     getRecipeComments,
-    addCommentToRecipe
+    addCommentToRecipe,
+
+    getRecipeJournal,
+    getRecipeJournals,
+    addRecipeJournal,
+    updateRecipeJournal,
+    deleteRecipeJournal,
+    getRecipeJournalComments,
+    addCommentToRecipeJournal
 } from 'resources/recipes';
 
 let actions = Reflux.createActions( {
@@ -24,7 +32,16 @@ let actions = Reflux.createActions( {
     editRecipeById: { asyncResult: true },
 
     getRecipeComments: { asyncResult: true },
-    addCommentToRecipe: { asyncResult: true }
+    addCommentToRecipe: { asyncResult: true },
+
+    getRecipeJournal: { asyncResult: true },
+    getRecipeJournals: { asyncResult: true },
+    addRecipeJournal: { asyncResult: true },
+    updateRecipeJournal: { asyncResult: true },
+    deleteRecipeJournal: { asyncResult: true },
+
+    getRecipeJournalComments: { asyncResult: true },
+    addCommentToRecipeJournal: { asyncResult: true }
 } );
 
 export default actions;
@@ -39,3 +56,12 @@ actions.editRecipeById.listenAndPromise( getRecipeById );
 
 actions.getRecipeComments.listenAndPromise( getRecipeComments );
 actions.addCommentToRecipe.listenAndPromise( addCommentToRecipe );
+
+actions.getRecipeJournal.listenAndPromise( getRecipeJournal );
+actions.getRecipeJournals.listenAndPromise( getRecipeJournals );
+actions.addRecipeJournal.listenAndPromise( addRecipeJournal );
+actions.updateRecipeJournal.listenAndPromise( updateRecipeJournal );
+actions.deleteRecipeJournal.listenAndPromise( deleteRecipeJournal );
+
+actions.getRecipeJournalComments.listenAndPromise( getRecipeJournalComments );
+actions.addCommentToRecipeJournal.listenAndPromise( addCommentToRecipeJournal );

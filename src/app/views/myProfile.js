@@ -126,7 +126,7 @@ export default React.createClass( {
                     <legend>My Username</legend>
                     <strong>{ profile.verifications[0].provider_id }</strong>
                 </div>
-            )
+            );
         }
     },
 

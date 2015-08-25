@@ -317,7 +317,7 @@ export default class extends EventEmitter {
             lyeConcentration = 100 * recipeLyeConcentration;
         } else if ( this.isLyeWaterRatio() ) {
             totalWaterWeight = totalLye * this.recipe.lyeWaterWaterRatio;
-            lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ))
+            lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ));
         } else {
             totalWaterWeight = totalOilWeight * ( this.recipe.waterRatio / 100 );
             lyeConcentration = 100 * (totalLye / ( totalWaterWeight + totalLye ));
@@ -492,11 +492,11 @@ export default class extends EventEmitter {
     }
 
     isLyeConentration() {
-        return this.recipe.lyeCalcType === 'concentration'
+        return this.recipe.lyeCalcType === 'concentration';
     }
 
     isLyeWaterRatio() {
-        return this.recipe.lyeCalcType === 'lyewater'
+        return this.recipe.lyeCalcType === 'lyewater';
     }
 
     adjustHybridLyeFields( key, value ) {

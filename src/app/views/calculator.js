@@ -21,7 +21,7 @@ export default React.createClass( {
     getInitialState() {
         return {
             saving: false
-        }
+        };
     },
 
     componentDidMount() {
@@ -72,7 +72,7 @@ export default React.createClass( {
     },
 
     saveCaption() {
-        return this.state.saving ? 'Saving Recipe' : 'Save Recipe'
+        return this.state.saving ? 'Saving Recipe' : 'Save Recipe';
     },
 
     saveRecipe() {
@@ -86,7 +86,7 @@ export default React.createClass( {
 
         recipeActions.createRecipe( this.state.recipe )
             .then( recipe => this.newRecipe = recipe )
-            .then( uploadImages.bind( this ) )
+            .then( uploadImages.bind( this ) );
     },
 
     showRecipe() {

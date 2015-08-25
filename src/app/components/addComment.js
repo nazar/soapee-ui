@@ -97,8 +97,6 @@ export default React.createClass( {
             .then( triggerAddComment.bind( this ) )
             .then( clear.bind( this ) )
             .catch( this.showError );
-
-
     },
 
     showError( e ) {

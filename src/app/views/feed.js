@@ -21,7 +21,7 @@ export default React.createClass( {
     getInitialState() {
         return {
             activePage: 0
-        }
+        };
     },
 
     mixins: [
@@ -52,7 +52,7 @@ export default React.createClass( {
                     { _.map( this.state.feed, this.renderFeedItem ) }
                     { this.paginator() }
                 </div>
-            )
+            );
         }
     },
 

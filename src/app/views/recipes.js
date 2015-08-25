@@ -19,7 +19,7 @@ export default React.createClass( {
     getInitialState() {
         return {
             activePage: 0
-        }
+        };
     },
 
     componentDidMount() {
