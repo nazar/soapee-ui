@@ -18,11 +18,11 @@ export default Reflux.createStore( {
     },
 
     totalPages() {
-        return _.ceil( this.count / 20 );
+        return _.ceil( this.count / 15 );
     },
 
     pagerVisible() {
-        return this.count > 20;
+        return this.count > 15;
     }
 
 } );

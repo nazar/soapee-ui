@@ -144,7 +144,6 @@ export default React.createClass( {
         }
 
         function uploadImages() {
-            console.log('newUpdate', newUpdate );
             this.startUploads( newUpdate.id );
         }
     },
