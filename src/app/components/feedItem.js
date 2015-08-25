@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import MarkedDisplay from 'components/markedDisplay';
+import ImageableThumbnails from 'components/imageableThumbnails';
 import UserAvatar from 'components/userAvatar';
 
 export default React.createClass( {
@@ -83,9 +84,9 @@ export default React.createClass( {
     renderFeedableType() {
         let { feedable_meta } = this.props.feedItem;
         let renderer = {
-            status_updates: renderStatusUpdate,
-            comments: renderCommentUpdate,
-            recipes: () => {},
+            status_updates: renderStatusUpdate.bind( this ),
+            comments: renderCommentUpdate.bind( this ),
+            recipes: renderRecipe.bind( this ),
             users: () => {}
         }[ this.props.feedItem.feedable_type ];
 
@@ -98,6 +99,10 @@ export default React.createClass( {
                     <MarkedDisplay
                         content={ feedable_meta.target.update }
                         />
+
+                    <ImageableThumbnails
+                        images={ this.props.feedItem.feedable.images }
+                        />
                 </div>
             )
         }
@@ -107,6 +112,16 @@ export default React.createClass( {
                 <div className="status-comment">
                     <MarkedDisplay
                         content={ feedable_meta.target.comment || '' }
+                        />
+                </div>
+            )
+        }
+
+        function renderRecipe() {
+            return (
+                <div className="status-recipe">
+                    <ImageableThumbnails
+                        images={ this.props.feedItem.feedable.images }
                         />
                 </div>
             )

@@ -17,7 +17,7 @@ export function addStatusUpdate( update ) {
     };
 
     return when(
-        post( baseUrl( 'me/status-updates' ), {
+        post( baseUrl( 'status-updates' ), {
             params
         } )
     );
