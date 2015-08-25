@@ -1,16 +1,16 @@
 import Reflux from 'reflux';
 
 import recipeActions from 'actions/recipe';
-import recipeStore from 'stores/recipe';
+import recipeJournalStore from 'stores/recipeJournal';
 
 export default Reflux.createStore( {
 
-    recipe: null,
+    recipeJournal: null,
     comments: [],
 
     init() {
-        this.listenTo( recipeStore, gotRecipe.bind( this ) );
-        this.listenTo( recipeActions.getRecipeComments.completed, gotComments.bind( this ) );
+        this.listenTo( recipeJournalStore, gotRecipeJournal.bind( this ) );
+        this.listenTo( recipeActions.getRecipeJournalComments.completed, gotComments.bind( this ) );
     },
 
     getInitialState() {
@@ -22,7 +22,7 @@ export default Reflux.createStore( {
     },
 
     addComment( comment ) {
-        return recipeActions.addCommentToRecipe( comment, this.recipe )
+        return recipeActions.addCommentToRecipeJournal( comment, {id: this.recipeJournal.recipe_id}, this.recipeJournal )
             .then( addToComments.bind( this ) );
     }
 
@@ -31,8 +31,8 @@ export default Reflux.createStore( {
 //////////////////////////
 //// Private
 
-function gotRecipe( recipeStore ) {
-    this.recipe = recipeStore.recipe;
+function gotRecipeJournal( recipeJournal ) {
+    this.recipeJournal = recipeJournal;
 }
 
 function gotComments( comments ) {

@@ -6,24 +6,17 @@ import recipeStore from 'stores/recipe';
 export default Reflux.createStore( {
 
     recipe: null,
-    comments: [],
+    store: [],
+    count: 0,
 
     init() {
         this.listenTo( recipeStore, gotRecipe.bind( this ) );
-        this.listenTo( recipeActions.getRecipeComments.completed, gotComments.bind( this ) );
+        this.listenTo( recipeActions.getRecipeJournals.completed, gotJournals.bind( this ) );
+        this.listenTo( recipeActions.addRecipeJournal.completed, addToStore.bind( this ) );
     },
 
     getInitialState() {
         return this.store;
-    },
-
-    count() {
-        return this.comments.length;
-    },
-
-    addComment( comment ) {
-        return recipeActions.addCommentToRecipe( comment, this.recipe )
-            .then( addToComments.bind( this ) );
     }
 
 } );
@@ -35,16 +28,20 @@ function gotRecipe( recipeStore ) {
     this.recipe = recipeStore.recipe;
 }
 
-function gotComments( comments ) {
-    this.comments = comments;
+function gotJournals( journal ) {
+    this.count = journal.count;
+    this.store = journal.journals;
+
     doTrigger.call( this );
 }
 
-function addToComments( comment ) {
-    this.comments.unshift( comment );
+function addToStore( journal ) {
+    this.count = Number(this.count) + 1;
+    this.store.unshift( journal );
+
     doTrigger.call( this );
 }
 
 function doTrigger() {
-    this.trigger( this.comments );
+    this.trigger( this.store );
 }

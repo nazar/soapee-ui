@@ -48,7 +48,7 @@ export default React.createClass( {
                     notifications={ this.state.notifications }
                     />
             </Popover>
-        )
+        );
     }
 
 } );

@@ -33,7 +33,7 @@ export default React.createClass( {
             <CarouselItem>
                 <img src={ imageableUrl( image ) } />
             </CarouselItem>
-        )
+        );
     }
 
 } );

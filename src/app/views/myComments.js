@@ -53,10 +53,17 @@ export default React.createClass( {
 
         route = {
             oils: 'oil',
-            recipes: 'recipe'
+            recipes: 'recipe',
+            status_updates: getStatusUpdateLinks,
+            recipe_journals: getRecipeJournalsLinks
         }[ comment.commentable_type ];
 
-        links = [ <Link to={ route } params={ { id: comment.commentable_id } }>in { comment.commentable_type }</Link> ];
+        if ( _.isFunction( route ) ) {
+            links = route();
+        } else {
+            links = [ <Link to={ route } params={ { id: comment.commentable_id } }>in { comment.commentable_type }</Link> ];
+        }
+
 
         return (
             <div key={ `comment-${ comment.id }` }>
@@ -66,6 +73,15 @@ export default React.createClass( {
                     />
             </div>
         );
+
+
+        function getStatusUpdateLinks() {
+            return [ <Link to="status-update" params={ { id: comment.commentable_id } }>in status update</Link> ];
+        }
+
+        function getRecipeJournalsLinks() {
+            return [ <Link to="recipe-journal" params={ { recipeId: comment.commentable.recipe_id, journalId: comment.commentable_id } }>in recipe journal</Link> ];
+        }
     }
 
 } );

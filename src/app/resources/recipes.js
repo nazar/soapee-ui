@@ -62,6 +62,64 @@ export function addCommentToRecipe( comment, recipe ) {
     );
 }
 
+export function getRecipeJournal( recipe, journal ) {
+    return when(
+        get( baseUrl( `recipes/${recipe.id}/journals/${journal.id}` ) )
+    );
+}
+
+export function getRecipeJournals( recipe ) {
+    return when(
+        get( baseUrl( `recipes/${recipe.id}/journals` ) )
+    );
+}
+
+export function addRecipeJournal( recipe, journal ) {
+    return when(
+        post( baseUrl( `recipes/${recipe.id}/journals` ), {
+            params: {
+                journal
+            }
+        } )
+    );
+}
+
+export function updateRecipeJournal( recipe, journal ) {
+    return when(
+        put( baseUrl( `recipes/${recipe.id}/journals/${journal.id}` ), {
+            params: {
+                journal: journal.journal,
+                deleting: {
+                    imageables: _( journal.images ).filter( { deleting: true } ).pluck( 'id' ).value()
+                }
+            }
+        } )
+    );
+}
+
+export function deleteRecipeJournal( recipe, journal ) {
+    return when(
+        del( baseUrl( `recipes/${recipe.id}/journals/${journal.id}` ) )
+    );
+}
+
+export function getRecipeJournalComments( recipe, journal ) {
+    return when(
+        get( baseUrl( `recipes/${recipe.id}/journals/${journal.id}/comments` ) )
+    );
+}
+
+export function addCommentToRecipeJournal( comment, recipe, recipeJournal ) {
+    return when(
+        post( baseUrl( `recipes/${recipe.id}/journals/${recipeJournal.id}/comments` ), {
+            params: {
+                comment
+            }
+        } )
+    );
+}
+
+
 ///////////////
 /// private
 

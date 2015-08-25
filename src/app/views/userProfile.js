@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
 import { State, Link } from 'react-router';
-import { Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap';
 
 import userActions from 'actions/user';
 import meActions from 'actions/me';
@@ -89,7 +89,7 @@ export default React.createClass( {
                         user={ user }
                         />
                 </Link>
-            )
+            );
         }
 
         if ( this.state.display.addFriend && this.isNotMe() && userFriendsStore.iAmNotFriendOfUser() ) {
@@ -113,7 +113,7 @@ export default React.createClass( {
                 { addFriendButton }
                 { _.map( this.state.friends, renderFriend, this ) }
             </div>
-        )
+        );
     },
 
     renderUserRecipes() {
@@ -151,7 +151,7 @@ export default React.createClass( {
         meActions.addFriend( this.state.user )
             .then( this.hideAddFriend )
             .then( this.notifySent )
-            .catch( this.showError )
+            .catch( this.showError );
     },
 
     hideAddFriend() {

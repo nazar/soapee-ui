@@ -56,17 +56,17 @@ export default React.createClass( {
                     />
 
                 { _.get( this.state, 'statusUpdate.images.length' ) > 0 &&
-                <div className="row">
-                    <div className="col-md-12">
-                        <legend>Delete Photos?</legend>
-                        <ImageableEdit
-                            images={ this.state.statusUpdate.images }
-                            />
+                    <div className="row">
+                        <div className="col-md-12">
+                            <legend>Delete Photos?</legend>
+                            <ImageableEdit
+                                images={ this.state.statusUpdate.images }
+                                />
+                        </div>
                     </div>
-                </div>
                 }
 
-                <legend>Add Photos</legend>
+                <legend>Add Photos?</legend>
                 <Imageable
                     imageableType='status_updates'
                     startImageUpload={ this.startImageUploadHookFn }
@@ -107,7 +107,7 @@ export default React.createClass( {
             <div className="error">
                 <h2>{ this.state.error }</h2>
             </div>
-        )
+        );
     },
 
     startImageUploadHookFn( startImageUploadFn ) {
@@ -135,14 +135,14 @@ export default React.createClass( {
             saving: false
         } );
 
-        this.transitionTo( 'status-update', { id: this.state.statusUpdate.id } )
+        this.transitionTo( 'status-update', { id: this.state.statusUpdate.id } );
     },
 
     checkIfThisIsMyStatusUpdate( statusUpdate ) {
         if ( !(authStore.isMyId( statusUpdate.user_id )) ) {
             this.setState( {
                 error: 'Sorry, cannot edit another user\'s status update.'
-            } )
+            } );
         }
     }
 

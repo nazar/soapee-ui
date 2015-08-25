@@ -471,7 +471,7 @@ export default React.createClass( {
             kilo: 'g',
             pound: 'oz',
             ounce: 'oz'
-        }[ this.props.recipe.uomToUse() ]
+        }[ this.props.recipe.uomToUse() ];
     },
 
     largeUomFragrance() {
@@ -480,7 +480,7 @@ export default React.createClass( {
             kilo: 'kg',
             pound: 'lb',
             ounce: 'lb'
-        }[ this.props.recipe.uomToUse() ]
+        }[ this.props.recipe.uomToUse() ];
     }
 
 } );

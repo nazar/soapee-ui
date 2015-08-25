@@ -28,7 +28,7 @@ export default React.createClass( {
                     </p>
                 </Thumbnail>
             </div>
-        )
+        );
     },
 
     deleting( image ) {
@@ -39,6 +39,6 @@ export default React.createClass( {
         return () => {
             image.deleting = !image.deleting;
             this.forceUpdate();
-        }
+        };
     }
 } );

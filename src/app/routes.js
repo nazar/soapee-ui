@@ -17,6 +17,8 @@ import Recipe from 'views/recipe';
 import RecipeEdit from 'views/recipeEdit';
 import RecipePrint from 'views/recipePrint';
 import Recipes from 'views/recipes';
+import RecipeJournal from 'views/recipeJournal';
+import RecipeJournalEdit from 'views/recipeJournalEdit';
 import MyFriendsRecipes from 'views/myFriendsRecipes';
 import MyStatusUpdates from 'views/myStatusUpdates';
 import Resources from 'views/resources';
@@ -49,6 +51,10 @@ let routes = (
         <Route name="recipe" path="recipes/:id" handler={Recipe} />
         <Route name="editRecipe" path="recipes/:id/edit" handler={RecipeEdit} />
         <Route name="printRecipe" path="recipes/:id/print" handler={RecipePrint} />
+
+        <Route name="recipe-journal" path="recipes/:recipeId/journals/:journalId" handler={RecipeJournal} />
+        <Route name="recipe-journal-edit" path="recipes/:recipeId/journals/:journalId/edit" handler={RecipeJournalEdit} />
+
 
         <Route name="oils" handler={Oils} />
         <Route name="oil" path="oils/:id" handler={Oil} />

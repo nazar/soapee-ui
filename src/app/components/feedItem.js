@@ -48,6 +48,7 @@ export default React.createClass( {
             status_updates: statusUpdate,
             comments: comment,
             recipes: recipes,
+            recipe_journals: recipeJournals,
             users: () => <span> joined</span>
         }[ this.props.feedItem.feedable_type ];
 
@@ -57,7 +58,7 @@ export default React.createClass( {
         function statusUpdate() {
             return (
                 <span> posted a <Link to="status-update" params={ { id: feedable_meta.target.id } }><strong>status update</strong></Link></span>
-            )
+            );
         }
 
         function comment() {
@@ -67,7 +68,7 @@ export default React.createClass( {
                         &nbsp;<strong>{feedable_meta.target.name}</strong>
                     </Link>
                 </span>
-            )
+            );
         }
 
         function recipes() {
@@ -77,8 +78,19 @@ export default React.createClass( {
                         &nbsp;<strong>{feedable_meta.target.name}</strong>
                     </Link>
                 </span>
-            )
+            );
         }
+
+        function recipeJournals() {
+            return (
+                <span> added a <strong>Recipe Journal</strong> to
+                    <Link to="recipe" params={ { id: feedable_meta.target.id } }>
+                        &nbsp;<strong>{feedable_meta.target.name}</strong>
+                    </Link>
+                </span>
+            );
+        }
+
     },
 
     renderFeedableType() {
@@ -87,6 +99,7 @@ export default React.createClass( {
             status_updates: renderStatusUpdate.bind( this ),
             comments: renderCommentUpdate.bind( this ),
             recipes: renderRecipe.bind( this ),
+            recipe_journals: renderRecipeJournals.bind( this ),
             users: () => {}
         }[ this.props.feedItem.feedable_type ];
 
@@ -104,7 +117,7 @@ export default React.createClass( {
                         images={ this.props.feedItem.feedable.images }
                         />
                 </div>
-            )
+            );
         }
 
         function renderCommentUpdate() {
@@ -114,7 +127,7 @@ export default React.createClass( {
                         content={ feedable_meta.target.comment || '' }
                         />
                 </div>
-            )
+            );
         }
 
         function renderRecipe() {
@@ -124,7 +137,21 @@ export default React.createClass( {
                         images={ this.props.feedItem.feedable.images }
                         />
                 </div>
-            )
+            );
+        }
+
+        function renderRecipeJournals() {
+            return (
+                <div className="status-recipe-journals">
+                    <MarkedDisplay
+                        content={ feedable_meta.target.journal }
+                        />
+
+                    <ImageableThumbnails
+                        images={ this.props.feedItem.feedable.images }
+                        />
+                </div>
+            );
         }
 
     }

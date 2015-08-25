@@ -43,7 +43,7 @@ export default React.createClass( {
         let lengthRecipes = _.get(this.state.recipes, 'length', 0);
 
         if ( lengthRecipes > 0 ) {
-            return _.map( this.state.recipes, this.renderRecipe )
+            return _.map( this.state.recipes, this.renderRecipe );
         } else if ( lengthRecipes === 0 ) {
             return (
                 <div className="jumbotron">

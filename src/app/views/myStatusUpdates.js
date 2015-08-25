@@ -28,7 +28,7 @@ export default React.createClass( {
     getInitialState() {
         return {
             statusUpdate: null
-        }
+        };
     },
 
     componentDidMount() {
@@ -80,7 +80,7 @@ export default React.createClass( {
     },
 
     renderStatusUpdates() {
-        return _.map( this.state.statusUpdates, this.renderStatusUpdate )
+        return _.map( this.state.statusUpdates, this.renderStatusUpdate );
     },
 
     renderStatusUpdate( statusUpdate ) {
@@ -98,13 +98,9 @@ export default React.createClass( {
                     images={ statusUpdate.images }
                     />
 
-                <div className="actions">
-                    <span>
-                        <Link to="status-update" params={ { id: statusUpdate.id } }><i className="fa fa-eye"> View</i></Link>
-                    </span>
-                    <span>
-                        <Link to="status-update-edit" params={ { id: statusUpdate.id } }><i className="fa fa-pencil-square-o"> Edit</i></Link>
-                    </span>
+                <div className="btn-toolbar actions">
+                    <Link className="btn btn-primary btn-xs" to="status-update" params={ { id: statusUpdate.id } }><i className="fa fa-eye"> View</i></Link>
+                    <Link className="btn btn-primary btn-xs" to="status-update-edit" params={ { id: statusUpdate.id } }><i className="fa fa-pencil-square-o"> Edit</i></Link>
                 </div>
             </div>
         );
@@ -115,7 +111,7 @@ export default React.createClass( {
     },
 
     saveCaption() {
-        return this.state.saving ? 'Saving Recipe' : 'Save Recipe'
+        return this.state.saving ? 'Saving Recipe' : 'Save Recipe';
     },
 
     addStatusUpdate() {

@@ -16,7 +16,7 @@ export default React.createClass( {
     renderImage( image ) {
         return (
             <img key={image.id} className="thumbnail pull-left" src={ imageableThumbUrl( image ) } />
-        )
+        );
     }
 
 } );

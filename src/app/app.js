@@ -5,6 +5,7 @@ require( '../assets/main.css' );
 
 import _ from 'lodash';
 import React from 'react';
+import Reflux from 'reflux';
 import Router from 'react-router';
 import ga from 'react-ga';
 
@@ -26,6 +27,8 @@ FB.init( {
     version: 'v2.4',
     xfbml: true
 } );
+
+Reflux.setPromiseFactory( require( 'when' ).promise );
 
 Router.run( routes, Router.HistoryLocation, function ( Handler, state ) {
     if ( analytics ) {

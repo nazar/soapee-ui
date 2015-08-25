@@ -91,7 +91,7 @@ export default React.createClass( {
                 <div className="actions btn-toolbar">
                     { actions }
                 </div>
-            )
+            );
         }
     },
 
@@ -99,13 +99,13 @@ export default React.createClass( {
         return () => {
             meActions.addFriend( notification.userNotifiable.user )
                 .then( () => meActions.dismissNotification( notification ) );
-        }
+        };
     },
 
     dismissNotification( notification ) {
         return () => {
-            meActions.dismissNotification( notification )
-        }
+            meActions.dismissNotification( notification );
+        };
     }
 
 

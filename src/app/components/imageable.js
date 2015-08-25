@@ -10,7 +10,7 @@ export default React.createClass( {
     ],
 
     componentDidMount() {
-        this.props.startImageUpload( this.startImageUpload )
+        this.props.startImageUpload( this.startImageUpload );
     },
 
     render() {

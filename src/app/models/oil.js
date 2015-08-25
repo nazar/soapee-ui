@@ -41,7 +41,7 @@ export default class {
             hardness: this.propertyValueForOil( this.oil, [ 'lauric', 'myristic', 'palmitic', 'stearic', 'caprylic', 'capric' ] ),
             longevity: this.propertyValueForOil( this.oil, [ 'palmitic', 'stearic' ] ),
             stable: this.propertyValueForOil( this.oil, [ 'palmitic', 'stearic', 'ricinoleic' ] )
-        }
+        };
     }
 
     saturationBreakdown() {
@@ -70,7 +70,7 @@ export default class {
 
         return _.extend( saturation, {
             saturationRatio
-        } )
+        } );
     }
 
 
@@ -83,7 +83,7 @@ export default class {
     filterByMatch( matcher ) {
         return oilType => {
             return oilType.match( matcher );
-        }
+        };
     }
 
 }

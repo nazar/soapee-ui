@@ -56,6 +56,7 @@ export default React.createClass( {
         if ( statusUpdate ) {
             return (
                 <div className="status-update">
+                    <legend>Status Update</legend>
 
                     <div className="media">
                         <div className="media-left">
@@ -109,7 +110,7 @@ export default React.createClass( {
                         />
                 </div>
 
-            )
+            );
         }
     },
 

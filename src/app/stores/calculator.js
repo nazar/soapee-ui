@@ -10,7 +10,7 @@ export default Reflux.createStore( {
         this.store = new RecipeModel();
         this.store.on( 'calculated', doTrigger.bind( this ) );
 
-        this.listenTo( recipeActions.resetRecipe, reset.bind( this ) )
+        this.listenTo( recipeActions.resetRecipe, reset.bind( this ) );
     },
 
     getInitialState() {

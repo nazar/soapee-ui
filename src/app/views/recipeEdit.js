@@ -79,7 +79,7 @@ export default React.createClass( {
     },
 
     saveCaption() {
-        return this.state.saving ? 'Saving Recipe' : 'Save Recipe'
+        return this.state.saving ? 'Saving Recipe' : 'Save Recipe';
     },
 
     saveRecipe() {

@@ -39,6 +39,8 @@
         "indent": 2,
         "vars-on-top": 2,
         "camelcase": [2, {"properties": "never"}],
+        "semi": [2, "always"],
+
 
         "react/jsx-no-undef": 2,
         "react/jsx-uses-react": 2,
