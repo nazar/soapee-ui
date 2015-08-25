@@ -55,6 +55,7 @@ export default React.createClass( {
         if ( journal ) {
             return (
                 <div>
+                    <legend>Recipe Journal Entry</legend>
                     <RecipeJournalItem
                         recipe={ recipe }
                         recipeJournal={ journal }

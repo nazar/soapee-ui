@@ -99,7 +99,7 @@ export default React.createClass( {
     renderMyFriends() {
         function renderFriend( user ) {
             return (
-                <a href={ `/users/${user.id}` }>
+                <a href={ `/users/${user.id}` } className="friend-profile-link">
                     <UserAvatar
                         user={ user }
                         />
