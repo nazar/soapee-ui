@@ -109,10 +109,6 @@ export default React.createClass( {
             {
                 columnName: 'polySaturated',
                 displayName: 'poly-unsaturated %'
-            },
-            {
-                columnName: 'saturationRatio',
-                displayName: 'saturated ratio %'
             }
         ];
     }

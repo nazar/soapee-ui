@@ -59,8 +59,7 @@ export default Reflux.createStore( {
 
                 saturated: oil.saturation.saturated,
                 monoSaturated: oil.saturation.monoSaturated,
-                polySaturated: oil.saturation.polySaturated,
-                saturationRatio: _.round( oil.saturation.saturationRatio, 3 )
+                polySaturated: oil.saturation.polySaturated
             };
         } );
     },
@@ -70,7 +69,7 @@ export default Reflux.createStore( {
             'fats-common': [ 'name', 'sap', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic' ],
             'fats-all':    [ 'name', 'sap', 'capric', 'caprylic', 'docosadienoic', 'docosenoid', 'eicosenoic', 'erucic', 'lauric', 'linoleic', 'linolenic', 'myristic', 'oleic', 'palmitic', 'ricinoleic', 'stearic' ],
             properties:    [ 'name', 'sap', 'bubbly', 'cleansing', 'condition', 'hardness', 'longevity', 'stability' ],
-            saturation:    [ 'name', 'sap', 'saturated', 'monoSaturated', 'polySaturated', 'saturationRatio' ]
+            saturation:    [ 'name', 'sap', 'saturated', 'monoSaturated', 'polySaturated' ]
         };
 
     },

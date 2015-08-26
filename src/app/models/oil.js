@@ -30,7 +30,7 @@ export default class {
 
     extendOil() {
         this.oil.properties = this.buildProperties();
-        this.oil.saturation = this.buildSaturations();
+        this.oil.saturation = this.saturationBreakdown();
     }
 
     buildProperties() {
@@ -47,7 +47,7 @@ export default class {
     saturationBreakdown() {
         return _.transform( this.saturationBreakdowns(), ( result, fats, group ) => {
             result[ group ] = this.propertyValueForOil( this.oil, fats );
-        });
+        } );
     }
 
     saturationBreakdowns() {
@@ -57,22 +57,6 @@ export default class {
             polySaturated: _( fattyOils ).pick( this.filterByMatch( ':2' ) ).keys().value()
         };
     }
-
-    buildSaturations() {
-        let saturation = this.saturationBreakdown();
-        let saturationRatio;
-
-        if ( saturation.monoSaturated + saturation.polySaturated ) {
-            saturationRatio = saturation.saturated / ( saturation.monoSaturated + saturation.polySaturated );
-        } else {
-            saturationRatio = saturation.saturated;
-        }
-
-        return _.extend( saturation, {
-            saturationRatio
-        } );
-    }
-
 
     propertyValueForOil( oil, fats ) {
         return _.reduce( fats, ( total, fat ) => {
