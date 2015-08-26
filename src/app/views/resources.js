@@ -2,7 +2,6 @@ import React from 'react/addons';
 import DocMeta from 'react-doc-meta';
 
 import FacebookComments from 'components/facebookComments';
-import GoogleComments from 'components/googleComments';
 
 export default React.createClass( {
 
@@ -66,16 +65,10 @@ export default React.createClass( {
                     <div className="col-md-12">
                         <ul className="nav nav-tabs" role="tablist">
                             <li role="presentation" className="active"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
-                            <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
                         </ul>
                         <div className="tab-content">
                             <div role="tabpanel" className="tab-pane active" id="facebook">
                                 <FacebookComments
-                                    url={ window.location }
-                                    />
-                            </div>
-                            <div role="tabpanel" className="tab-pane" id="google">
-                                <GoogleComments
                                     url={ window.location }
                                     />
                             </div>

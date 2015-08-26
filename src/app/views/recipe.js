@@ -18,7 +18,6 @@ import RecipeJournals from 'components/recipeJournals';
 import RecipeTotals from 'components/recipeTotals';
 import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
-import GoogleComments from 'components/googleComments';
 import FacebookComments from 'components/facebookComments';
 import BootstrapModalLink from 'components/bootstrapModalLink';
 import UserAvatar from 'components/userAvatar';
@@ -197,13 +196,12 @@ export default React.createClass( {
                             { recipeNotes &&
                                 <li role="presentation"
                                     className={ cx( { active: notesActive } ) }>
-                                    <a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Recipe Notes and Directions</a>
+                                    <a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Directions</a>
                                 </li>
                             }
                             <li role="presentation" className={ cx( { active: commentsActive } ) }><a href="#comments" aria-controls="comments" role="tab"
                                                                                                       data-toggle="tab">User Comments {this.countComments()}</a></li>
                             <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
-                            <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
                             <li role="presentation"><a href="#journal" aria-controls="journal" role="tab" data-toggle="tab">Recipe Journals {this.countJournals()}</a></li>
                         </ul>
                         <div className="tab-content">
@@ -219,11 +217,6 @@ export default React.createClass( {
                             </div>
                             <div role="tabpanel" className="tab-pane" id="facebook">
                                 <FacebookComments
-                                    url={ window.location }
-                                    />
-                            </div>
-                            <div role="tabpanel" className="tab-pane" id="google">
-                                <GoogleComments
                                     url={ window.location }
                                     />
                             </div>

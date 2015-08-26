@@ -13,7 +13,6 @@ import oilComments from 'stores/oilComments';
 
 import Spinner from 'components/spinner';
 import FacebookComments from 'components/facebookComments';
-import GoogleComments from 'components/googleComments';
 import ButtonFBLike from 'components/buttonFBLike';
 import ButtonGPlusLike from 'components/buttonGPlusLike';
 import Commentable from 'components/commentable';
@@ -109,7 +108,6 @@ export default React.createClass( {
                                 <li role="presentation" className="active"><a href="#in-recipes" aria-controls="in-recipes" role="tab" data-toggle="tab">Used in Recipes</a></li>
                                 <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">User Comments {this.countComments()}</a></li>
                                 <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">Facebook Comments</a></li>
-                                <li role="presentation"><a href="#google" aria-controls="google" role="tab" data-toggle="tab">Google+ Comments</a></li>
                             </ul>
                             <div className="tab-content">
                                 <div role="tabpanel" className="tab-pane active" id="in-recipes">
@@ -122,11 +120,6 @@ export default React.createClass( {
                                 </div>
                                 <div role="tabpanel" className="tab-pane" id="facebook">
                                     <FacebookComments
-                                        url={ window.location }
-                                        />
-                                </div>
-                                <div role="tabpanel" className="tab-pane" id="google">
-                                    <GoogleComments
                                         url={ window.location }
                                         />
                                 </div>

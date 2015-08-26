@@ -102,6 +102,7 @@ export default React.createClass( {
                 <a href={ `/users/${user.id}` } className="friend-profile-link">
                     <UserAvatar
                         user={ user }
+                        showTooltip={ true }
                         />
                 </a>
             );
