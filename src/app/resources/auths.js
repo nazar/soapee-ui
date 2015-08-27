@@ -20,14 +20,15 @@ export function signupOrLoginThirdParty( provider, accessToken ) {
     );
 }
 
-export function signupLocal( username, password ) {
+export function signupLocal( username, password, email ) {
     return when(
         post( baseUrl( 'auths' ), {
             params: {
                 provider: 'local',
                 userDetails: {
                     username,
-                    password
+                    password,
+                    email
                 }
             }
         } )

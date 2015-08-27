@@ -3,6 +3,7 @@ import {Route, DefaultRoute} from 'react-router';
 
 import Login from 'views/login';
 import Signup from 'views/signup';
+import Forgot from 'views/forgot';
 
 import Account from 'views/account';
 import Application from 'views/application';
@@ -40,6 +41,7 @@ let routes = (
         <Route name="login" handler={Login} />
         <Route name="signup" handler={Signup} />
         <Route name="logout" handler={Logout} />
+        <Route name="forgot" handler={Forgot} />
 
         <Route name="calculator" handler={Calculator} />
 

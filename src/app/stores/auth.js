@@ -14,9 +14,7 @@ export default Reflux.createStore( {
         this.listenTo( authActions.loginLocal.completed, authenticated.bind( this ) );
         this.listenTo( authActions.logout.completed, loggedOut.bind( this ) );
 
-        getCurrentUser()
-            .then( authenticated.bind( this ) )
-            .catch( swallowIfNotAuthorised );
+        this.authenticate();
     },
 
     getInitialState() {
@@ -24,6 +22,12 @@ export default Reflux.createStore( {
     },
 
     ///public methods
+
+    authenticate() {
+        return getCurrentUser()
+            .then( authenticated.bind( this ) )
+            .catch( swallowIfNotAuthorised );
+    },
 
     isAuthenticated() {
         return _.keys( this.store ).length > 0;

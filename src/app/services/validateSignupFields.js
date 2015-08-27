@@ -10,7 +10,8 @@ export default class {
     execute() {
         let rules = new Checkit( {
             username: [ 'required', 'alphaDash', 'minLength:3', 'maxLength:12', this.checkIfUsernameExists ],
-            password: [ 'required', 'alphaDash', 'minLength:6', 'maxLength:20' ]
+            password: [ 'required', 'alphaDash', 'minLength:6', 'maxLength:20' ],
+            email: [ 'email' ]
         } );
 
         return rules.run( this.payload );
