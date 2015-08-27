@@ -26,6 +26,7 @@ export default React.createClass( {
                 <LocalAuthenticationForm
                     buttonCaption={this.props.buttonCaption || 'Get Started' }
                     errors={ this.state.errors }
+                    showEmail={true}
                     onButtonClick={this.signup}
                     />
 
@@ -50,15 +51,12 @@ export default React.createClass( {
 //////////////////////
 
 function validateSignup( payload ) {
-    return new ValidateSignupFields( {
-        username: payload.username,
-        password: payload.password
-    } )
+    return new ValidateSignupFields( payload )
         .execute();
 }
 
 function signupLocal( payload ) {
-    return authActions.signupLocal( payload.username, payload.password );
+    return authActions.signupLocal( payload.username, payload.password, payload.email );
 }
 
 function setErrors( e ) {

@@ -15,6 +15,7 @@ export function updateMyProfile( packet ) {
         post( baseUrl( 'me' ), {
             params: {
                 name: packet.name,
+                email: packet.email,
                 about: packet.about
             }
         } )

@@ -3,7 +3,7 @@ import Reflux from 'reflux';
 import { Navigation, State } from 'react-router';
 
 import MediaSigninButtons from 'components/mediaSigninButtons';
-import LocalSigninForm from 'components/localSignupForm';
+import LocalSignupForm from 'components/localSignupForm';
 
 import authStore from 'stores/auth';
 
@@ -42,7 +42,7 @@ export default React.createClass( {
 
                     <div className="row">
                         <div className="col-md-4 col-md-offset-4">
-                            <LocalSigninForm />
+                            <LocalSignupForm />
 
                             <div className="strike"><span className="or">OR</span></div>
 

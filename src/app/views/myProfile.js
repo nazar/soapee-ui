@@ -35,10 +35,6 @@ export default React.createClass( {
     },
 
     render() {
-        let  nameClasses = cx( 'form-group', {
-            'has-error': this.state.errors.name
-        } );
-
         document.title = 'Soapee - My Profile';
 
         return (
@@ -48,8 +44,9 @@ export default React.createClass( {
                 <div className="jumbotron clearfix">
                     <form className="form-horizontal" onSubmit={ (e) => e.preventDefault() }>
                         <div className="col-sm-11">
-                            <div className={nameClasses}  >
+                            <div className={this.formClassNames( 'name' )}  >
                                 { this.renderUsername() }
+
                                 <legend>My Name</legend>
                                 <input type="text"
                                        className="form-control"
@@ -60,6 +57,20 @@ export default React.createClass( {
                                     <span className="label label-danger animate bounceIn">{ this.state.errors.name[ 0 ]}</span>
                                 }
                             </div>
+                            <br/>
+
+                            <div className={this.formClassNames( 'email' )}  >
+                                <legend>My Email</legend>
+                                <input type="text"
+                                       className="form-control"
+                                       valueLink={ this.linkStore( meStore, 'email' ) }
+                                    />
+
+                                { this.state.errors.email &&
+                                    <span className="label label-danger animate bounceIn">{ this.state.errors.email[ 0 ]}</span>
+                                }
+                            </div>
+
                         </div>
 
                         <div className="col-sm-1">
@@ -131,10 +142,28 @@ export default React.createClass( {
         }
     },
 
+    formClassNames( field ) {
+        return cx( 'form-group', {
+            'has-error': this.state.errors[ field ]
+        } );
+    },
+
     updateProfile() {
+        this.setState( {
+            errors: {}
+        } );
+
+        validateForm.call( this )
+            .then( save.bind( this ) )
+            .then( successNotification )
+            .catch( setErrors.bind( this ) );
+
+
+
         function validateForm() {
             return new ValidateProfileForm( {
-                name: this.state.profile.name
+                name: this.state.profile.name,
+                email: this.state.profile.email
             } )
                 .execute();
         }
@@ -142,6 +171,7 @@ export default React.createClass( {
         function save() {
             return meActions.updateMyProfile( {
                 name: this.state.profile.name,
+                email: this.state.profile.email,
                 about: this.state.profile.about
             } );
         }
@@ -158,14 +188,6 @@ export default React.createClass( {
             }
         }
 
-        this.setState( {
-            errors: {}
-        } );
-
-        validateForm.call( this )
-            .then( save.bind( this ) )
-            .then( successNotification )
-            .catch( setErrors.bind( this ) );
     },
 
     mailToLink() {
