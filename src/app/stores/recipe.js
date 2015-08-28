@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Reflux from 'reflux';
+import ga from 'react-ga';
 
 import recipeActions from 'actions/recipe';
 
@@ -17,6 +18,12 @@ export default Reflux.createStore( {
 
         this.listenTo( recipeActions.getRecipeById.completed, gotRecipe.bind( this ) );
         this.listenTo( recipeActions.getRecipeById.failed, setError.bind( this ) );
+
+        this.listenTo( recipeActions.updateRecipe.completed, analytics.bind( this, 'updateRecipe' ) );
+        this.listenTo( recipeActions.createRecipe.completed, analytics.bind( this, 'saveAsCopy' ) );
+        this.listenTo( recipeActions.deleteRecipe.completed, analytics.bind( this, 'deleteRecipe' ) );
+
+
     },
 
     getInitialState() {
@@ -51,4 +58,11 @@ function setError( error ) {
 
 function doTrigger() {
     this.trigger( this.store );
+}
+
+function analytics( action ) {
+    ga.event( {
+        category: 'Recipes',
+        action
+    } );
 }
