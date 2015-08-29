@@ -10,6 +10,7 @@ import RecipeBreakdown from 'components/recipeBreakdown';
 import RecipeFattyAcids from 'components/recipeFattyAcids';
 import RecipeProperties from 'components/recipeProperties';
 import RecipeTotals from 'components/recipeTotals';
+import TooltipQuestion from 'components/tooltipQuestion';
 
 import BootstrapModalLink from 'components/bootstrapModalLink';
 import SelectOils from 'modals/selectOils';
@@ -195,6 +196,11 @@ export default React.createClass( {
                                         <label className="radio-inline">
                                             <input type="checkbox" name="superfar-after"  checkedLink={this.checkboxModel( this.props.recipe, 'superfatAfter', true )} /> Superfat after cook
                                         </label>
+                                        <TooltipQuestion
+                                            placement="top"
+                                            >
+                                            The recipe will be calculated with 0% superfat but will show the <strong>Frgrance Oil Weight</strong> to add to the recipe after cooking.
+                                        </TooltipQuestion>
                                     </div>
                                 </div>
                             </div>
@@ -430,6 +436,11 @@ export default React.createClass( {
                             <label className="radio-inline">
                                 <input type="checkbox" name="totals-include-water"  checkedLink={this.checkboxModel( this.props.recipe, 'totalsIncludeWater', true )} /> Adjust oil weights to include water in Oils total
                             </label>
+                            <TooltipQuestion
+                                placement="top"
+                                >
+                                Less oil will be used as the lye calculator will adjust total oil weights to include water weight.
+                            </TooltipQuestion>
                         </div>
                     </div>
                 </div>
