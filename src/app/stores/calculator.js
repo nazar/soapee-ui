@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import Reflux from 'reflux';
-import ga from 'react-ga';
 
 import RecipeModel from 'models/recipe';
 import recipeActions from 'actions/recipe';
@@ -10,8 +9,6 @@ export default Reflux.createStore( {
     init() {
         this.store = new RecipeModel();
         this.store.on( 'calculated', doTrigger.bind( this ) );
-
-        this.listenTo( recipeActions.createRecipe, analytics.bind( this, 'createRecipe' ) );
 
         this.listenTo( recipeActions.resetRecipe, reset.bind( this ) );
     },
@@ -35,11 +32,4 @@ function reset() {
 
 function doTrigger() {
     this.trigger( this.store );
-}
-
-function analytics( action ) {
-    ga.event( {
-        category: 'Recipes',
-        action
-    } );
 }

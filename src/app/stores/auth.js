@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import Reflux from 'reflux';
-import ga from 'react-ga';
 
 import authActions from 'actions/auth';
 import { getCurrentUser } from 'resources/auths';
@@ -13,10 +12,6 @@ export default Reflux.createStore( {
         this.listenTo( authActions.signupOrLoginThirdParty.completed, authenticated.bind( this ) );
         this.listenTo( authActions.signupLocal.completed, authenticated.bind( this ) );
         this.listenTo( authActions.loginLocal.completed, authenticated.bind( this ) );
-
-        this.listenTo( authActions.signupOrLoginThirdParty.completed, analytics.bind( this, 'signupOrLoginThirdParty' ) );
-        this.listenTo( authActions.signupLocal.completed, analytics.bind( this, 'signupLocal' ) );
-        this.listenTo( authActions.loginLocal.completed, analytics.bind( this, 'loginLocal' ) );
 
         this.listenTo( authActions.logout.completed, loggedOut.bind( this ) );
 
@@ -81,11 +76,4 @@ function swallowIfNotAuthorised( e ) {
     if ( e.status !== 403 ) {
         throw e;
     }
-}
-
-function analytics( action ) {
-    ga.event( {
-        category: 'Users',
-        action
-    } );
 }
