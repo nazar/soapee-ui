@@ -57,6 +57,7 @@ export default React.createClass( {
         return (
             <div key={ `recipe-${ recipe.id }` }>
                 <RecipeListItem
+                    showUser={ true }
                     recipe={recipe}
                     />
             </div>
