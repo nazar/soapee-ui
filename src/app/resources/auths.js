@@ -57,3 +57,9 @@ export function usernameExists( username ) {
         get( baseUrl( `auths/users/${username}/exists` ) )
     );
 }
+
+export function emailExists( email ) {
+    return when(
+        get( baseUrl( `auths/users/${email}/email` ) )
+    );
+}

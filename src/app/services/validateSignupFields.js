@@ -1,5 +1,5 @@
 import Checkit from 'checkit';
-import { usernameExists } from 'resources/auths';
+import { usernameExists, emailExists } from 'resources/auths';
 
 export default class {
 
@@ -11,7 +11,7 @@ export default class {
         let rules = new Checkit( {
             username: [ 'required', 'alphaDash', 'minLength:3', 'maxLength:12', this.checkIfUsernameExists ],
             password: [ 'required', 'alphaDash', 'minLength:6', 'maxLength:20' ],
-            email: [ 'email' ]
+            email: [ 'email', this.checkIfEmailExists ]
         } );
 
         return rules.run( this.payload );
@@ -22,6 +22,15 @@ export default class {
             .then( result => {
                 if ( result.exists ) {
                     throw new Error( 'Username already exists. Please pick another or login instead.' );
+                }
+            } );
+    }
+
+    checkIfEmailExists( email ) {
+        return emailExists( email )
+            .then( result => {
+                if ( result.exists ) {
+                    throw new Error( 'Email already exists. Please pick another or login instead.' );
                 }
             } );
     }
