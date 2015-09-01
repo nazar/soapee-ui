@@ -46,9 +46,10 @@ export default React.createClass( {
         } );
 
         validateLogin.call( this, payload )
-            .then( loginLocal.bind( this ) )
+            .with( this )
+            .then( loginLocal )
             .then( this.props.onLoggedIn )
-            .catch( setErrors.bind( this ) );
+            .catch( setErrors );
     }
 
 } );

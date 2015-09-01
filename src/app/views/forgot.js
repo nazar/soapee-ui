@@ -134,9 +134,10 @@ export default React.createClass( {
         this.resetErrors();
 
         validateEmail.call( this )
-            .then( requestReset.bind( this ) )
-            .then( setTokenAndStep1.bind( this ) )
-            .catch( errors.bind( this ) );
+            .with( this )
+            .then( requestReset )
+            .then( setTokenAndStep1 )
+            .catch( errors );
 
         function validateEmail() {
 
@@ -196,9 +197,10 @@ export default React.createClass( {
         this.resetErrors();
 
         validateCodeField.call( this )
-            .then( validateCode.bind( this ) )
-            .then( toStep2.bind( this ) )
-            .catch( errors.bind( this ) );
+            .with( this )
+            .then( validateCode )
+            .then( toStep2 )
+            .catch( errors );
 
         function validateCodeField() {
             return new ValidateRequiredField( 'code', this.code() )
@@ -238,9 +240,10 @@ export default React.createClass( {
         this.resetErrors();
 
         validatePassword.call( this )
-            .then( requestPasswordChange.bind( this ) )
-            .then( toProfile.bind( this ) )
-            .catch( errors.bind( this ) );
+            .with( this )
+            .then( requestPasswordChange )
+            .then( toProfile )
+            .catch( errors );
 
         function validatePassword() {
             return new ValidatePassword( this.password() )

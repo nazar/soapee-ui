@@ -154,9 +154,10 @@ export default React.createClass( {
         } );
 
         validateForm.call( this )
-            .then( save.bind( this ) )
+            .with( this )
+            .then( save )
             .then( successNotification )
-            .catch( setErrors.bind( this ) );
+            .catch( setErrors );
 
 
 

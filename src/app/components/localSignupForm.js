@@ -40,9 +40,10 @@ export default React.createClass( {
         } );
 
         validateSignup.call( this, payload )
-            .then( signupLocal.bind( this ) )
+            .with( this )
+            .then( signupLocal )
             .then( this.props.onSignedUp )
-            .catch( setErrors.bind( this ) );
+            .catch( setErrors );
     }
 
 } );

@@ -30,8 +30,9 @@ export default React.createClass( {
 
         if ( this.getQuery().preview !== 'true' ) {
             recipe
-                .then( print.bind( this ) )
-                .then( redirectBack.bind( this ) );
+                .with( this )
+                .then( print )
+                .then( redirectBack );
         }
     },
 

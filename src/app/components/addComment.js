@@ -94,8 +94,9 @@ export default React.createClass( {
         } );
 
         validate.call( this )
-            .then( triggerAddComment.bind( this ) )
-            .then( clear.bind( this ) )
+            .with( this )
+            .then( triggerAddComment )
+            .then( clear )
             .catch( this.showError );
     },
 

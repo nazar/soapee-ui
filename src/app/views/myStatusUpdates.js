@@ -123,9 +123,10 @@ export default React.createClass( {
         } );
 
         validate.call( this )
-            .then( createStatusUpdate.bind( this ) )
+            .with( this )
+            .then( createStatusUpdate )
             .then( data => newUpdate = data )
-            .then( uploadImages.bind( this ) )
+            .then( uploadImages )
             .catch( this.showError );
 
 

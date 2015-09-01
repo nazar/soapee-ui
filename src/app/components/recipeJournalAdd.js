@@ -83,8 +83,9 @@ export default React.createClass( {
         } );
 
         validate.call( this )
-            .then( addJournal.bind( this ) )
-            .then( uploadImages.bind( this ) )
+            .with( this )
+            .then( addJournal )
+            .then( uploadImages )
             .catch( this.showError );
 
         function validate() {
