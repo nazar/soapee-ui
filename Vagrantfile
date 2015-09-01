@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "chef/debian-7.8-i386"
-  config.vm.box_version = "1.0.0"
+  config.vm.box = "bento/debian-7.8-i386"
+  config.vm.box_version = "2.2.0"
   config.vm.network :forwarded_port, guest: 22, host: 3020, id: 'ssh'
 
   # 192.168.30.20 - UI server
