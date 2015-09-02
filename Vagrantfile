@@ -20,7 +20,7 @@ Vagrant.configure(2) do |config|
   end
 
   # provision VM
-  config.vm.provision "shell", path: "provision/base.sh", privileged: true
+  config.vm.provision "shell", path: "provision/base.sh", privileged: false
 
  if RUBY_PLATFORM =~ /mingw/
    config.vm.provision "shell", path: "provision/client.sh", privileged: false

@@ -1,8 +1,8 @@
 # !/usr/bin/env bash
 
 # install dependencies
-apt-get update
-apt-get install -y build-essential
+sudo apt-get update
+sudo apt-get install -y build-essential
 
 # install node via nvm -  https://github.com/creationix/nvm
 echo "Installing nvm..."
