@@ -21,12 +21,14 @@ Please ensure that the Host Only network option is selected during VirtualBox in
 Install the local base box using the following command:
 
 ```
-vagrant box add chef/debian-7.8-i386
+vagrant box add bento/debian-7.8-i386
 ```
+
+When asked, choose the virtualbox variant.
 
 ### 4. Provision the Local Development VM
 
-Once **chef/debian-7.8-i386** has been downloaded open a command prompt at the project folder root and issue the following command:
+Once **bento/debian-7.8-i386** has been downloaded open a command prompt at the project folder root and issue the following command:
 
 ```
 vagrant up
