@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import Reflux from 'reflux';
 
+import authStore from 'stores/auth';
 import recipeJournalsStore from 'stores/recipeJournals';
 
 import RecipeJournalAdd from 'components/recipeJournalAdd';
@@ -16,9 +17,12 @@ export default React.createClass( {
     render() {
         return (
             <div className="recipe-journals">
-                <RecipeJournalAdd
-                    recipe={ this.props.recipe }
-                    />
+                { this.isMyRecipe() &&
+                    <RecipeJournalAdd
+                        recipe={ this.props.recipe }
+                        />
+                }
+
                 { _.get( this.state.journals, 'length' ) > 0 && <legend>Latest Journal Entries</legend> }
                 { _.map( this.state.journals, this.renderJournal ) }
 
@@ -33,6 +37,11 @@ export default React.createClass( {
                 recipeJournal={ recipeJournal }
                 />
         );
+    },
+
+    isMyRecipe() {
+        return authStore.isAuthenticated()
+            && authStore.isMyId( this.props.recipe.user_id );
     }
 
 } );
