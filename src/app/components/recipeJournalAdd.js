@@ -41,13 +41,6 @@ export default React.createClass( {
                     </div>
                 }
 
-                <legend>Add Journal Photos</legend>
-                <Imageable
-                    imageableType='recipe_journals'
-                    startImageUpload={ this.startImageUploadHookFn }
-                    OnUploadedCompleted={ this.clearForm }
-                    />
-
                 <div className="btn-toolbar action-buttons">
                     { this.renderAddJournalButton() }
                 </div>

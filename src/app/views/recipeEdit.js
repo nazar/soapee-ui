@@ -45,18 +45,6 @@ export default React.createClass( {
                 }
 
                 { this.state.recipe.countWeights() > 0 &&
-                    <div>
-                        <legend>Add Photos</legend>
-                        <Imageable
-                            imageableType='recipes'
-                            startImageUpload={ this.startImageUploadHookFn }
-                            OnUploadedCompleted={ this.toRecipeView }
-                            />
-                    </div>
-                }
-
-
-                { this.state.recipe.countWeights() > 0 &&
                     <div className="row">
                         <FormSaveRecipe
                             recipe={ this.state.recipe }
@@ -83,11 +71,11 @@ export default React.createClass( {
     },
 
     saveRecipe() {
-        this.doSaveAction( recipeActions.updateRecipe );
+        return this.doSaveAction( recipeActions.updateRecipe );
     },
 
     saveAsRecipe() {
-        this.doSaveAction( recipeActions.createRecipe );
+        return this.doSaveAction( recipeActions.createRecipe );
     },
 
     doSaveAction( action ) {
@@ -97,8 +85,11 @@ export default React.createClass( {
 
         recipeStore.calculate();
 
-        action( this.state.recipe )
-            .then( uploadImages.bind( this ) );
+        return action( this.state.recipe )
+            .then( uploadImages.bind( this ) )
+            .finally(() => this.setState({
+                saving: false
+            }));
 
         function uploadImages() {
             this.startUploads( this.state.recipe.getModelValue( 'id' ) );

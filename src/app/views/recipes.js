@@ -82,7 +82,7 @@ export default React.createClass( {
 
     renderRecipe( recipe ) {
         return (
-            <div  key={ `recipe-list-item-${recipe.id}` }>
+            <div key={ `recipe-list-item-${recipe.id}` }>
                 <RecipeListItem
                     recipe={recipe}
                     showUser={ true }

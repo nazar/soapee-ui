@@ -66,13 +66,6 @@ export default React.createClass( {
                     </div>
                 }
 
-                <legend>Add Photos?</legend>
-                <Imageable
-                    imageableType='status_updates'
-                    startImageUpload={ this.startImageUploadHookFn }
-                    OnUploadedCompleted={ this.clearAndRedirect }
-                    />
-
                 <div className="btn-toolbar">
                     <button className="btn btn-primary"
                             onClick={ this.updateStatusUpdate }
