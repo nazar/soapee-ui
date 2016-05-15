@@ -23,7 +23,7 @@ export default React.createClass( {
                     <RedditButton
                         className="btn btn-primary btn-reddit btn-xs hidden-sm"
                         url={ url }>
-                        <i className="fa fa-pinterest"> &nbsp;&nbsp;<RedditCount url={url}/></i>
+                        <i className="fa fa-reddit"> &nbsp;&nbsp;<RedditCount url={url}/></i>
                     </RedditButton>
                 </div>
                 <div className="t-cell">
