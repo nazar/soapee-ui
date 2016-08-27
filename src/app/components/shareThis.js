@@ -20,13 +20,6 @@ export default React.createClass( {
                     </TwitterButton>
                 </div>
                 <div className="t-cell">
-                    <RedditButton
-                        className="btn btn-primary btn-reddit btn-xs hidden-sm"
-                        url={ url }>
-                        <i className="fa fa-reddit"> &nbsp;&nbsp;<RedditCount url={url}/></i>
-                    </RedditButton>
-                </div>
-                <div className="t-cell">
                     <PinterestButton
                         className="btn btn-primary btn-pinterest btn-xs hidden-sm"
                         url={ url }>

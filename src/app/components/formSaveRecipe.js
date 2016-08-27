@@ -109,9 +109,6 @@ export default React.createClass( {
                                 { this.props.buttonCancel && <button className="btn btn-primary" onClick={ this.cancelEditing }><i className="fa fa-ban"> Cancel Editing</i></button> }
                                 { this.props.buttonReset && <button className="btn btn-primary" onClick={ this.resetRecipe }><i className="fa fa-file-o"> Reset Recipe</i></button> }
                             </div>
-                            { this.state.errors.needsSocialAccount &&
-                              <span className="label label-danger animate bounceIn">{ this.state.errors.needsSocialAccount }</span>
-                            }
                         </div>
 
                     </fieldset>

@@ -86,7 +86,7 @@ export default React.createClass( {
         recipeStore.calculate();
 
         return action( this.state.recipe )
-            .then( uploadImages.bind( this ) )
+            .then( this.goBackToView.bind( this ) )
             .finally(() => this.setState({
                 saving: false
             }));

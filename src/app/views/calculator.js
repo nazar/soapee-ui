@@ -75,7 +75,7 @@ export default React.createClass( {
 
         return recipeActions.createRecipe( this.state.recipe )
             .then( recipe => this.newRecipe = recipe )
-            .then( uploadImages.bind( this ) )
+            .then( this.showRecipe.bind(this) )
             .finally(() => this.setState({
                 saving: false
             }));
