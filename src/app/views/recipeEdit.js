@@ -86,7 +86,7 @@ export default React.createClass( {
         recipeStore.calculate();
 
         return action( this.state.recipe )
-            .then( this.goBackToView.bind( this ) )
+            .then( this.toRecipeView.bind( this ) )
             .finally(() => this.setState({
                 saving: false
             }));
@@ -104,8 +104,8 @@ export default React.createClass( {
         this.toRecipeView( this.state.recipe.recipe );
     },
 
-    toRecipeView() {
-        this.transitionTo( 'recipe', { id: this.state.recipe.getModelValue( 'id' ) } );
+    toRecipeView(recipe) {
+        this.transitionTo( 'recipe', { id: recipe.id} );
     }
 
 } );
