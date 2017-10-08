@@ -160,6 +160,7 @@ export default React.createClass( {
                                 <RecipeProperties
                                     recipe={ this.state.recipe }
                                     withRange={true}
+                                    showTooltips={true}
                                     />
                             </div>
                         </div>

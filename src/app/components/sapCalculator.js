@@ -339,6 +339,7 @@ export default React.createClass( {
                                     <RecipeProperties
                                         recipe={ this.props.recipe }
                                         withRange={true}
+                                        showTooltips={true}
                                         />
                                 </div>
                             </div>
