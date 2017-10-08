@@ -24,7 +24,7 @@ if ( analytics ) {
 FB.init( {
     appId: config.auth.facebookClientId,
     cookie: true,
-    version: 'v2.4',
+    version: 'v2.10',
     xfbml: true
 } );
 
