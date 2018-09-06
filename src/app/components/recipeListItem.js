@@ -13,6 +13,7 @@ export default React.createClass( {
 
     render() {
         let recipe = this.props.recipe;
+        let properties = _.get(recipe, 'summary.properties');
 
         return (
             <div className='recipe-list-item'>
@@ -33,8 +34,8 @@ export default React.createClass( {
                     <tr>
                         <td>{recipe.settings.soapType}</td>
                         <td>
-                            <span className="iodine">Iodine: { _.round( recipe.summary.properties.iodine ) }</span>
-                            <span className="ins">INS: { _.round( recipe.summary.properties.ins ) }</span>
+                            <span className="iodine">Iodine: { properties && _.round( properties.iodine ) }</span>
+                            <span className="ins">INS: { properties && _.round( properties.ins ) }</span>
                         </td>
                         <td className="properties">
                             <ul className="list-unstyled">
